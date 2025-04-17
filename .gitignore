@@ -1,0 +1,7 @@
+*.json
+*.tfstate
+*.tfstate.backup
+*.terraform.loc.hcl
+*.tfvars
+.google/
+**/.terraform/

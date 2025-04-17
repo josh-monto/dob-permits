@@ -1,0 +1,33 @@
+[2025-04-13T17:07:03.919+0000] {local_task_job_runner.py:123} INFO - ::group::Pre task execution logs
+[2025-04-13T17:07:03.929+0000] {taskinstance.py:2614} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: data_ingestion_gcs_dag.create_external_table manual__2025-04-13T17:06:40.700513+00:00 [queued]>
+[2025-04-13T17:07:03.934+0000] {taskinstance.py:2614} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: data_ingestion_gcs_dag.create_external_table manual__2025-04-13T17:06:40.700513+00:00 [queued]>
+[2025-04-13T17:07:03.934+0000] {taskinstance.py:2867} INFO - Starting attempt 1 of 2
+[2025-04-13T17:07:03.940+0000] {taskinstance.py:2890} INFO - Executing <Task(BigQueryInsertJobOperator): create_external_table> on 2025-04-13 17:06:40.700513+00:00
+[2025-04-13T17:07:03.944+0000] {warnings.py:112} WARNING - /home/***/.local/lib/python3.12/site-packages/***/task/task_runner/standard_task_runner.py:70: DeprecationWarning: This process (pid=128) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  pid = os.fork()
+
+[2025-04-13T17:07:03.945+0000] {standard_task_runner.py:72} INFO - Started process 130 to run task
+[2025-04-13T17:07:03.946+0000] {standard_task_runner.py:104} INFO - Running: ['***', 'tasks', 'run', 'data_ingestion_gcs_dag', 'create_external_table', 'manual__2025-04-13T17:06:40.700513+00:00', '--job-id', '10', '--raw', '--subdir', 'DAGS_FOLDER/data_ingestion_gcs_dag.py', '--cfg-path', '/tmp/tmp6_nn6q5x']
+[2025-04-13T17:07:03.947+0000] {standard_task_runner.py:105} INFO - Job 10: Subtask create_external_table
+[2025-04-13T17:07:03.969+0000] {task_command.py:467} INFO - Running <TaskInstance: data_ingestion_gcs_dag.create_external_table manual__2025-04-13T17:06:40.700513+00:00 [running]> on host 1cc4ef4172c3
+[2025-04-13T17:07:04.009+0000] {taskinstance.py:3134} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='data_ingestion_gcs_dag' AIRFLOW_CTX_TASK_ID='create_external_table' AIRFLOW_CTX_EXECUTION_DATE='2025-04-13T17:06:40.700513+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2025-04-13T17:06:40.700513+00:00'
+[2025-04-13T17:07:04.010+0000] {logging_mixin.py:190} INFO - Task instance is in running state
+[2025-04-13T17:07:04.011+0000] {logging_mixin.py:190} INFO -  Previous state of the Task instance: queued
+[2025-04-13T17:07:04.011+0000] {logging_mixin.py:190} INFO - Current task name:create_external_table state:running start_date:2025-04-13 17:07:03.929963+00:00
+[2025-04-13T17:07:04.011+0000] {logging_mixin.py:190} INFO - Dag name:data_ingestion_gcs_dag and current dag run status:running
+[2025-04-13T17:07:04.011+0000] {taskinstance.py:732} INFO - ::endgroup::
+[2025-04-13T17:07:04.012+0000] {crypto.py:82} WARNING - empty cryptography key - values will not be stored encrypted.
+[2025-04-13T17:07:04.012+0000] {connection.py:277} WARNING - Connection schemes (type: google_cloud_platform) shall not contain '_' according to RFC3986.
+[2025-04-13T17:07:04.012+0000] {base.py:84} INFO - Retrieving connection 'google_cloud_default'
+[2025-04-13T17:07:04.040+0000] {bigquery.py:2665} INFO - Executing: {'query': {'query': "\n          CREATE OR REPLACE EXTERNAL TABLE `nyc-projects-455321.building_permits.external_table`\n          OPTIONS (\n            format = 'PARQUET',\n            uris = ['gs://nyc-projects-455321-bucket/raw/building_permits.parquet']\n          )\n        ", 'useLegacySql': False}}'
+[2025-04-13T17:07:04.041+0000] {bigquery.py:1241} INFO - Inserting job ***_data_ingestion_gcs_dag_create_external_table_2025_04_13T17_06_40_700513_00_00_3ef43889fe75907415632d6c15e41fb6
+[2025-04-13T17:07:05.067+0000] {bigquery.py:2636} INFO - Job ***_data_ingestion_gcs_dag_create_external_table_2025_04_13T17_06_40_700513_00_00_3ef43889fe75907415632d6c15e41fb6 is completed. Checking the job status
+[2025-04-13T17:07:05.102+0000] {taskinstance.py:341} INFO - ::group::Post task execution logs
+[2025-04-13T17:07:05.103+0000] {taskinstance.py:353} INFO - Marking task as SUCCESS. dag_id=data_ingestion_gcs_dag, task_id=create_external_table, run_id=manual__2025-04-13T17:06:40.700513+00:00, execution_date=20250413T170640, start_date=20250413T170703, end_date=20250413T170705
+[2025-04-13T17:07:05.120+0000] {logging_mixin.py:190} INFO - Task instance in success state
+[2025-04-13T17:07:05.120+0000] {logging_mixin.py:190} INFO -  Previous state of the Task instance: running
+[2025-04-13T17:07:05.120+0000] {logging_mixin.py:190} INFO - Dag name:data_ingestion_gcs_dag queued_at:2025-04-13 17:06:40.712652+00:00
+[2025-04-13T17:07:05.120+0000] {logging_mixin.py:190} INFO - Task hostname:1cc4ef4172c3 operator:BigQueryInsertJobOperator
+[2025-04-13T17:07:05.154+0000] {local_task_job_runner.py:266} INFO - Task exited with return code 0
+[2025-04-13T17:07:05.173+0000] {taskinstance.py:3901} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2025-04-13T17:07:05.175+0000] {local_task_job_runner.py:245} INFO - ::endgroup::

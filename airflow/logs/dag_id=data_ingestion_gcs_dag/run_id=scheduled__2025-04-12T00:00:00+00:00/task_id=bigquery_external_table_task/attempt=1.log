@@ -1,0 +1,150 @@
+[2025-04-13T03:09:24.539+0000] {local_task_job_runner.py:123} INFO - ::group::Pre task execution logs
+[2025-04-13T03:09:24.551+0000] {taskinstance.py:2614} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: data_ingestion_gcs_dag.bigquery_external_table_task scheduled__2025-04-12T00:00:00+00:00 [queued]>
+[2025-04-13T03:09:24.557+0000] {taskinstance.py:2614} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: data_ingestion_gcs_dag.bigquery_external_table_task scheduled__2025-04-12T00:00:00+00:00 [queued]>
+[2025-04-13T03:09:24.557+0000] {taskinstance.py:2867} INFO - Starting attempt 1 of 2
+[2025-04-13T03:09:24.566+0000] {taskinstance.py:2890} INFO - Executing <Task(BigQueryCreateExternalTableOperator): bigquery_external_table_task> on 2025-04-12 00:00:00+00:00
+[2025-04-13T03:09:24.571+0000] {warnings.py:112} WARNING - /home/***/.local/lib/python3.12/site-packages/***/task/task_runner/standard_task_runner.py:70: DeprecationWarning: This process (pid=91) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  pid = os.fork()
+
+[2025-04-13T03:09:24.572+0000] {standard_task_runner.py:72} INFO - Started process 93 to run task
+[2025-04-13T03:09:24.574+0000] {standard_task_runner.py:104} INFO - Running: ['***', 'tasks', 'run', 'data_ingestion_gcs_dag', 'bigquery_external_table_task', 'scheduled__2025-04-12T00:00:00+00:00', '--job-id', '6', '--raw', '--subdir', 'DAGS_FOLDER/data_ingestion_gcs_dag.py', '--cfg-path', '/tmp/tmp3fge63zi']
+[2025-04-13T03:09:24.575+0000] {standard_task_runner.py:105} INFO - Job 6: Subtask bigquery_external_table_task
+[2025-04-13T03:09:24.608+0000] {task_command.py:467} INFO - Running <TaskInstance: data_ingestion_gcs_dag.bigquery_external_table_task scheduled__2025-04-12T00:00:00+00:00 [running]> on host c02a160e6d99
+[2025-04-13T03:09:24.665+0000] {taskinstance.py:3134} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='data_ingestion_gcs_dag' AIRFLOW_CTX_TASK_ID='bigquery_external_table_task' AIRFLOW_CTX_EXECUTION_DATE='2025-04-12T00:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2025-04-12T00:00:00+00:00'
+[2025-04-13T03:09:24.666+0000] {logging_mixin.py:190} INFO - Task instance is in running state
+[2025-04-13T03:09:24.667+0000] {logging_mixin.py:190} INFO -  Previous state of the Task instance: queued
+[2025-04-13T03:09:24.667+0000] {logging_mixin.py:190} INFO - Current task name:bigquery_external_table_task state:running start_date:2025-04-13 03:09:24.551941+00:00
+[2025-04-13T03:09:24.667+0000] {logging_mixin.py:190} INFO - Dag name:data_ingestion_gcs_dag and current dag run status:running
+[2025-04-13T03:09:24.667+0000] {taskinstance.py:732} INFO - ::endgroup::
+[2025-04-13T03:09:24.668+0000] {crypto.py:82} WARNING - empty cryptography key - values will not be stored encrypted.
+[2025-04-13T03:09:24.668+0000] {connection.py:277} WARNING - Connection schemes (type: google_cloud_platform) shall not contain '_' according to RFC3986.
+[2025-04-13T03:09:24.670+0000] {base.py:84} INFO - Retrieving connection 'google_cloud_default'
+[2025-04-13T03:09:25.404+0000] {taskinstance.py:341} INFO - ::group::Post task execution logs
+[2025-04-13T03:09:25.406+0000] {taskinstance.py:353} INFO - Marking task as SUCCESS. dag_id=data_ingestion_gcs_dag, task_id=bigquery_external_table_task, run_id=scheduled__2025-04-12T00:00:00+00:00, execution_date=20250412T000000, start_date=20250413T030924, end_date=20250413T030925
+[2025-04-13T03:09:25.442+0000] {logging_mixin.py:190} INFO - Task instance in success state
+[2025-04-13T03:09:25.443+0000] {logging_mixin.py:190} INFO -  Previous state of the Task instance: running
+[2025-04-13T03:09:25.444+0000] {logging_mixin.py:190} INFO - Dag name:data_ingestion_gcs_dag queued_at:2025-04-13 03:09:10.289015+00:00
+[2025-04-13T03:09:25.444+0000] {logging_mixin.py:190} INFO - Task hostname:c02a160e6d99 operator:BigQueryCreateExternalTableOperator
+[2025-04-13T03:09:25.492+0000] {local_task_job_runner.py:266} INFO - Task exited with return code 0
+[2025-04-13T03:09:25.529+0000] {taskinstance.py:3901} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2025-04-13T03:09:25.530+0000] {local_task_job_runner.py:245} INFO - ::endgroup::
+[2025-04-13T03:19:49.074+0000] {local_task_job_runner.py:123} INFO - ::group::Pre task execution logs
+[2025-04-13T03:19:49.089+0000] {taskinstance.py:2614} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: data_ingestion_gcs_dag.bigquery_external_table_task scheduled__2025-04-12T00:00:00+00:00 [queued]>
+[2025-04-13T03:19:49.094+0000] {taskinstance.py:2614} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: data_ingestion_gcs_dag.bigquery_external_table_task scheduled__2025-04-12T00:00:00+00:00 [queued]>
+[2025-04-13T03:19:49.094+0000] {taskinstance.py:2867} INFO - Starting attempt 1 of 2
+[2025-04-13T03:19:49.101+0000] {taskinstance.py:2890} INFO - Executing <Task(BigQueryCreateExternalTableOperator): bigquery_external_table_task> on 2025-04-12 00:00:00+00:00
+[2025-04-13T03:19:49.106+0000] {warnings.py:112} WARNING - /home/***/.local/lib/python3.12/site-packages/***/task/task_runner/standard_task_runner.py:70: DeprecationWarning: This process (pid=98) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  pid = os.fork()
+
+[2025-04-13T03:19:49.106+0000] {standard_task_runner.py:72} INFO - Started process 100 to run task
+[2025-04-13T03:19:49.109+0000] {standard_task_runner.py:104} INFO - Running: ['***', 'tasks', 'run', 'data_ingestion_gcs_dag', 'bigquery_external_table_task', 'scheduled__2025-04-12T00:00:00+00:00', '--job-id', '6', '--raw', '--subdir', 'DAGS_FOLDER/data_ingestion_gcs_dag.py', '--cfg-path', '/tmp/tmpgkslvjeo']
+[2025-04-13T03:19:49.110+0000] {standard_task_runner.py:105} INFO - Job 6: Subtask bigquery_external_table_task
+[2025-04-13T03:19:49.137+0000] {task_command.py:467} INFO - Running <TaskInstance: data_ingestion_gcs_dag.bigquery_external_table_task scheduled__2025-04-12T00:00:00+00:00 [running]> on host 1b4e74840e23
+[2025-04-13T03:19:49.179+0000] {taskinstance.py:3134} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='data_ingestion_gcs_dag' AIRFLOW_CTX_TASK_ID='bigquery_external_table_task' AIRFLOW_CTX_EXECUTION_DATE='2025-04-12T00:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2025-04-12T00:00:00+00:00'
+[2025-04-13T03:19:49.180+0000] {logging_mixin.py:190} INFO - Task instance is in running state
+[2025-04-13T03:19:49.181+0000] {logging_mixin.py:190} INFO -  Previous state of the Task instance: queued
+[2025-04-13T03:19:49.181+0000] {logging_mixin.py:190} INFO - Current task name:bigquery_external_table_task state:running start_date:2025-04-13 03:19:49.089691+00:00
+[2025-04-13T03:19:49.181+0000] {logging_mixin.py:190} INFO - Dag name:data_ingestion_gcs_dag and current dag run status:running
+[2025-04-13T03:19:49.181+0000] {taskinstance.py:732} INFO - ::endgroup::
+[2025-04-13T03:19:49.182+0000] {crypto.py:82} WARNING - empty cryptography key - values will not be stored encrypted.
+[2025-04-13T03:19:49.183+0000] {connection.py:277} WARNING - Connection schemes (type: google_cloud_platform) shall not contain '_' according to RFC3986.
+[2025-04-13T03:19:49.184+0000] {base.py:84} INFO - Retrieving connection 'google_cloud_default'
+[2025-04-13T03:19:50.032+0000] {taskinstance.py:341} INFO - ::group::Post task execution logs
+[2025-04-13T03:19:50.032+0000] {taskinstance.py:353} INFO - Marking task as SUCCESS. dag_id=data_ingestion_gcs_dag, task_id=bigquery_external_table_task, run_id=scheduled__2025-04-12T00:00:00+00:00, execution_date=20250412T000000, start_date=20250413T031949, end_date=20250413T031950
+[2025-04-13T03:19:50.049+0000] {logging_mixin.py:190} INFO - Task instance in success state
+[2025-04-13T03:19:50.050+0000] {logging_mixin.py:190} INFO -  Previous state of the Task instance: running
+[2025-04-13T03:19:50.050+0000] {logging_mixin.py:190} INFO - Dag name:data_ingestion_gcs_dag queued_at:2025-04-13 03:19:35.051757+00:00
+[2025-04-13T03:19:50.051+0000] {logging_mixin.py:190} INFO - Task hostname:1b4e74840e23 operator:BigQueryCreateExternalTableOperator
+[2025-04-13T03:19:50.066+0000] {local_task_job_runner.py:266} INFO - Task exited with return code 0
+[2025-04-13T03:19:50.079+0000] {taskinstance.py:3901} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2025-04-13T03:19:50.080+0000] {local_task_job_runner.py:245} INFO - ::endgroup::
+[2025-04-13T04:55:06.489+0000] {local_task_job_runner.py:123} INFO - ::group::Pre task execution logs
+[2025-04-13T04:55:06.500+0000] {taskinstance.py:2614} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: data_ingestion_gcs_dag.bigquery_external_table_task scheduled__2025-04-12T00:00:00+00:00 [queued]>
+[2025-04-13T04:55:06.504+0000] {taskinstance.py:2614} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: data_ingestion_gcs_dag.bigquery_external_table_task scheduled__2025-04-12T00:00:00+00:00 [queued]>
+[2025-04-13T04:55:06.505+0000] {taskinstance.py:2867} INFO - Starting attempt 1 of 2
+[2025-04-13T04:55:06.511+0000] {taskinstance.py:2890} INFO - Executing <Task(BigQueryCreateExternalTableOperator): bigquery_external_table_task> on 2025-04-12 00:00:00+00:00
+[2025-04-13T04:55:06.515+0000] {warnings.py:112} WARNING - /home/***/.local/lib/python3.12/site-packages/***/task/task_runner/standard_task_runner.py:70: DeprecationWarning: This process (pid=103) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  pid = os.fork()
+
+[2025-04-13T04:55:06.516+0000] {standard_task_runner.py:72} INFO - Started process 105 to run task
+[2025-04-13T04:55:06.518+0000] {standard_task_runner.py:104} INFO - Running: ['***', 'tasks', 'run', 'data_ingestion_gcs_dag', 'bigquery_external_table_task', 'scheduled__2025-04-12T00:00:00+00:00', '--job-id', '6', '--raw', '--subdir', 'DAGS_FOLDER/data_ingestion_gcs_dag.py', '--cfg-path', '/tmp/tmp2zzpivno']
+[2025-04-13T04:55:06.519+0000] {standard_task_runner.py:105} INFO - Job 6: Subtask bigquery_external_table_task
+[2025-04-13T04:55:06.544+0000] {task_command.py:467} INFO - Running <TaskInstance: data_ingestion_gcs_dag.bigquery_external_table_task scheduled__2025-04-12T00:00:00+00:00 [running]> on host 2bc808719a13
+[2025-04-13T04:55:06.587+0000] {taskinstance.py:3134} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='data_ingestion_gcs_dag' AIRFLOW_CTX_TASK_ID='bigquery_external_table_task' AIRFLOW_CTX_EXECUTION_DATE='2025-04-12T00:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2025-04-12T00:00:00+00:00'
+[2025-04-13T04:55:06.588+0000] {logging_mixin.py:190} INFO - Task instance is in running state
+[2025-04-13T04:55:06.588+0000] {logging_mixin.py:190} INFO -  Previous state of the Task instance: queued
+[2025-04-13T04:55:06.588+0000] {logging_mixin.py:190} INFO - Current task name:bigquery_external_table_task state:running start_date:2025-04-13 04:55:06.500728+00:00
+[2025-04-13T04:55:06.588+0000] {logging_mixin.py:190} INFO - Dag name:data_ingestion_gcs_dag and current dag run status:running
+[2025-04-13T04:55:06.589+0000] {taskinstance.py:732} INFO - ::endgroup::
+[2025-04-13T04:55:06.589+0000] {crypto.py:82} WARNING - empty cryptography key - values will not be stored encrypted.
+[2025-04-13T04:55:06.590+0000] {connection.py:277} WARNING - Connection schemes (type: google_cloud_platform) shall not contain '_' according to RFC3986.
+[2025-04-13T04:55:06.590+0000] {base.py:84} INFO - Retrieving connection 'google_cloud_default'
+[2025-04-13T04:55:07.387+0000] {taskinstance.py:341} INFO - ::group::Post task execution logs
+[2025-04-13T04:55:07.387+0000] {taskinstance.py:353} INFO - Marking task as SUCCESS. dag_id=data_ingestion_gcs_dag, task_id=bigquery_external_table_task, run_id=scheduled__2025-04-12T00:00:00+00:00, execution_date=20250412T000000, start_date=20250413T045506, end_date=20250413T045507
+[2025-04-13T04:55:07.404+0000] {logging_mixin.py:190} INFO - Task instance in success state
+[2025-04-13T04:55:07.405+0000] {logging_mixin.py:190} INFO -  Previous state of the Task instance: running
+[2025-04-13T04:55:07.405+0000] {logging_mixin.py:190} INFO - Dag name:data_ingestion_gcs_dag queued_at:2025-04-13 04:54:53.369753+00:00
+[2025-04-13T04:55:07.406+0000] {logging_mixin.py:190} INFO - Task hostname:2bc808719a13 operator:BigQueryCreateExternalTableOperator
+[2025-04-13T04:55:07.434+0000] {local_task_job_runner.py:266} INFO - Task exited with return code 0
+[2025-04-13T04:55:07.446+0000] {taskinstance.py:3901} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2025-04-13T04:55:07.447+0000] {local_task_job_runner.py:245} INFO - ::endgroup::
+[2025-04-13T05:00:34.278+0000] {local_task_job_runner.py:123} INFO - ::group::Pre task execution logs
+[2025-04-13T05:00:34.289+0000] {taskinstance.py:2614} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: data_ingestion_gcs_dag.bigquery_external_table_task scheduled__2025-04-12T00:00:00+00:00 [queued]>
+[2025-04-13T05:00:34.294+0000] {taskinstance.py:2614} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: data_ingestion_gcs_dag.bigquery_external_table_task scheduled__2025-04-12T00:00:00+00:00 [queued]>
+[2025-04-13T05:00:34.294+0000] {taskinstance.py:2867} INFO - Starting attempt 1 of 2
+[2025-04-13T05:00:34.301+0000] {taskinstance.py:2890} INFO - Executing <Task(BigQueryCreateExternalTableOperator): bigquery_external_table_task> on 2025-04-12 00:00:00+00:00
+[2025-04-13T05:00:34.305+0000] {warnings.py:112} WARNING - /home/***/.local/lib/python3.12/site-packages/***/task/task_runner/standard_task_runner.py:70: DeprecationWarning: This process (pid=104) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  pid = os.fork()
+
+[2025-04-13T05:00:34.307+0000] {standard_task_runner.py:72} INFO - Started process 113 to run task
+[2025-04-13T05:00:34.308+0000] {standard_task_runner.py:104} INFO - Running: ['***', 'tasks', 'run', 'data_ingestion_gcs_dag', 'bigquery_external_table_task', 'scheduled__2025-04-12T00:00:00+00:00', '--job-id', '6', '--raw', '--subdir', 'DAGS_FOLDER/data_ingestion_gcs_dag.py', '--cfg-path', '/tmp/tmpi62lnxdh']
+[2025-04-13T05:00:34.309+0000] {standard_task_runner.py:105} INFO - Job 6: Subtask bigquery_external_table_task
+[2025-04-13T05:00:34.339+0000] {task_command.py:467} INFO - Running <TaskInstance: data_ingestion_gcs_dag.bigquery_external_table_task scheduled__2025-04-12T00:00:00+00:00 [running]> on host 6cba399dd19a
+[2025-04-13T05:00:34.389+0000] {taskinstance.py:3134} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='data_ingestion_gcs_dag' AIRFLOW_CTX_TASK_ID='bigquery_external_table_task' AIRFLOW_CTX_EXECUTION_DATE='2025-04-12T00:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2025-04-12T00:00:00+00:00'
+[2025-04-13T05:00:34.391+0000] {logging_mixin.py:190} INFO - Task instance is in running state
+[2025-04-13T05:00:34.391+0000] {logging_mixin.py:190} INFO -  Previous state of the Task instance: queued
+[2025-04-13T05:00:34.391+0000] {logging_mixin.py:190} INFO - Current task name:bigquery_external_table_task state:running start_date:2025-04-13 05:00:34.289529+00:00
+[2025-04-13T05:00:34.391+0000] {logging_mixin.py:190} INFO - Dag name:data_ingestion_gcs_dag and current dag run status:running
+[2025-04-13T05:00:34.391+0000] {taskinstance.py:732} INFO - ::endgroup::
+[2025-04-13T05:00:34.394+0000] {crypto.py:82} WARNING - empty cryptography key - values will not be stored encrypted.
+[2025-04-13T05:00:34.394+0000] {connection.py:277} WARNING - Connection schemes (type: google_cloud_platform) shall not contain '_' according to RFC3986.
+[2025-04-13T05:00:34.395+0000] {base.py:84} INFO - Retrieving connection 'google_cloud_default'
+[2025-04-13T05:00:35.222+0000] {taskinstance.py:341} INFO - ::group::Post task execution logs
+[2025-04-13T05:00:35.223+0000] {taskinstance.py:353} INFO - Marking task as SUCCESS. dag_id=data_ingestion_gcs_dag, task_id=bigquery_external_table_task, run_id=scheduled__2025-04-12T00:00:00+00:00, execution_date=20250412T000000, start_date=20250413T050034, end_date=20250413T050035
+[2025-04-13T05:00:35.261+0000] {logging_mixin.py:190} INFO - Task instance in success state
+[2025-04-13T05:00:35.263+0000] {logging_mixin.py:190} INFO -  Previous state of the Task instance: running
+[2025-04-13T05:00:35.263+0000] {logging_mixin.py:190} INFO - Dag name:data_ingestion_gcs_dag queued_at:2025-04-13 05:00:20.262467+00:00
+[2025-04-13T05:00:35.264+0000] {logging_mixin.py:190} INFO - Task hostname:6cba399dd19a operator:BigQueryCreateExternalTableOperator
+[2025-04-13T05:00:35.307+0000] {local_task_job_runner.py:266} INFO - Task exited with return code 0
+[2025-04-13T05:00:35.341+0000] {taskinstance.py:3901} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2025-04-13T05:00:35.343+0000] {local_task_job_runner.py:245} INFO - ::endgroup::
+[2025-04-13T05:14:56.804+0000] {local_task_job_runner.py:123} INFO - ::group::Pre task execution logs
+[2025-04-13T05:14:56.819+0000] {taskinstance.py:2614} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: data_ingestion_gcs_dag.bigquery_external_table_task scheduled__2025-04-12T00:00:00+00:00 [queued]>
+[2025-04-13T05:14:56.824+0000] {taskinstance.py:2614} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: data_ingestion_gcs_dag.bigquery_external_table_task scheduled__2025-04-12T00:00:00+00:00 [queued]>
+[2025-04-13T05:14:56.824+0000] {taskinstance.py:2867} INFO - Starting attempt 1 of 2
+[2025-04-13T05:14:56.833+0000] {taskinstance.py:2890} INFO - Executing <Task(BigQueryCreateExternalTableOperator): bigquery_external_table_task> on 2025-04-12 00:00:00+00:00
+[2025-04-13T05:14:56.837+0000] {warnings.py:112} WARNING - /home/***/.local/lib/python3.12/site-packages/***/task/task_runner/standard_task_runner.py:70: DeprecationWarning: This process (pid=209) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  pid = os.fork()
+
+[2025-04-13T05:14:56.838+0000] {standard_task_runner.py:72} INFO - Started process 211 to run task
+[2025-04-13T05:14:56.839+0000] {standard_task_runner.py:104} INFO - Running: ['***', 'tasks', 'run', 'data_ingestion_gcs_dag', 'bigquery_external_table_task', 'scheduled__2025-04-12T00:00:00+00:00', '--job-id', '6', '--raw', '--subdir', 'DAGS_FOLDER/data_ingestion_gcs_dag.py', '--cfg-path', '/tmp/tmpkidwo138']
+[2025-04-13T05:14:56.840+0000] {standard_task_runner.py:105} INFO - Job 6: Subtask bigquery_external_table_task
+[2025-04-13T05:14:56.867+0000] {task_command.py:467} INFO - Running <TaskInstance: data_ingestion_gcs_dag.bigquery_external_table_task scheduled__2025-04-12T00:00:00+00:00 [running]> on host d7194c8f2778
+[2025-04-13T05:14:56.913+0000] {taskinstance.py:3134} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='data_ingestion_gcs_dag' AIRFLOW_CTX_TASK_ID='bigquery_external_table_task' AIRFLOW_CTX_EXECUTION_DATE='2025-04-12T00:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2025-04-12T00:00:00+00:00'
+[2025-04-13T05:14:56.915+0000] {logging_mixin.py:190} INFO - Task instance is in running state
+[2025-04-13T05:14:56.915+0000] {logging_mixin.py:190} INFO -  Previous state of the Task instance: queued
+[2025-04-13T05:14:56.915+0000] {logging_mixin.py:190} INFO - Current task name:bigquery_external_table_task state:running start_date:2025-04-13 05:14:56.820084+00:00
+[2025-04-13T05:14:56.915+0000] {logging_mixin.py:190} INFO - Dag name:data_ingestion_gcs_dag and current dag run status:running
+[2025-04-13T05:14:56.916+0000] {taskinstance.py:732} INFO - ::endgroup::
+[2025-04-13T05:14:56.917+0000] {crypto.py:82} WARNING - empty cryptography key - values will not be stored encrypted.
+[2025-04-13T05:14:56.917+0000] {connection.py:277} WARNING - Connection schemes (type: google_cloud_platform) shall not contain '_' according to RFC3986.
+[2025-04-13T05:14:56.917+0000] {base.py:84} INFO - Retrieving connection 'google_cloud_default'
+[2025-04-13T05:14:57.684+0000] {taskinstance.py:341} INFO - ::group::Post task execution logs
+[2025-04-13T05:14:57.685+0000] {taskinstance.py:353} INFO - Marking task as SUCCESS. dag_id=data_ingestion_gcs_dag, task_id=bigquery_external_table_task, run_id=scheduled__2025-04-12T00:00:00+00:00, execution_date=20250412T000000, start_date=20250413T051456, end_date=20250413T051457
+[2025-04-13T05:14:57.715+0000] {logging_mixin.py:190} INFO - Task instance in success state
+[2025-04-13T05:14:57.715+0000] {logging_mixin.py:190} INFO -  Previous state of the Task instance: running
+[2025-04-13T05:14:57.716+0000] {logging_mixin.py:190} INFO - Dag name:data_ingestion_gcs_dag queued_at:2025-04-13 05:07:02.854448+00:00
+[2025-04-13T05:14:57.716+0000] {logging_mixin.py:190} INFO - Task hostname:d7194c8f2778 operator:BigQueryCreateExternalTableOperator
+[2025-04-13T05:14:57.760+0000] {local_task_job_runner.py:266} INFO - Task exited with return code 0
+[2025-04-13T05:14:57.790+0000] {taskinstance.py:3901} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2025-04-13T05:14:57.792+0000] {local_task_job_runner.py:245} INFO - ::endgroup::

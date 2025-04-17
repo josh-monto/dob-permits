@@ -1,0 +1,730 @@
+[2025-04-14T00:02:30.503+0000] {local_task_job_runner.py:123} INFO - ::group::Pre task execution logs
+[2025-04-14T00:02:30.524+0000] {taskinstance.py:2614} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: data_ingestion_gcs_dag.local_to_gcs_task scheduled__2025-04-13T00:00:00+00:00 [queued]>
+[2025-04-14T00:02:30.532+0000] {taskinstance.py:2614} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: data_ingestion_gcs_dag.local_to_gcs_task scheduled__2025-04-13T00:00:00+00:00 [queued]>
+[2025-04-14T00:02:30.532+0000] {taskinstance.py:2867} INFO - Starting attempt 1 of 2
+[2025-04-14T00:02:30.539+0000] {taskinstance.py:2890} INFO - Executing <Task(PythonOperator): local_to_gcs_task> on 2025-04-13 00:00:00+00:00
+[2025-04-14T00:02:30.544+0000] {warnings.py:112} WARNING - /home/***/.local/lib/python3.12/site-packages/***/task/task_runner/standard_task_runner.py:70: DeprecationWarning: This process (pid=287) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  pid = os.fork()
+
+[2025-04-14T00:02:30.545+0000] {standard_task_runner.py:72} INFO - Started process 289 to run task
+[2025-04-14T00:02:30.548+0000] {standard_task_runner.py:104} INFO - Running: ['***', 'tasks', 'run', 'data_ingestion_gcs_dag', 'local_to_gcs_task', 'scheduled__2025-04-13T00:00:00+00:00', '--job-id', '13', '--raw', '--subdir', 'DAGS_FOLDER/data_ingestion_gcs_dag.py', '--cfg-path', '/tmp/tmpa5ew74q0']
+[2025-04-14T00:02:30.549+0000] {standard_task_runner.py:105} INFO - Job 13: Subtask local_to_gcs_task
+[2025-04-14T00:02:30.581+0000] {task_command.py:467} INFO - Running <TaskInstance: data_ingestion_gcs_dag.local_to_gcs_task scheduled__2025-04-13T00:00:00+00:00 [running]> on host 1544e177cd91
+[2025-04-14T00:02:30.625+0000] {taskinstance.py:3134} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='data_ingestion_gcs_dag' AIRFLOW_CTX_TASK_ID='local_to_gcs_task' AIRFLOW_CTX_EXECUTION_DATE='2025-04-13T00:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2025-04-13T00:00:00+00:00'
+[2025-04-14T00:02:30.626+0000] {logging_mixin.py:190} INFO - Task instance is in running state
+[2025-04-14T00:02:30.626+0000] {logging_mixin.py:190} INFO -  Previous state of the Task instance: queued
+[2025-04-14T00:02:30.627+0000] {logging_mixin.py:190} INFO - Current task name:local_to_gcs_task state:running start_date:2025-04-14 00:02:30.524816+00:00
+[2025-04-14T00:02:30.627+0000] {logging_mixin.py:190} INFO - Dag name:data_ingestion_gcs_dag and current dag run status:running
+[2025-04-14T00:02:30.627+0000] {taskinstance.py:732} INFO - ::endgroup::
+[2025-04-14T00:02:30.686+0000] {taskinstance.py:3313} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 768, in _execute_task
+    result = _execute_callable(context=context, **execute_callable_kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 734, in _execute_callable
+    return ExecutionCallableRunner(
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/utils/operator_helpers.py", line 252, in run
+    return self.func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/baseoperator.py", line 424, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 238, in execute
+    return_value = self.execute_callable()
+                   ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 256, in execute_callable
+    return runner.run(*self.op_args, **self.op_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/utils/operator_helpers.py", line 252, in run
+    return self.func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/airflow/dags/data_ingestion_gcs_dag.py", line 124, in upload_to_gcs
+    blob.upload_from_filename(local_filename)
+  File "/usr/local/lib/python3.12/contextlib.py", line 81, in inner
+    return func(*args, **kwds)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/google/cloud/storage/blob.py", line 3006, in upload_from_filename
+    self._handle_filename_and_upload(
+  File "/home/airflow/.local/lib/python3.12/site-packages/google/cloud/storage/blob.py", line 2882, in _handle_filename_and_upload
+    with open(filename, "rb") as file_obj:
+         ^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/opt/airflow/building_permits.parquet'
+[2025-04-14T00:02:30.695+0000] {logging_mixin.py:190} INFO - Task instance in failure state
+[2025-04-14T00:02:30.696+0000] {logging_mixin.py:190} INFO - Task start:2025-04-14 00:02:30.524816+00:00 end:2025-04-14 00:02:30.695461+00:00 duration:0.170645
+[2025-04-14T00:02:30.696+0000] {logging_mixin.py:190} INFO - Task:<Task(PythonOperator): local_to_gcs_task> dag:<DAG: data_ingestion_gcs_dag> dagrun:<DagRun data_ingestion_gcs_dag @ 2025-04-13 00:00:00+00:00: scheduled__2025-04-13T00:00:00+00:00, state:running, queued_at: 2025-04-14 00:02:22.184725+00:00. externally triggered: False>
+[2025-04-14T00:02:30.696+0000] {logging_mixin.py:190} INFO - Failure caused by [Errno 2] No such file or directory: '/opt/***/building_permits.parquet'
+[2025-04-14T00:02:30.696+0000] {taskinstance.py:1226} INFO - Marking task as UP_FOR_RETRY. dag_id=data_ingestion_gcs_dag, task_id=local_to_gcs_task, run_id=scheduled__2025-04-13T00:00:00+00:00, execution_date=20250413T000000, start_date=20250414T000230, end_date=20250414T000230
+[2025-04-14T00:02:30.714+0000] {taskinstance.py:341} INFO - ::group::Post task execution logs
+[2025-04-14T00:02:30.714+0000] {standard_task_runner.py:124} ERROR - Failed to execute job 13 for task local_to_gcs_task ([Errno 2] No such file or directory: '/opt/airflow/building_permits.parquet'; 289)
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/task/task_runner/standard_task_runner.py", line 117, in _start_by_fork
+    ret = args.func(args, dag=self.dag)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/cli/cli_config.py", line 49, in command
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/utils/cli.py", line 116, in wrapper
+    return f(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/cli/commands/task_command.py", line 483, in task_run
+    task_return_code = _run_task_by_selected_method(args, _dag, ti)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/cli/commands/task_command.py", line 256, in _run_task_by_selected_method
+    return _run_raw_task(args, ti)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/cli/commands/task_command.py", line 341, in _run_raw_task
+    return ti._run_raw_task(
+           ^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/utils/session.py", line 97, in wrapper
+    return func(*args, session=session, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 3006, in _run_raw_task
+    return _run_raw_task(
+           ^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 274, in _run_raw_task
+    TaskInstance._execute_task_with_callbacks(
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 3161, in _execute_task_with_callbacks
+    result = self._execute_task(context, task_orig)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 3185, in _execute_task
+    return _execute_task(self, context, task_orig)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 768, in _execute_task
+    result = _execute_callable(context=context, **execute_callable_kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 734, in _execute_callable
+    return ExecutionCallableRunner(
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/utils/operator_helpers.py", line 252, in run
+    return self.func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/baseoperator.py", line 424, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 238, in execute
+    return_value = self.execute_callable()
+                   ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 256, in execute_callable
+    return runner.run(*self.op_args, **self.op_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/utils/operator_helpers.py", line 252, in run
+    return self.func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/airflow/dags/data_ingestion_gcs_dag.py", line 124, in upload_to_gcs
+    blob.upload_from_filename(local_filename)
+  File "/usr/local/lib/python3.12/contextlib.py", line 81, in inner
+    return func(*args, **kwds)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/google/cloud/storage/blob.py", line 3006, in upload_from_filename
+    self._handle_filename_and_upload(
+  File "/home/airflow/.local/lib/python3.12/site-packages/google/cloud/storage/blob.py", line 2882, in _handle_filename_and_upload
+    with open(filename, "rb") as file_obj:
+         ^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/opt/airflow/building_permits.parquet'
+[2025-04-14T00:02:30.726+0000] {local_task_job_runner.py:266} INFO - Task exited with return code 1
+[2025-04-14T00:02:30.738+0000] {taskinstance.py:3901} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2025-04-14T00:02:30.739+0000] {local_task_job_runner.py:245} INFO - ::endgroup::
+[2025-04-14T00:26:43.104+0000] {local_task_job_runner.py:123} INFO - ::group::Pre task execution logs
+[2025-04-14T00:26:43.120+0000] {taskinstance.py:2614} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: data_ingestion_gcs_dag.local_to_gcs_task scheduled__2025-04-13T00:00:00+00:00 [queued]>
+[2025-04-14T00:26:43.128+0000] {taskinstance.py:2614} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: data_ingestion_gcs_dag.local_to_gcs_task scheduled__2025-04-13T00:00:00+00:00 [queued]>
+[2025-04-14T00:26:43.128+0000] {taskinstance.py:2867} INFO - Starting attempt 1 of 2
+[2025-04-14T00:26:43.135+0000] {taskinstance.py:2890} INFO - Executing <Task(PythonOperator): local_to_gcs_task> on 2025-04-13 00:00:00+00:00
+[2025-04-14T00:26:43.142+0000] {warnings.py:112} WARNING - /home/***/.local/lib/python3.12/site-packages/***/task/task_runner/standard_task_runner.py:70: DeprecationWarning: This process (pid=94) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  pid = os.fork()
+
+[2025-04-14T00:26:43.144+0000] {standard_task_runner.py:72} INFO - Started process 96 to run task
+[2025-04-14T00:26:43.146+0000] {standard_task_runner.py:104} INFO - Running: ['***', 'tasks', 'run', 'data_ingestion_gcs_dag', 'local_to_gcs_task', 'scheduled__2025-04-13T00:00:00+00:00', '--job-id', '5', '--raw', '--subdir', 'DAGS_FOLDER/data_ingestion_gcs_dag.py', '--cfg-path', '/tmp/tmp_xvil0jd']
+[2025-04-14T00:26:43.148+0000] {standard_task_runner.py:105} INFO - Job 5: Subtask local_to_gcs_task
+[2025-04-14T00:26:43.177+0000] {task_command.py:467} INFO - Running <TaskInstance: data_ingestion_gcs_dag.local_to_gcs_task scheduled__2025-04-13T00:00:00+00:00 [running]> on host 2bee46db6337
+[2025-04-14T00:26:43.219+0000] {taskinstance.py:3134} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='data_ingestion_gcs_dag' AIRFLOW_CTX_TASK_ID='local_to_gcs_task' AIRFLOW_CTX_EXECUTION_DATE='2025-04-13T00:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2025-04-13T00:00:00+00:00'
+[2025-04-14T00:26:43.220+0000] {logging_mixin.py:190} INFO - Task instance is in running state
+[2025-04-14T00:26:43.220+0000] {logging_mixin.py:190} INFO -  Previous state of the Task instance: queued
+[2025-04-14T00:26:43.220+0000] {logging_mixin.py:190} INFO - Current task name:local_to_gcs_task state:running start_date:2025-04-14 00:26:43.121618+00:00
+[2025-04-14T00:26:43.221+0000] {logging_mixin.py:190} INFO - Dag name:data_ingestion_gcs_dag and current dag run status:running
+[2025-04-14T00:26:43.221+0000] {taskinstance.py:732} INFO - ::endgroup::
+[2025-04-14T00:26:43.279+0000] {taskinstance.py:3313} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 768, in _execute_task
+    result = _execute_callable(context=context, **execute_callable_kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 734, in _execute_callable
+    return ExecutionCallableRunner(
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/utils/operator_helpers.py", line 252, in run
+    return self.func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/baseoperator.py", line 424, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 238, in execute
+    return_value = self.execute_callable()
+                   ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 256, in execute_callable
+    return runner.run(*self.op_args, **self.op_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/utils/operator_helpers.py", line 252, in run
+    return self.func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/airflow/dags/data_ingestion_gcs_dag.py", line 129, in upload_to_gcs
+    blob.upload_from_filename(local_filename)
+  File "/usr/local/lib/python3.12/contextlib.py", line 81, in inner
+    return func(*args, **kwds)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/google/cloud/storage/blob.py", line 3006, in upload_from_filename
+    self._handle_filename_and_upload(
+  File "/home/airflow/.local/lib/python3.12/site-packages/google/cloud/storage/blob.py", line 2882, in _handle_filename_and_upload
+    with open(filename, "rb") as file_obj:
+         ^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/opt/airflow/building_permits.parquet'
+[2025-04-14T00:26:43.287+0000] {logging_mixin.py:190} INFO - Task instance in failure state
+[2025-04-14T00:26:43.287+0000] {logging_mixin.py:190} INFO - Task start:2025-04-14 00:26:43.121618+00:00 end:2025-04-14 00:26:43.287232+00:00 duration:0.165614
+[2025-04-14T00:26:43.287+0000] {logging_mixin.py:190} INFO - Task:<Task(PythonOperator): local_to_gcs_task> dag:<DAG: data_ingestion_gcs_dag> dagrun:<DagRun data_ingestion_gcs_dag @ 2025-04-13 00:00:00+00:00: scheduled__2025-04-13T00:00:00+00:00, state:running, queued_at: 2025-04-14 00:26:34.105195+00:00. externally triggered: False>
+[2025-04-14T00:26:43.288+0000] {logging_mixin.py:190} INFO - Failure caused by [Errno 2] No such file or directory: '/opt/***/building_permits.parquet'
+[2025-04-14T00:26:43.288+0000] {taskinstance.py:1226} INFO - Marking task as UP_FOR_RETRY. dag_id=data_ingestion_gcs_dag, task_id=local_to_gcs_task, run_id=scheduled__2025-04-13T00:00:00+00:00, execution_date=20250413T000000, start_date=20250414T002643, end_date=20250414T002643
+[2025-04-14T00:26:43.302+0000] {taskinstance.py:341} INFO - ::group::Post task execution logs
+[2025-04-14T00:26:43.302+0000] {standard_task_runner.py:124} ERROR - Failed to execute job 5 for task local_to_gcs_task ([Errno 2] No such file or directory: '/opt/airflow/building_permits.parquet'; 96)
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/task/task_runner/standard_task_runner.py", line 117, in _start_by_fork
+    ret = args.func(args, dag=self.dag)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/cli/cli_config.py", line 49, in command
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/utils/cli.py", line 116, in wrapper
+    return f(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/cli/commands/task_command.py", line 483, in task_run
+    task_return_code = _run_task_by_selected_method(args, _dag, ti)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/cli/commands/task_command.py", line 256, in _run_task_by_selected_method
+    return _run_raw_task(args, ti)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/cli/commands/task_command.py", line 341, in _run_raw_task
+    return ti._run_raw_task(
+           ^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/utils/session.py", line 97, in wrapper
+    return func(*args, session=session, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 3006, in _run_raw_task
+    return _run_raw_task(
+           ^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 274, in _run_raw_task
+    TaskInstance._execute_task_with_callbacks(
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 3161, in _execute_task_with_callbacks
+    result = self._execute_task(context, task_orig)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 3185, in _execute_task
+    return _execute_task(self, context, task_orig)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 768, in _execute_task
+    result = _execute_callable(context=context, **execute_callable_kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 734, in _execute_callable
+    return ExecutionCallableRunner(
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/utils/operator_helpers.py", line 252, in run
+    return self.func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/baseoperator.py", line 424, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 238, in execute
+    return_value = self.execute_callable()
+                   ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 256, in execute_callable
+    return runner.run(*self.op_args, **self.op_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/utils/operator_helpers.py", line 252, in run
+    return self.func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/airflow/dags/data_ingestion_gcs_dag.py", line 129, in upload_to_gcs
+    blob.upload_from_filename(local_filename)
+  File "/usr/local/lib/python3.12/contextlib.py", line 81, in inner
+    return func(*args, **kwds)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/google/cloud/storage/blob.py", line 3006, in upload_from_filename
+    self._handle_filename_and_upload(
+  File "/home/airflow/.local/lib/python3.12/site-packages/google/cloud/storage/blob.py", line 2882, in _handle_filename_and_upload
+    with open(filename, "rb") as file_obj:
+         ^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/opt/airflow/building_permits.parquet'
+[2025-04-14T00:26:43.324+0000] {local_task_job_runner.py:266} INFO - Task exited with return code 1
+[2025-04-14T00:26:43.338+0000] {taskinstance.py:3901} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2025-04-14T00:26:43.339+0000] {local_task_job_runner.py:245} INFO - ::endgroup::
+[2025-04-14T00:50:16.905+0000] {local_task_job_runner.py:123} INFO - ::group::Pre task execution logs
+[2025-04-14T00:50:16.916+0000] {taskinstance.py:2614} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: data_ingestion_gcs_dag.local_to_gcs_task scheduled__2025-04-13T00:00:00+00:00 [queued]>
+[2025-04-14T00:50:16.922+0000] {taskinstance.py:2614} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: data_ingestion_gcs_dag.local_to_gcs_task scheduled__2025-04-13T00:00:00+00:00 [queued]>
+[2025-04-14T00:50:16.923+0000] {taskinstance.py:2867} INFO - Starting attempt 1 of 2
+[2025-04-14T00:50:16.929+0000] {taskinstance.py:2890} INFO - Executing <Task(PythonOperator): local_to_gcs_task> on 2025-04-13 00:00:00+00:00
+[2025-04-14T00:50:16.933+0000] {warnings.py:112} WARNING - /home/***/.local/lib/python3.12/site-packages/***/task/task_runner/standard_task_runner.py:70: DeprecationWarning: This process (pid=94) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  pid = os.fork()
+
+[2025-04-14T00:50:16.933+0000] {standard_task_runner.py:72} INFO - Started process 96 to run task
+[2025-04-14T00:50:16.934+0000] {standard_task_runner.py:104} INFO - Running: ['***', 'tasks', 'run', 'data_ingestion_gcs_dag', 'local_to_gcs_task', 'scheduled__2025-04-13T00:00:00+00:00', '--job-id', '5', '--raw', '--subdir', 'DAGS_FOLDER/data_ingestion_gcs_dag.py', '--cfg-path', '/tmp/tmpwzvc_w0p']
+[2025-04-14T00:50:16.934+0000] {standard_task_runner.py:105} INFO - Job 5: Subtask local_to_gcs_task
+[2025-04-14T00:50:16.959+0000] {task_command.py:467} INFO - Running <TaskInstance: data_ingestion_gcs_dag.local_to_gcs_task scheduled__2025-04-13T00:00:00+00:00 [running]> on host 3a091565037a
+[2025-04-14T00:50:16.996+0000] {taskinstance.py:3134} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='data_ingestion_gcs_dag' AIRFLOW_CTX_TASK_ID='local_to_gcs_task' AIRFLOW_CTX_EXECUTION_DATE='2025-04-13T00:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2025-04-13T00:00:00+00:00'
+[2025-04-14T00:50:16.997+0000] {logging_mixin.py:190} INFO - Task instance is in running state
+[2025-04-14T00:50:16.998+0000] {logging_mixin.py:190} INFO -  Previous state of the Task instance: queued
+[2025-04-14T00:50:16.998+0000] {logging_mixin.py:190} INFO - Current task name:local_to_gcs_task state:running start_date:2025-04-14 00:50:16.917325+00:00
+[2025-04-14T00:50:16.998+0000] {logging_mixin.py:190} INFO - Dag name:data_ingestion_gcs_dag and current dag run status:running
+[2025-04-14T00:50:16.998+0000] {taskinstance.py:732} INFO - ::endgroup::
+[2025-04-14T00:50:17.494+0000] {python.py:240} INFO - Done. Returned value was: gs://nyc-projects-455321-bucket/raw/building_permits-2025-04-14-005017.parquet
+[2025-04-14T00:50:17.540+0000] {taskinstance.py:341} INFO - ::group::Post task execution logs
+[2025-04-14T00:50:17.542+0000] {taskinstance.py:353} INFO - Marking task as SUCCESS. dag_id=data_ingestion_gcs_dag, task_id=local_to_gcs_task, run_id=scheduled__2025-04-13T00:00:00+00:00, execution_date=20250413T000000, start_date=20250414T005016, end_date=20250414T005017
+[2025-04-14T00:50:17.576+0000] {logging_mixin.py:190} INFO - Task instance in success state
+[2025-04-14T00:50:17.577+0000] {logging_mixin.py:190} INFO -  Previous state of the Task instance: running
+[2025-04-14T00:50:17.577+0000] {logging_mixin.py:190} INFO - Dag name:data_ingestion_gcs_dag queued_at:2025-04-14 00:50:05.806387+00:00
+[2025-04-14T00:50:17.578+0000] {logging_mixin.py:190} INFO - Task hostname:3a091565037a operator:PythonOperator
+[2025-04-14T00:50:17.605+0000] {local_task_job_runner.py:266} INFO - Task exited with return code 0
+[2025-04-14T00:50:17.637+0000] {taskinstance.py:3901} INFO - 1 downstream tasks scheduled from follow-on schedule check
+[2025-04-14T00:50:17.638+0000] {local_task_job_runner.py:245} INFO - ::endgroup::
+[2025-04-14T01:14:30.381+0000] {local_task_job_runner.py:123} INFO - ::group::Pre task execution logs
+[2025-04-14T01:14:30.391+0000] {taskinstance.py:2614} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: data_ingestion_gcs_dag.local_to_gcs_task scheduled__2025-04-13T00:00:00+00:00 [queued]>
+[2025-04-14T01:14:30.397+0000] {taskinstance.py:2614} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: data_ingestion_gcs_dag.local_to_gcs_task scheduled__2025-04-13T00:00:00+00:00 [queued]>
+[2025-04-14T01:14:30.397+0000] {taskinstance.py:2867} INFO - Starting attempt 1 of 2
+[2025-04-14T01:14:30.403+0000] {taskinstance.py:2890} INFO - Executing <Task(PythonOperator): local_to_gcs_task> on 2025-04-13 00:00:00+00:00
+[2025-04-14T01:14:30.407+0000] {warnings.py:112} WARNING - /home/***/.local/lib/python3.12/site-packages/***/task/task_runner/standard_task_runner.py:70: DeprecationWarning: This process (pid=108) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  pid = os.fork()
+
+[2025-04-14T01:14:30.407+0000] {standard_task_runner.py:72} INFO - Started process 110 to run task
+[2025-04-14T01:14:30.408+0000] {standard_task_runner.py:104} INFO - Running: ['***', 'tasks', 'run', 'data_ingestion_gcs_dag', 'local_to_gcs_task', 'scheduled__2025-04-13T00:00:00+00:00', '--job-id', '5', '--raw', '--subdir', 'DAGS_FOLDER/data_ingestion_gcs_dag.py', '--cfg-path', '/tmp/tmp5kopl8i6']
+[2025-04-14T01:14:30.409+0000] {standard_task_runner.py:105} INFO - Job 5: Subtask local_to_gcs_task
+[2025-04-14T01:14:30.435+0000] {task_command.py:467} INFO - Running <TaskInstance: data_ingestion_gcs_dag.local_to_gcs_task scheduled__2025-04-13T00:00:00+00:00 [running]> on host 974ab08d9047
+[2025-04-14T01:14:30.474+0000] {taskinstance.py:3134} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='data_ingestion_gcs_dag' AIRFLOW_CTX_TASK_ID='local_to_gcs_task' AIRFLOW_CTX_EXECUTION_DATE='2025-04-13T00:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2025-04-13T00:00:00+00:00'
+[2025-04-14T01:14:30.475+0000] {logging_mixin.py:190} INFO - Task instance is in running state
+[2025-04-14T01:14:30.475+0000] {logging_mixin.py:190} INFO -  Previous state of the Task instance: queued
+[2025-04-14T01:14:30.476+0000] {logging_mixin.py:190} INFO - Current task name:local_to_gcs_task state:running start_date:2025-04-14 01:14:30.392116+00:00
+[2025-04-14T01:14:30.476+0000] {logging_mixin.py:190} INFO - Dag name:data_ingestion_gcs_dag and current dag run status:running
+[2025-04-14T01:14:30.476+0000] {taskinstance.py:732} INFO - ::endgroup::
+[2025-04-14T01:14:30.886+0000] {python.py:240} INFO - Done. Returned value was: gs://nyc-projects-455321-bucket/raw/building_permits-2025-04-14-011430.parquet
+[2025-04-14T01:14:30.902+0000] {taskinstance.py:341} INFO - ::group::Post task execution logs
+[2025-04-14T01:14:30.902+0000] {taskinstance.py:353} INFO - Marking task as SUCCESS. dag_id=data_ingestion_gcs_dag, task_id=local_to_gcs_task, run_id=scheduled__2025-04-13T00:00:00+00:00, execution_date=20250413T000000, start_date=20250414T011430, end_date=20250414T011430
+[2025-04-14T01:14:30.915+0000] {logging_mixin.py:190} INFO - Task instance in success state
+[2025-04-14T01:14:30.915+0000] {logging_mixin.py:190} INFO -  Previous state of the Task instance: running
+[2025-04-14T01:14:30.916+0000] {logging_mixin.py:190} INFO - Dag name:data_ingestion_gcs_dag queued_at:2025-04-14 01:14:18.207523+00:00
+[2025-04-14T01:14:30.916+0000] {logging_mixin.py:190} INFO - Task hostname:974ab08d9047 operator:PythonOperator
+[2025-04-14T01:14:30.959+0000] {local_task_job_runner.py:266} INFO - Task exited with return code 0
+[2025-04-14T01:14:30.976+0000] {taskinstance.py:3901} INFO - 1 downstream tasks scheduled from follow-on schedule check
+[2025-04-14T01:14:30.977+0000] {local_task_job_runner.py:245} INFO - ::endgroup::
+[2025-04-14T01:26:15.287+0000] {local_task_job_runner.py:123} INFO - ::group::Pre task execution logs
+[2025-04-14T01:26:15.299+0000] {taskinstance.py:2614} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: data_ingestion_gcs_dag.local_to_gcs_task scheduled__2025-04-13T00:00:00+00:00 [queued]>
+[2025-04-14T01:26:15.305+0000] {taskinstance.py:2614} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: data_ingestion_gcs_dag.local_to_gcs_task scheduled__2025-04-13T00:00:00+00:00 [queued]>
+[2025-04-14T01:26:15.306+0000] {taskinstance.py:2867} INFO - Starting attempt 1 of 2
+[2025-04-14T01:26:15.312+0000] {taskinstance.py:2890} INFO - Executing <Task(PythonOperator): local_to_gcs_task> on 2025-04-13 00:00:00+00:00
+[2025-04-14T01:26:15.316+0000] {warnings.py:112} WARNING - /home/***/.local/lib/python3.12/site-packages/***/task/task_runner/standard_task_runner.py:70: DeprecationWarning: This process (pid=179) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  pid = os.fork()
+
+[2025-04-14T01:26:15.317+0000] {standard_task_runner.py:72} INFO - Started process 181 to run task
+[2025-04-14T01:26:15.317+0000] {standard_task_runner.py:104} INFO - Running: ['***', 'tasks', 'run', 'data_ingestion_gcs_dag', 'local_to_gcs_task', 'scheduled__2025-04-13T00:00:00+00:00', '--job-id', '5', '--raw', '--subdir', 'DAGS_FOLDER/data_ingestion_gcs_dag.py', '--cfg-path', '/tmp/tmpvogonb9o']
+[2025-04-14T01:26:15.318+0000] {standard_task_runner.py:105} INFO - Job 5: Subtask local_to_gcs_task
+[2025-04-14T01:26:15.342+0000] {task_command.py:467} INFO - Running <TaskInstance: data_ingestion_gcs_dag.local_to_gcs_task scheduled__2025-04-13T00:00:00+00:00 [running]> on host 8681a31054bd
+[2025-04-14T01:26:15.380+0000] {taskinstance.py:3134} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='data_ingestion_gcs_dag' AIRFLOW_CTX_TASK_ID='local_to_gcs_task' AIRFLOW_CTX_EXECUTION_DATE='2025-04-13T00:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2025-04-13T00:00:00+00:00'
+[2025-04-14T01:26:15.381+0000] {logging_mixin.py:190} INFO - Task instance is in running state
+[2025-04-14T01:26:15.381+0000] {logging_mixin.py:190} INFO -  Previous state of the Task instance: queued
+[2025-04-14T01:26:15.381+0000] {logging_mixin.py:190} INFO - Current task name:local_to_gcs_task state:running start_date:2025-04-14 01:26:15.300161+00:00
+[2025-04-14T01:26:15.381+0000] {logging_mixin.py:190} INFO - Dag name:data_ingestion_gcs_dag and current dag run status:running
+[2025-04-14T01:26:15.381+0000] {taskinstance.py:732} INFO - ::endgroup::
+[2025-04-14T01:26:15.828+0000] {python.py:240} INFO - Done. Returned value was: gs://nyc-projects-455321-bucket/raw/building_permits-2025-04-14-012615.parquet
+[2025-04-14T01:26:15.876+0000] {taskinstance.py:341} INFO - ::group::Post task execution logs
+[2025-04-14T01:26:15.877+0000] {taskinstance.py:353} INFO - Marking task as SUCCESS. dag_id=data_ingestion_gcs_dag, task_id=local_to_gcs_task, run_id=scheduled__2025-04-13T00:00:00+00:00, execution_date=20250413T000000, start_date=20250414T012615, end_date=20250414T012615
+[2025-04-14T01:26:15.907+0000] {logging_mixin.py:190} INFO - Task instance in success state
+[2025-04-14T01:26:15.908+0000] {logging_mixin.py:190} INFO -  Previous state of the Task instance: running
+[2025-04-14T01:26:15.908+0000] {logging_mixin.py:190} INFO - Dag name:data_ingestion_gcs_dag queued_at:2025-04-14 01:26:03.127079+00:00
+[2025-04-14T01:26:15.908+0000] {logging_mixin.py:190} INFO - Task hostname:8681a31054bd operator:PythonOperator
+[2025-04-14T01:26:15.949+0000] {local_task_job_runner.py:266} INFO - Task exited with return code 0
+[2025-04-14T01:26:15.990+0000] {taskinstance.py:3901} INFO - 1 downstream tasks scheduled from follow-on schedule check
+[2025-04-14T01:26:15.992+0000] {local_task_job_runner.py:245} INFO - ::endgroup::
+[2025-04-14T01:29:18.305+0000] {local_task_job_runner.py:123} INFO - ::group::Pre task execution logs
+[2025-04-14T01:29:18.316+0000] {taskinstance.py:2614} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: data_ingestion_gcs_dag.local_to_gcs_task scheduled__2025-04-13T00:00:00+00:00 [queued]>
+[2025-04-14T01:29:18.322+0000] {taskinstance.py:2614} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: data_ingestion_gcs_dag.local_to_gcs_task scheduled__2025-04-13T00:00:00+00:00 [queued]>
+[2025-04-14T01:29:18.322+0000] {taskinstance.py:2867} INFO - Starting attempt 1 of 2
+[2025-04-14T01:29:18.329+0000] {taskinstance.py:2890} INFO - Executing <Task(PythonOperator): local_to_gcs_task> on 2025-04-13 00:00:00+00:00
+[2025-04-14T01:29:18.333+0000] {warnings.py:112} WARNING - /home/***/.local/lib/python3.12/site-packages/***/task/task_runner/standard_task_runner.py:70: DeprecationWarning: This process (pid=94) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  pid = os.fork()
+
+[2025-04-14T01:29:18.334+0000] {standard_task_runner.py:72} INFO - Started process 96 to run task
+[2025-04-14T01:29:18.334+0000] {standard_task_runner.py:104} INFO - Running: ['***', 'tasks', 'run', 'data_ingestion_gcs_dag', 'local_to_gcs_task', 'scheduled__2025-04-13T00:00:00+00:00', '--job-id', '5', '--raw', '--subdir', 'DAGS_FOLDER/data_ingestion_gcs_dag.py', '--cfg-path', '/tmp/tmpumybwge9']
+[2025-04-14T01:29:18.335+0000] {standard_task_runner.py:105} INFO - Job 5: Subtask local_to_gcs_task
+[2025-04-14T01:29:18.365+0000] {task_command.py:467} INFO - Running <TaskInstance: data_ingestion_gcs_dag.local_to_gcs_task scheduled__2025-04-13T00:00:00+00:00 [running]> on host 04d41ae960dc
+[2025-04-14T01:29:18.419+0000] {taskinstance.py:3134} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='data_ingestion_gcs_dag' AIRFLOW_CTX_TASK_ID='local_to_gcs_task' AIRFLOW_CTX_EXECUTION_DATE='2025-04-13T00:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2025-04-13T00:00:00+00:00'
+[2025-04-14T01:29:18.420+0000] {logging_mixin.py:190} INFO - Task instance is in running state
+[2025-04-14T01:29:18.420+0000] {logging_mixin.py:190} INFO -  Previous state of the Task instance: queued
+[2025-04-14T01:29:18.420+0000] {logging_mixin.py:190} INFO - Current task name:local_to_gcs_task state:running start_date:2025-04-14 01:29:18.317139+00:00
+[2025-04-14T01:29:18.421+0000] {logging_mixin.py:190} INFO - Dag name:data_ingestion_gcs_dag and current dag run status:running
+[2025-04-14T01:29:18.421+0000] {taskinstance.py:732} INFO - ::endgroup::
+[2025-04-14T01:29:18.897+0000] {python.py:240} INFO - Done. Returned value was: gs://nyc-projects-455321-bucket/raw/building_permits-2025-04-14-012918.parquet
+[2025-04-14T01:29:18.911+0000] {taskinstance.py:341} INFO - ::group::Post task execution logs
+[2025-04-14T01:29:18.912+0000] {taskinstance.py:353} INFO - Marking task as SUCCESS. dag_id=data_ingestion_gcs_dag, task_id=local_to_gcs_task, run_id=scheduled__2025-04-13T00:00:00+00:00, execution_date=20250413T000000, start_date=20250414T012918, end_date=20250414T012918
+[2025-04-14T01:29:18.923+0000] {logging_mixin.py:190} INFO - Task instance in success state
+[2025-04-14T01:29:18.923+0000] {logging_mixin.py:190} INFO -  Previous state of the Task instance: running
+[2025-04-14T01:29:18.923+0000] {logging_mixin.py:190} INFO - Dag name:data_ingestion_gcs_dag queued_at:2025-04-14 01:29:06.855789+00:00
+[2025-04-14T01:29:18.923+0000] {logging_mixin.py:190} INFO - Task hostname:04d41ae960dc operator:PythonOperator
+[2025-04-14T01:29:18.965+0000] {local_task_job_runner.py:266} INFO - Task exited with return code 0
+[2025-04-14T01:29:18.982+0000] {taskinstance.py:3901} INFO - 1 downstream tasks scheduled from follow-on schedule check
+[2025-04-14T01:29:18.986+0000] {local_task_job_runner.py:245} INFO - ::endgroup::
+[2025-04-14T01:48:22.283+0000] {local_task_job_runner.py:123} INFO - ::group::Pre task execution logs
+[2025-04-14T01:48:22.293+0000] {taskinstance.py:2614} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: data_ingestion_gcs_dag.local_to_gcs_task scheduled__2025-04-13T00:00:00+00:00 [queued]>
+[2025-04-14T01:48:22.299+0000] {taskinstance.py:2614} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: data_ingestion_gcs_dag.local_to_gcs_task scheduled__2025-04-13T00:00:00+00:00 [queued]>
+[2025-04-14T01:48:22.299+0000] {taskinstance.py:2867} INFO - Starting attempt 1 of 2
+[2025-04-14T01:48:22.305+0000] {taskinstance.py:2890} INFO - Executing <Task(PythonOperator): local_to_gcs_task> on 2025-04-13 00:00:00+00:00
+[2025-04-14T01:48:22.309+0000] {warnings.py:112} WARNING - /home/***/.local/lib/python3.12/site-packages/***/task/task_runner/standard_task_runner.py:70: DeprecationWarning: This process (pid=108) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  pid = os.fork()
+
+[2025-04-14T01:48:22.310+0000] {standard_task_runner.py:104} INFO - Running: ['***', 'tasks', 'run', 'data_ingestion_gcs_dag', 'local_to_gcs_task', 'scheduled__2025-04-13T00:00:00+00:00', '--job-id', '5', '--raw', '--subdir', 'DAGS_FOLDER/data_ingestion_gcs_dag.py', '--cfg-path', '/tmp/tmprxf2357g']
+[2025-04-14T01:48:22.311+0000] {standard_task_runner.py:72} INFO - Started process 110 to run task
+[2025-04-14T01:48:22.311+0000] {standard_task_runner.py:105} INFO - Job 5: Subtask local_to_gcs_task
+[2025-04-14T01:48:22.352+0000] {task_command.py:467} INFO - Running <TaskInstance: data_ingestion_gcs_dag.local_to_gcs_task scheduled__2025-04-13T00:00:00+00:00 [running]> on host f8826741f369
+[2025-04-14T01:48:22.389+0000] {taskinstance.py:3134} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='data_ingestion_gcs_dag' AIRFLOW_CTX_TASK_ID='local_to_gcs_task' AIRFLOW_CTX_EXECUTION_DATE='2025-04-13T00:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2025-04-13T00:00:00+00:00'
+[2025-04-14T01:48:22.390+0000] {logging_mixin.py:190} INFO - Task instance is in running state
+[2025-04-14T01:48:22.390+0000] {logging_mixin.py:190} INFO -  Previous state of the Task instance: queued
+[2025-04-14T01:48:22.390+0000] {logging_mixin.py:190} INFO - Current task name:local_to_gcs_task state:running start_date:2025-04-14 01:48:22.293953+00:00
+[2025-04-14T01:48:22.390+0000] {logging_mixin.py:190} INFO - Dag name:data_ingestion_gcs_dag and current dag run status:running
+[2025-04-14T01:48:22.391+0000] {taskinstance.py:732} INFO - ::endgroup::
+[2025-04-14T01:48:22.923+0000] {python.py:240} INFO - Done. Returned value was: gs://nyc-projects-455321-bucket/raw/building_permits-2025-04-14-014822.parquet
+[2025-04-14T01:48:22.968+0000] {taskinstance.py:341} INFO - ::group::Post task execution logs
+[2025-04-14T01:48:22.969+0000] {taskinstance.py:353} INFO - Marking task as SUCCESS. dag_id=data_ingestion_gcs_dag, task_id=local_to_gcs_task, run_id=scheduled__2025-04-13T00:00:00+00:00, execution_date=20250413T000000, start_date=20250414T014822, end_date=20250414T014822
+[2025-04-14T01:48:22.985+0000] {logging_mixin.py:190} INFO - Task instance in success state
+[2025-04-14T01:48:22.985+0000] {logging_mixin.py:190} INFO -  Previous state of the Task instance: running
+[2025-04-14T01:48:22.985+0000] {logging_mixin.py:190} INFO - Dag name:data_ingestion_gcs_dag queued_at:2025-04-14 01:48:09.247077+00:00
+[2025-04-14T01:48:22.985+0000] {logging_mixin.py:190} INFO - Task hostname:f8826741f369 operator:PythonOperator
+[2025-04-14T01:48:23.026+0000] {local_task_job_runner.py:266} INFO - Task exited with return code 0
+[2025-04-14T01:48:23.065+0000] {taskinstance.py:3901} INFO - 1 downstream tasks scheduled from follow-on schedule check
+[2025-04-14T01:48:23.066+0000] {local_task_job_runner.py:245} INFO - ::endgroup::
+[2025-04-14T02:01:51.291+0000] {local_task_job_runner.py:123} INFO - ::group::Pre task execution logs
+[2025-04-14T02:01:51.303+0000] {taskinstance.py:2614} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: data_ingestion_gcs_dag.local_to_gcs_task scheduled__2025-04-13T00:00:00+00:00 [queued]>
+[2025-04-14T02:01:51.308+0000] {taskinstance.py:2614} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: data_ingestion_gcs_dag.local_to_gcs_task scheduled__2025-04-13T00:00:00+00:00 [queued]>
+[2025-04-14T02:01:51.308+0000] {taskinstance.py:2867} INFO - Starting attempt 1 of 2
+[2025-04-14T02:01:51.314+0000] {taskinstance.py:2890} INFO - Executing <Task(PythonOperator): local_to_gcs_task> on 2025-04-13 00:00:00+00:00
+[2025-04-14T02:01:51.318+0000] {warnings.py:112} WARNING - /home/***/.local/lib/python3.12/site-packages/***/task/task_runner/standard_task_runner.py:70: DeprecationWarning: This process (pid=98) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  pid = os.fork()
+
+[2025-04-14T02:01:51.319+0000] {standard_task_runner.py:72} INFO - Started process 100 to run task
+[2025-04-14T02:01:51.320+0000] {standard_task_runner.py:104} INFO - Running: ['***', 'tasks', 'run', 'data_ingestion_gcs_dag', 'local_to_gcs_task', 'scheduled__2025-04-13T00:00:00+00:00', '--job-id', '6', '--raw', '--subdir', 'DAGS_FOLDER/data_ingestion_gcs_dag.py', '--cfg-path', '/tmp/tmpq_s9ic8s']
+[2025-04-14T02:01:51.321+0000] {standard_task_runner.py:105} INFO - Job 6: Subtask local_to_gcs_task
+[2025-04-14T02:01:51.347+0000] {task_command.py:467} INFO - Running <TaskInstance: data_ingestion_gcs_dag.local_to_gcs_task scheduled__2025-04-13T00:00:00+00:00 [running]> on host 20ea3f936809
+[2025-04-14T02:01:51.387+0000] {taskinstance.py:3134} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='data_ingestion_gcs_dag' AIRFLOW_CTX_TASK_ID='local_to_gcs_task' AIRFLOW_CTX_EXECUTION_DATE='2025-04-13T00:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2025-04-13T00:00:00+00:00'
+[2025-04-14T02:01:51.388+0000] {logging_mixin.py:190} INFO - Task instance is in running state
+[2025-04-14T02:01:51.389+0000] {logging_mixin.py:190} INFO -  Previous state of the Task instance: queued
+[2025-04-14T02:01:51.389+0000] {logging_mixin.py:190} INFO - Current task name:local_to_gcs_task state:running start_date:2025-04-14 02:01:51.303473+00:00
+[2025-04-14T02:01:51.389+0000] {logging_mixin.py:190} INFO - Dag name:data_ingestion_gcs_dag and current dag run status:running
+[2025-04-14T02:01:51.389+0000] {taskinstance.py:732} INFO - ::endgroup::
+[2025-04-14T02:01:51.918+0000] {python.py:240} INFO - Done. Returned value was: gs://nyc-projects-455321-bucket/raw/building_permits-2025-04-14-020151.parquet
+[2025-04-14T02:01:51.970+0000] {taskinstance.py:341} INFO - ::group::Post task execution logs
+[2025-04-14T02:01:51.972+0000] {taskinstance.py:353} INFO - Marking task as SUCCESS. dag_id=data_ingestion_gcs_dag, task_id=local_to_gcs_task, run_id=scheduled__2025-04-13T00:00:00+00:00, execution_date=20250413T000000, start_date=20250414T020151, end_date=20250414T020151
+[2025-04-14T02:01:52.017+0000] {logging_mixin.py:190} INFO - Task instance in success state
+[2025-04-14T02:01:52.017+0000] {logging_mixin.py:190} INFO -  Previous state of the Task instance: running
+[2025-04-14T02:01:52.018+0000] {logging_mixin.py:190} INFO - Dag name:data_ingestion_gcs_dag queued_at:2025-04-14 02:01:38.169098+00:00
+[2025-04-14T02:01:52.018+0000] {logging_mixin.py:190} INFO - Task hostname:20ea3f936809 operator:PythonOperator
+[2025-04-14T02:01:52.075+0000] {local_task_job_runner.py:266} INFO - Task exited with return code 0
+[2025-04-14T02:01:52.103+0000] {taskinstance.py:3901} INFO - 1 downstream tasks scheduled from follow-on schedule check
+[2025-04-14T02:01:52.104+0000] {local_task_job_runner.py:245} INFO - ::endgroup::
+[2025-04-14T02:04:19.313+0000] {local_task_job_runner.py:123} INFO - ::group::Pre task execution logs
+[2025-04-14T02:04:19.324+0000] {taskinstance.py:2614} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: data_ingestion_gcs_dag.local_to_gcs_task scheduled__2025-04-13T00:00:00+00:00 [queued]>
+[2025-04-14T02:04:19.330+0000] {taskinstance.py:2614} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: data_ingestion_gcs_dag.local_to_gcs_task scheduled__2025-04-13T00:00:00+00:00 [queued]>
+[2025-04-14T02:04:19.330+0000] {taskinstance.py:2867} INFO - Starting attempt 1 of 2
+[2025-04-14T02:04:19.336+0000] {taskinstance.py:2890} INFO - Executing <Task(PythonOperator): local_to_gcs_task> on 2025-04-13 00:00:00+00:00
+[2025-04-14T02:04:19.340+0000] {warnings.py:112} WARNING - /home/***/.local/lib/python3.12/site-packages/***/task/task_runner/standard_task_runner.py:70: DeprecationWarning: This process (pid=101) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  pid = os.fork()
+
+[2025-04-14T02:04:19.340+0000] {standard_task_runner.py:72} INFO - Started process 103 to run task
+[2025-04-14T02:04:19.341+0000] {standard_task_runner.py:104} INFO - Running: ['***', 'tasks', 'run', 'data_ingestion_gcs_dag', 'local_to_gcs_task', 'scheduled__2025-04-13T00:00:00+00:00', '--job-id', '5', '--raw', '--subdir', 'DAGS_FOLDER/data_ingestion_gcs_dag.py', '--cfg-path', '/tmp/tmpz8q96lct']
+[2025-04-14T02:04:19.341+0000] {standard_task_runner.py:105} INFO - Job 5: Subtask local_to_gcs_task
+[2025-04-14T02:04:19.367+0000] {task_command.py:467} INFO - Running <TaskInstance: data_ingestion_gcs_dag.local_to_gcs_task scheduled__2025-04-13T00:00:00+00:00 [running]> on host c92133bf2a65
+[2025-04-14T02:04:19.405+0000] {taskinstance.py:3134} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='data_ingestion_gcs_dag' AIRFLOW_CTX_TASK_ID='local_to_gcs_task' AIRFLOW_CTX_EXECUTION_DATE='2025-04-13T00:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2025-04-13T00:00:00+00:00'
+[2025-04-14T02:04:19.406+0000] {logging_mixin.py:190} INFO - Task instance is in running state
+[2025-04-14T02:04:19.407+0000] {logging_mixin.py:190} INFO -  Previous state of the Task instance: queued
+[2025-04-14T02:04:19.407+0000] {logging_mixin.py:190} INFO - Current task name:local_to_gcs_task state:running start_date:2025-04-14 02:04:19.325141+00:00
+[2025-04-14T02:04:19.407+0000] {logging_mixin.py:190} INFO - Dag name:data_ingestion_gcs_dag and current dag run status:running
+[2025-04-14T02:04:19.407+0000] {taskinstance.py:732} INFO - ::endgroup::
+[2025-04-14T02:04:19.956+0000] {python.py:240} INFO - Done. Returned value was: gs://nyc-projects-455321-bucket/raw/building_permits-2025-04-14-020419.parquet
+[2025-04-14T02:04:19.967+0000] {taskinstance.py:341} INFO - ::group::Post task execution logs
+[2025-04-14T02:04:19.968+0000] {taskinstance.py:353} INFO - Marking task as SUCCESS. dag_id=data_ingestion_gcs_dag, task_id=local_to_gcs_task, run_id=scheduled__2025-04-13T00:00:00+00:00, execution_date=20250413T000000, start_date=20250414T020419, end_date=20250414T020419
+[2025-04-14T02:04:19.980+0000] {logging_mixin.py:190} INFO - Task instance in success state
+[2025-04-14T02:04:19.981+0000] {logging_mixin.py:190} INFO -  Previous state of the Task instance: running
+[2025-04-14T02:04:19.981+0000] {logging_mixin.py:190} INFO - Dag name:data_ingestion_gcs_dag queued_at:2025-04-14 02:04:05.330070+00:00
+[2025-04-14T02:04:19.981+0000] {logging_mixin.py:190} INFO - Task hostname:c92133bf2a65 operator:PythonOperator
+[2025-04-14T02:04:20.014+0000] {local_task_job_runner.py:266} INFO - Task exited with return code 0
+[2025-04-14T02:04:20.037+0000] {taskinstance.py:3901} INFO - 1 downstream tasks scheduled from follow-on schedule check
+[2025-04-14T02:04:20.038+0000] {local_task_job_runner.py:245} INFO - ::endgroup::
+[2025-04-14T02:06:44.282+0000] {local_task_job_runner.py:123} INFO - ::group::Pre task execution logs
+[2025-04-14T02:06:44.295+0000] {taskinstance.py:2614} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: data_ingestion_gcs_dag.local_to_gcs_task scheduled__2025-04-13T00:00:00+00:00 [queued]>
+[2025-04-14T02:06:44.301+0000] {taskinstance.py:2614} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: data_ingestion_gcs_dag.local_to_gcs_task scheduled__2025-04-13T00:00:00+00:00 [queued]>
+[2025-04-14T02:06:44.302+0000] {taskinstance.py:2867} INFO - Starting attempt 1 of 2
+[2025-04-14T02:06:44.308+0000] {taskinstance.py:2890} INFO - Executing <Task(PythonOperator): local_to_gcs_task> on 2025-04-13 00:00:00+00:00
+[2025-04-14T02:06:44.312+0000] {warnings.py:112} WARNING - /home/***/.local/lib/python3.12/site-packages/***/task/task_runner/standard_task_runner.py:70: DeprecationWarning: This process (pid=87) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  pid = os.fork()
+
+[2025-04-14T02:06:44.313+0000] {standard_task_runner.py:72} INFO - Started process 89 to run task
+[2025-04-14T02:06:44.314+0000] {standard_task_runner.py:104} INFO - Running: ['***', 'tasks', 'run', 'data_ingestion_gcs_dag', 'local_to_gcs_task', 'scheduled__2025-04-13T00:00:00+00:00', '--job-id', '5', '--raw', '--subdir', 'DAGS_FOLDER/data_ingestion_gcs_dag.py', '--cfg-path', '/tmp/tmpn9psge_m']
+[2025-04-14T02:06:44.314+0000] {standard_task_runner.py:105} INFO - Job 5: Subtask local_to_gcs_task
+[2025-04-14T02:06:44.339+0000] {task_command.py:467} INFO - Running <TaskInstance: data_ingestion_gcs_dag.local_to_gcs_task scheduled__2025-04-13T00:00:00+00:00 [running]> on host 8a29e6f3f045
+[2025-04-14T02:06:44.376+0000] {taskinstance.py:3134} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='data_ingestion_gcs_dag' AIRFLOW_CTX_TASK_ID='local_to_gcs_task' AIRFLOW_CTX_EXECUTION_DATE='2025-04-13T00:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2025-04-13T00:00:00+00:00'
+[2025-04-14T02:06:44.377+0000] {logging_mixin.py:190} INFO - Task instance is in running state
+[2025-04-14T02:06:44.377+0000] {logging_mixin.py:190} INFO -  Previous state of the Task instance: queued
+[2025-04-14T02:06:44.378+0000] {logging_mixin.py:190} INFO - Current task name:local_to_gcs_task state:running start_date:2025-04-14 02:06:44.295445+00:00
+[2025-04-14T02:06:44.378+0000] {logging_mixin.py:190} INFO - Dag name:data_ingestion_gcs_dag and current dag run status:running
+[2025-04-14T02:06:44.378+0000] {taskinstance.py:732} INFO - ::endgroup::
+[2025-04-14T02:06:44.907+0000] {python.py:240} INFO - Done. Returned value was: gs://nyc-projects-455321-bucket/raw/building_permits-2025-04-14-020644.parquet
+[2025-04-14T02:06:44.924+0000] {taskinstance.py:341} INFO - ::group::Post task execution logs
+[2025-04-14T02:06:44.924+0000] {taskinstance.py:353} INFO - Marking task as SUCCESS. dag_id=data_ingestion_gcs_dag, task_id=local_to_gcs_task, run_id=scheduled__2025-04-13T00:00:00+00:00, execution_date=20250413T000000, start_date=20250414T020644, end_date=20250414T020644
+[2025-04-14T02:06:44.938+0000] {logging_mixin.py:190} INFO - Task instance in success state
+[2025-04-14T02:06:44.939+0000] {logging_mixin.py:190} INFO -  Previous state of the Task instance: running
+[2025-04-14T02:06:44.939+0000] {logging_mixin.py:190} INFO - Dag name:data_ingestion_gcs_dag queued_at:2025-04-14 02:06:31.082673+00:00
+[2025-04-14T02:06:44.939+0000] {logging_mixin.py:190} INFO - Task hostname:8a29e6f3f045 operator:PythonOperator
+[2025-04-14T02:06:44.945+0000] {local_task_job_runner.py:266} INFO - Task exited with return code 0
+[2025-04-14T02:06:44.965+0000] {taskinstance.py:3901} INFO - 1 downstream tasks scheduled from follow-on schedule check
+[2025-04-14T02:06:44.966+0000] {local_task_job_runner.py:245} INFO - ::endgroup::
+[2025-04-14T02:10:45.019+0000] {local_task_job_runner.py:123} INFO - ::group::Pre task execution logs
+[2025-04-14T02:10:45.029+0000] {taskinstance.py:2614} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: data_ingestion_gcs_dag.local_to_gcs_task scheduled__2025-04-13T00:00:00+00:00 [queued]>
+[2025-04-14T02:10:45.035+0000] {taskinstance.py:2614} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: data_ingestion_gcs_dag.local_to_gcs_task scheduled__2025-04-13T00:00:00+00:00 [queued]>
+[2025-04-14T02:10:45.035+0000] {taskinstance.py:2867} INFO - Starting attempt 1 of 2
+[2025-04-14T02:10:45.041+0000] {taskinstance.py:2890} INFO - Executing <Task(PythonOperator): local_to_gcs_task> on 2025-04-13 00:00:00+00:00
+[2025-04-14T02:10:45.045+0000] {warnings.py:112} WARNING - /home/***/.local/lib/python3.12/site-packages/***/task/task_runner/standard_task_runner.py:70: DeprecationWarning: This process (pid=87) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  pid = os.fork()
+
+[2025-04-14T02:10:45.046+0000] {standard_task_runner.py:72} INFO - Started process 89 to run task
+[2025-04-14T02:10:45.046+0000] {standard_task_runner.py:104} INFO - Running: ['***', 'tasks', 'run', 'data_ingestion_gcs_dag', 'local_to_gcs_task', 'scheduled__2025-04-13T00:00:00+00:00', '--job-id', '5', '--raw', '--subdir', 'DAGS_FOLDER/data_ingestion_gcs_dag.py', '--cfg-path', '/tmp/tmpc3010eke']
+[2025-04-14T02:10:45.047+0000] {standard_task_runner.py:105} INFO - Job 5: Subtask local_to_gcs_task
+[2025-04-14T02:10:45.072+0000] {task_command.py:467} INFO - Running <TaskInstance: data_ingestion_gcs_dag.local_to_gcs_task scheduled__2025-04-13T00:00:00+00:00 [running]> on host 73dbef184f29
+[2025-04-14T02:10:45.108+0000] {taskinstance.py:3134} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='data_ingestion_gcs_dag' AIRFLOW_CTX_TASK_ID='local_to_gcs_task' AIRFLOW_CTX_EXECUTION_DATE='2025-04-13T00:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2025-04-13T00:00:00+00:00'
+[2025-04-14T02:10:45.109+0000] {logging_mixin.py:190} INFO - Task instance is in running state
+[2025-04-14T02:10:45.109+0000] {logging_mixin.py:190} INFO -  Previous state of the Task instance: queued
+[2025-04-14T02:10:45.109+0000] {logging_mixin.py:190} INFO - Current task name:local_to_gcs_task state:running start_date:2025-04-14 02:10:45.030224+00:00
+[2025-04-14T02:10:45.109+0000] {logging_mixin.py:190} INFO - Dag name:data_ingestion_gcs_dag and current dag run status:running
+[2025-04-14T02:10:45.109+0000] {taskinstance.py:732} INFO - ::endgroup::
+[2025-04-14T02:10:45.665+0000] {python.py:240} INFO - Done. Returned value was: gs://nyc-projects-455321-bucket/raw/building_permits-2025-04-14-021045.parquet
+[2025-04-14T02:10:45.734+0000] {taskinstance.py:341} INFO - ::group::Post task execution logs
+[2025-04-14T02:10:45.735+0000] {taskinstance.py:353} INFO - Marking task as SUCCESS. dag_id=data_ingestion_gcs_dag, task_id=local_to_gcs_task, run_id=scheduled__2025-04-13T00:00:00+00:00, execution_date=20250413T000000, start_date=20250414T021045, end_date=20250414T021045
+[2025-04-14T02:10:45.782+0000] {logging_mixin.py:190} INFO - Task instance in success state
+[2025-04-14T02:10:45.783+0000] {logging_mixin.py:190} INFO -  Previous state of the Task instance: running
+[2025-04-14T02:10:45.784+0000] {logging_mixin.py:190} INFO - Dag name:data_ingestion_gcs_dag queued_at:2025-04-14 02:10:32.078205+00:00
+[2025-04-14T02:10:45.784+0000] {logging_mixin.py:190} INFO - Task hostname:73dbef184f29 operator:PythonOperator
+[2025-04-14T02:10:45.800+0000] {local_task_job_runner.py:266} INFO - Task exited with return code 0
+[2025-04-14T02:10:45.816+0000] {taskinstance.py:3901} INFO - 1 downstream tasks scheduled from follow-on schedule check
+[2025-04-14T02:10:45.817+0000] {local_task_job_runner.py:245} INFO - ::endgroup::
+[2025-04-14T02:12:57.873+0000] {local_task_job_runner.py:123} INFO - ::group::Pre task execution logs
+[2025-04-14T02:12:57.888+0000] {taskinstance.py:2614} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: data_ingestion_gcs_dag.local_to_gcs_task scheduled__2025-04-13T00:00:00+00:00 [queued]>
+[2025-04-14T02:12:57.894+0000] {taskinstance.py:2614} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: data_ingestion_gcs_dag.local_to_gcs_task scheduled__2025-04-13T00:00:00+00:00 [queued]>
+[2025-04-14T02:12:57.895+0000] {taskinstance.py:2867} INFO - Starting attempt 1 of 2
+[2025-04-14T02:12:57.902+0000] {taskinstance.py:2890} INFO - Executing <Task(PythonOperator): local_to_gcs_task> on 2025-04-13 00:00:00+00:00
+[2025-04-14T02:12:57.906+0000] {warnings.py:112} WARNING - /home/***/.local/lib/python3.12/site-packages/***/task/task_runner/standard_task_runner.py:70: DeprecationWarning: This process (pid=87) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  pid = os.fork()
+
+[2025-04-14T02:12:57.907+0000] {standard_task_runner.py:72} INFO - Started process 89 to run task
+[2025-04-14T02:12:57.907+0000] {standard_task_runner.py:104} INFO - Running: ['***', 'tasks', 'run', 'data_ingestion_gcs_dag', 'local_to_gcs_task', 'scheduled__2025-04-13T00:00:00+00:00', '--job-id', '5', '--raw', '--subdir', 'DAGS_FOLDER/data_ingestion_gcs_dag.py', '--cfg-path', '/tmp/tmpplaq300r']
+[2025-04-14T02:12:57.911+0000] {standard_task_runner.py:105} INFO - Job 5: Subtask local_to_gcs_task
+[2025-04-14T02:12:57.941+0000] {task_command.py:467} INFO - Running <TaskInstance: data_ingestion_gcs_dag.local_to_gcs_task scheduled__2025-04-13T00:00:00+00:00 [running]> on host dae9419049da
+[2025-04-14T02:12:57.986+0000] {taskinstance.py:3134} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='data_ingestion_gcs_dag' AIRFLOW_CTX_TASK_ID='local_to_gcs_task' AIRFLOW_CTX_EXECUTION_DATE='2025-04-13T00:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2025-04-13T00:00:00+00:00'
+[2025-04-14T02:12:57.988+0000] {logging_mixin.py:190} INFO - Task instance is in running state
+[2025-04-14T02:12:57.988+0000] {logging_mixin.py:190} INFO -  Previous state of the Task instance: queued
+[2025-04-14T02:12:57.989+0000] {logging_mixin.py:190} INFO - Current task name:local_to_gcs_task state:running start_date:2025-04-14 02:12:57.888921+00:00
+[2025-04-14T02:12:57.989+0000] {logging_mixin.py:190} INFO - Dag name:data_ingestion_gcs_dag and current dag run status:running
+[2025-04-14T02:12:57.989+0000] {taskinstance.py:732} INFO - ::endgroup::
+[2025-04-14T02:12:58.577+0000] {python.py:240} INFO - Done. Returned value was: gs://nyc-projects-455321-bucket/raw/building_permits-2025-04-14-021258.parquet
+[2025-04-14T02:12:58.593+0000] {taskinstance.py:341} INFO - ::group::Post task execution logs
+[2025-04-14T02:12:58.594+0000] {taskinstance.py:353} INFO - Marking task as SUCCESS. dag_id=data_ingestion_gcs_dag, task_id=local_to_gcs_task, run_id=scheduled__2025-04-13T00:00:00+00:00, execution_date=20250413T000000, start_date=20250414T021257, end_date=20250414T021258
+[2025-04-14T02:12:58.608+0000] {logging_mixin.py:190} INFO - Task instance in success state
+[2025-04-14T02:12:58.609+0000] {logging_mixin.py:190} INFO -  Previous state of the Task instance: running
+[2025-04-14T02:12:58.609+0000] {logging_mixin.py:190} INFO - Dag name:data_ingestion_gcs_dag queued_at:2025-04-14 02:12:45.675355+00:00
+[2025-04-14T02:12:58.609+0000] {logging_mixin.py:190} INFO - Task hostname:dae9419049da operator:PythonOperator
+[2025-04-14T02:12:58.620+0000] {local_task_job_runner.py:266} INFO - Task exited with return code 0
+[2025-04-14T02:12:58.644+0000] {taskinstance.py:3901} INFO - 1 downstream tasks scheduled from follow-on schedule check
+[2025-04-14T02:12:58.645+0000] {local_task_job_runner.py:245} INFO - ::endgroup::
+[2025-04-14T02:16:14.109+0000] {local_task_job_runner.py:123} INFO - ::group::Pre task execution logs
+[2025-04-14T02:16:14.120+0000] {taskinstance.py:2614} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: data_ingestion_gcs_dag.local_to_gcs_task scheduled__2025-04-13T00:00:00+00:00 [queued]>
+[2025-04-14T02:16:14.125+0000] {taskinstance.py:2614} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: data_ingestion_gcs_dag.local_to_gcs_task scheduled__2025-04-13T00:00:00+00:00 [queued]>
+[2025-04-14T02:16:14.125+0000] {taskinstance.py:2867} INFO - Starting attempt 1 of 2
+[2025-04-14T02:16:14.131+0000] {taskinstance.py:2890} INFO - Executing <Task(PythonOperator): local_to_gcs_task> on 2025-04-13 00:00:00+00:00
+[2025-04-14T02:16:14.135+0000] {warnings.py:112} WARNING - /home/***/.local/lib/python3.12/site-packages/***/task/task_runner/standard_task_runner.py:70: DeprecationWarning: This process (pid=87) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  pid = os.fork()
+
+[2025-04-14T02:16:14.136+0000] {standard_task_runner.py:72} INFO - Started process 89 to run task
+[2025-04-14T02:16:14.137+0000] {standard_task_runner.py:104} INFO - Running: ['***', 'tasks', 'run', 'data_ingestion_gcs_dag', 'local_to_gcs_task', 'scheduled__2025-04-13T00:00:00+00:00', '--job-id', '5', '--raw', '--subdir', 'DAGS_FOLDER/data_ingestion_gcs_dag.py', '--cfg-path', '/tmp/tmpo_z4pw4f']
+[2025-04-14T02:16:14.137+0000] {standard_task_runner.py:105} INFO - Job 5: Subtask local_to_gcs_task
+[2025-04-14T02:16:14.163+0000] {task_command.py:467} INFO - Running <TaskInstance: data_ingestion_gcs_dag.local_to_gcs_task scheduled__2025-04-13T00:00:00+00:00 [running]> on host f2d268f0f33a
+[2025-04-14T02:16:14.201+0000] {taskinstance.py:3134} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='data_ingestion_gcs_dag' AIRFLOW_CTX_TASK_ID='local_to_gcs_task' AIRFLOW_CTX_EXECUTION_DATE='2025-04-13T00:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2025-04-13T00:00:00+00:00'
+[2025-04-14T02:16:14.202+0000] {logging_mixin.py:190} INFO - Task instance is in running state
+[2025-04-14T02:16:14.202+0000] {logging_mixin.py:190} INFO -  Previous state of the Task instance: queued
+[2025-04-14T02:16:14.202+0000] {logging_mixin.py:190} INFO - Current task name:local_to_gcs_task state:running start_date:2025-04-14 02:16:14.120900+00:00
+[2025-04-14T02:16:14.202+0000] {logging_mixin.py:190} INFO - Dag name:data_ingestion_gcs_dag and current dag run status:running
+[2025-04-14T02:16:14.202+0000] {taskinstance.py:732} INFO - ::endgroup::
+[2025-04-14T02:16:14.646+0000] {python.py:240} INFO - Done. Returned value was: gs://nyc-projects-455321-bucket/raw/building_permits-2025-04-14-021614.parquet
+[2025-04-14T02:16:14.680+0000] {taskinstance.py:341} INFO - ::group::Post task execution logs
+[2025-04-14T02:16:14.680+0000] {taskinstance.py:353} INFO - Marking task as SUCCESS. dag_id=data_ingestion_gcs_dag, task_id=local_to_gcs_task, run_id=scheduled__2025-04-13T00:00:00+00:00, execution_date=20250413T000000, start_date=20250414T021614, end_date=20250414T021614
+[2025-04-14T02:16:14.692+0000] {logging_mixin.py:190} INFO - Task instance in success state
+[2025-04-14T02:16:14.692+0000] {logging_mixin.py:190} INFO -  Previous state of the Task instance: running
+[2025-04-14T02:16:14.693+0000] {logging_mixin.py:190} INFO - Dag name:data_ingestion_gcs_dag queued_at:2025-04-14 02:16:04.289451+00:00
+[2025-04-14T02:16:14.693+0000] {logging_mixin.py:190} INFO - Task hostname:f2d268f0f33a operator:PythonOperator
+[2025-04-14T02:16:14.727+0000] {local_task_job_runner.py:266} INFO - Task exited with return code 0
+[2025-04-14T02:16:14.764+0000] {taskinstance.py:3901} INFO - 1 downstream tasks scheduled from follow-on schedule check
+[2025-04-14T02:16:14.765+0000] {local_task_job_runner.py:245} INFO - ::endgroup::
+[2025-04-14T03:49:54.764+0000] {local_task_job_runner.py:123} INFO - ::group::Pre task execution logs
+[2025-04-14T03:49:54.776+0000] {taskinstance.py:2614} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: data_ingestion_gcs_dag.local_to_gcs_task scheduled__2025-04-13T00:00:00+00:00 [queued]>
+[2025-04-14T03:49:54.781+0000] {taskinstance.py:2614} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: data_ingestion_gcs_dag.local_to_gcs_task scheduled__2025-04-13T00:00:00+00:00 [queued]>
+[2025-04-14T03:49:54.782+0000] {taskinstance.py:2867} INFO - Starting attempt 1 of 2
+[2025-04-14T03:49:54.787+0000] {taskinstance.py:2890} INFO - Executing <Task(PythonOperator): local_to_gcs_task> on 2025-04-13 00:00:00+00:00
+[2025-04-14T03:49:54.791+0000] {warnings.py:112} WARNING - /home/***/.local/lib/python3.12/site-packages/***/task/task_runner/standard_task_runner.py:70: DeprecationWarning: This process (pid=122) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  pid = os.fork()
+
+[2025-04-14T03:49:54.792+0000] {standard_task_runner.py:72} INFO - Started process 124 to run task
+[2025-04-14T03:49:54.793+0000] {standard_task_runner.py:104} INFO - Running: ['***', 'tasks', 'run', 'data_ingestion_gcs_dag', 'local_to_gcs_task', 'scheduled__2025-04-13T00:00:00+00:00', '--job-id', '5', '--raw', '--subdir', 'DAGS_FOLDER/data_ingestion_gcs_dag.py', '--cfg-path', '/tmp/tmp5a8n7bph']
+[2025-04-14T03:49:54.793+0000] {standard_task_runner.py:105} INFO - Job 5: Subtask local_to_gcs_task
+[2025-04-14T03:49:54.819+0000] {task_command.py:467} INFO - Running <TaskInstance: data_ingestion_gcs_dag.local_to_gcs_task scheduled__2025-04-13T00:00:00+00:00 [running]> on host f7261677844c
+[2025-04-14T03:49:54.856+0000] {taskinstance.py:3134} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='data_ingestion_gcs_dag' AIRFLOW_CTX_TASK_ID='local_to_gcs_task' AIRFLOW_CTX_EXECUTION_DATE='2025-04-13T00:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2025-04-13T00:00:00+00:00'
+[2025-04-14T03:49:54.857+0000] {logging_mixin.py:190} INFO - Task instance is in running state
+[2025-04-14T03:49:54.857+0000] {logging_mixin.py:190} INFO -  Previous state of the Task instance: queued
+[2025-04-14T03:49:54.857+0000] {logging_mixin.py:190} INFO - Current task name:local_to_gcs_task state:running start_date:2025-04-14 03:49:54.776495+00:00
+[2025-04-14T03:49:54.857+0000] {logging_mixin.py:190} INFO - Dag name:data_ingestion_gcs_dag and current dag run status:running
+[2025-04-14T03:49:54.857+0000] {taskinstance.py:732} INFO - ::endgroup::
+[2025-04-14T03:49:55.354+0000] {python.py:240} INFO - Done. Returned value was: gs://nyc-projects-455321-bucket/raw/building_permits-2025-04-14-034954.parquet
+[2025-04-14T03:49:55.368+0000] {taskinstance.py:341} INFO - ::group::Post task execution logs
+[2025-04-14T03:49:55.368+0000] {taskinstance.py:353} INFO - Marking task as SUCCESS. dag_id=data_ingestion_gcs_dag, task_id=local_to_gcs_task, run_id=scheduled__2025-04-13T00:00:00+00:00, execution_date=20250413T000000, start_date=20250414T034954, end_date=20250414T034955
+[2025-04-14T03:49:55.379+0000] {logging_mixin.py:190} INFO - Task instance in success state
+[2025-04-14T03:49:55.380+0000] {logging_mixin.py:190} INFO -  Previous state of the Task instance: running
+[2025-04-14T03:49:55.380+0000] {logging_mixin.py:190} INFO - Dag name:data_ingestion_gcs_dag queued_at:2025-04-14 03:49:43.644379+00:00
+[2025-04-14T03:49:55.380+0000] {logging_mixin.py:190} INFO - Task hostname:f7261677844c operator:PythonOperator
+[2025-04-14T03:49:55.422+0000] {local_task_job_runner.py:266} INFO - Task exited with return code 0
+[2025-04-14T03:49:55.459+0000] {taskinstance.py:3901} INFO - 1 downstream tasks scheduled from follow-on schedule check
+[2025-04-14T03:49:55.460+0000] {local_task_job_runner.py:245} INFO - ::endgroup::
+[2025-04-14T03:57:43.959+0000] {local_task_job_runner.py:123} INFO - ::group::Pre task execution logs
+[2025-04-14T03:57:43.970+0000] {taskinstance.py:2614} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: data_ingestion_gcs_dag.local_to_gcs_task scheduled__2025-04-13T00:00:00+00:00 [queued]>
+[2025-04-14T03:57:43.975+0000] {taskinstance.py:2614} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: data_ingestion_gcs_dag.local_to_gcs_task scheduled__2025-04-13T00:00:00+00:00 [queued]>
+[2025-04-14T03:57:43.975+0000] {taskinstance.py:2867} INFO - Starting attempt 1 of 2
+[2025-04-14T03:57:43.981+0000] {taskinstance.py:2890} INFO - Executing <Task(PythonOperator): local_to_gcs_task> on 2025-04-13 00:00:00+00:00
+[2025-04-14T03:57:43.985+0000] {warnings.py:112} WARNING - /home/***/.local/lib/python3.12/site-packages/***/task/task_runner/standard_task_runner.py:70: DeprecationWarning: This process (pid=128) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  pid = os.fork()
+
+[2025-04-14T03:57:43.986+0000] {standard_task_runner.py:72} INFO - Started process 137 to run task
+[2025-04-14T03:57:43.988+0000] {standard_task_runner.py:104} INFO - Running: ['***', 'tasks', 'run', 'data_ingestion_gcs_dag', 'local_to_gcs_task', 'scheduled__2025-04-13T00:00:00+00:00', '--job-id', '5', '--raw', '--subdir', 'DAGS_FOLDER/data_ingestion_gcs_dag.py', '--cfg-path', '/tmp/tmpr5jdqs2_']
+[2025-04-14T03:57:43.989+0000] {standard_task_runner.py:105} INFO - Job 5: Subtask local_to_gcs_task
+[2025-04-14T03:57:44.019+0000] {task_command.py:467} INFO - Running <TaskInstance: data_ingestion_gcs_dag.local_to_gcs_task scheduled__2025-04-13T00:00:00+00:00 [running]> on host 3029200567a0
+[2025-04-14T03:57:44.066+0000] {taskinstance.py:3134} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='data_ingestion_gcs_dag' AIRFLOW_CTX_TASK_ID='local_to_gcs_task' AIRFLOW_CTX_EXECUTION_DATE='2025-04-13T00:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2025-04-13T00:00:00+00:00'
+[2025-04-14T03:57:44.068+0000] {logging_mixin.py:190} INFO - Task instance is in running state
+[2025-04-14T03:57:44.068+0000] {logging_mixin.py:190} INFO -  Previous state of the Task instance: queued
+[2025-04-14T03:57:44.068+0000] {logging_mixin.py:190} INFO - Current task name:local_to_gcs_task state:running start_date:2025-04-14 03:57:43.970569+00:00
+[2025-04-14T03:57:44.068+0000] {logging_mixin.py:190} INFO - Dag name:data_ingestion_gcs_dag and current dag run status:running
+[2025-04-14T03:57:44.068+0000] {taskinstance.py:732} INFO - ::endgroup::
+[2025-04-14T03:57:44.525+0000] {python.py:240} INFO - Done. Returned value was: gs://nyc-projects-455321-bucket/raw/building_permits-2025-04-14-035744.parquet
+[2025-04-14T03:57:44.538+0000] {taskinstance.py:341} INFO - ::group::Post task execution logs
+[2025-04-14T03:57:44.538+0000] {taskinstance.py:353} INFO - Marking task as SUCCESS. dag_id=data_ingestion_gcs_dag, task_id=local_to_gcs_task, run_id=scheduled__2025-04-13T00:00:00+00:00, execution_date=20250413T000000, start_date=20250414T035743, end_date=20250414T035744
+[2025-04-14T03:57:44.552+0000] {logging_mixin.py:190} INFO - Task instance in success state
+[2025-04-14T03:57:44.552+0000] {logging_mixin.py:190} INFO -  Previous state of the Task instance: running
+[2025-04-14T03:57:44.552+0000] {logging_mixin.py:190} INFO - Dag name:data_ingestion_gcs_dag queued_at:2025-04-14 03:57:32.901326+00:00
+[2025-04-14T03:57:44.552+0000] {logging_mixin.py:190} INFO - Task hostname:3029200567a0 operator:PythonOperator
+[2025-04-14T03:57:44.579+0000] {local_task_job_runner.py:266} INFO - Task exited with return code 0
+[2025-04-14T03:57:44.593+0000] {taskinstance.py:3901} INFO - 1 downstream tasks scheduled from follow-on schedule check
+[2025-04-14T03:57:44.594+0000] {local_task_job_runner.py:245} INFO - ::endgroup::
+[2025-04-14T04:14:39.740+0000] {local_task_job_runner.py:123} INFO - ::group::Pre task execution logs
+[2025-04-14T04:14:39.751+0000] {taskinstance.py:2614} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: data_ingestion_gcs_dag.local_to_gcs_task scheduled__2025-04-13T00:00:00+00:00 [queued]>
+[2025-04-14T04:14:39.757+0000] {taskinstance.py:2614} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: data_ingestion_gcs_dag.local_to_gcs_task scheduled__2025-04-13T00:00:00+00:00 [queued]>
+[2025-04-14T04:14:39.757+0000] {taskinstance.py:2867} INFO - Starting attempt 1 of 2
+[2025-04-14T04:14:39.764+0000] {taskinstance.py:2890} INFO - Executing <Task(PythonOperator): local_to_gcs_task> on 2025-04-13 00:00:00+00:00
+[2025-04-14T04:14:39.767+0000] {warnings.py:112} WARNING - /home/***/.local/lib/python3.12/site-packages/***/task/task_runner/standard_task_runner.py:70: DeprecationWarning: This process (pid=94) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  pid = os.fork()
+
+[2025-04-14T04:14:39.768+0000] {standard_task_runner.py:72} INFO - Started process 96 to run task
+[2025-04-14T04:14:39.769+0000] {standard_task_runner.py:104} INFO - Running: ['***', 'tasks', 'run', 'data_ingestion_gcs_dag', 'local_to_gcs_task', 'scheduled__2025-04-13T00:00:00+00:00', '--job-id', '5', '--raw', '--subdir', 'DAGS_FOLDER/data_ingestion_gcs_dag.py', '--cfg-path', '/tmp/tmpc_ydn16a']
+[2025-04-14T04:14:39.769+0000] {standard_task_runner.py:105} INFO - Job 5: Subtask local_to_gcs_task
+[2025-04-14T04:14:39.796+0000] {task_command.py:467} INFO - Running <TaskInstance: data_ingestion_gcs_dag.local_to_gcs_task scheduled__2025-04-13T00:00:00+00:00 [running]> on host e86210162b75
+[2025-04-14T04:14:39.833+0000] {taskinstance.py:3134} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='data_ingestion_gcs_dag' AIRFLOW_CTX_TASK_ID='local_to_gcs_task' AIRFLOW_CTX_EXECUTION_DATE='2025-04-13T00:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2025-04-13T00:00:00+00:00'
+[2025-04-14T04:14:39.834+0000] {logging_mixin.py:190} INFO - Task instance is in running state
+[2025-04-14T04:14:39.834+0000] {logging_mixin.py:190} INFO -  Previous state of the Task instance: queued
+[2025-04-14T04:14:39.834+0000] {logging_mixin.py:190} INFO - Current task name:local_to_gcs_task state:running start_date:2025-04-14 04:14:39.752213+00:00
+[2025-04-14T04:14:39.834+0000] {logging_mixin.py:190} INFO - Dag name:data_ingestion_gcs_dag and current dag run status:running
+[2025-04-14T04:14:39.835+0000] {taskinstance.py:732} INFO - ::endgroup::
+[2025-04-14T04:14:40.283+0000] {python.py:240} INFO - Done. Returned value was: gs://nyc-projects-455321-bucket/raw/building_permits-2025-04-14-041439.parquet
+[2025-04-14T04:14:40.329+0000] {taskinstance.py:341} INFO - ::group::Post task execution logs
+[2025-04-14T04:14:40.331+0000] {taskinstance.py:353} INFO - Marking task as SUCCESS. dag_id=data_ingestion_gcs_dag, task_id=local_to_gcs_task, run_id=scheduled__2025-04-13T00:00:00+00:00, execution_date=20250413T000000, start_date=20250414T041439, end_date=20250414T041440
+[2025-04-14T04:14:40.366+0000] {logging_mixin.py:190} INFO - Task instance in success state
+[2025-04-14T04:14:40.367+0000] {logging_mixin.py:190} INFO -  Previous state of the Task instance: running
+[2025-04-14T04:14:40.368+0000] {logging_mixin.py:190} INFO - Dag name:data_ingestion_gcs_dag queued_at:2025-04-14 04:14:28.657183+00:00
+[2025-04-14T04:14:40.368+0000] {logging_mixin.py:190} INFO - Task hostname:e86210162b75 operator:PythonOperator
+[2025-04-14T04:14:40.399+0000] {local_task_job_runner.py:266} INFO - Task exited with return code 0
+[2025-04-14T04:14:40.426+0000] {taskinstance.py:3901} INFO - 1 downstream tasks scheduled from follow-on schedule check
+[2025-04-14T04:14:40.427+0000] {local_task_job_runner.py:245} INFO - ::endgroup::
+[2025-04-14T04:16:51.253+0000] {local_task_job_runner.py:123} INFO - ::group::Pre task execution logs
+[2025-04-14T04:16:51.267+0000] {taskinstance.py:2614} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: data_ingestion_gcs_dag.local_to_gcs_task scheduled__2025-04-13T00:00:00+00:00 [queued]>
+[2025-04-14T04:16:51.274+0000] {taskinstance.py:2614} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: data_ingestion_gcs_dag.local_to_gcs_task scheduled__2025-04-13T00:00:00+00:00 [queued]>
+[2025-04-14T04:16:51.274+0000] {taskinstance.py:2867} INFO - Starting attempt 1 of 2
+[2025-04-14T04:16:51.280+0000] {taskinstance.py:2890} INFO - Executing <Task(PythonOperator): local_to_gcs_task> on 2025-04-13 00:00:00+00:00
+[2025-04-14T04:16:51.284+0000] {warnings.py:112} WARNING - /home/***/.local/lib/python3.12/site-packages/***/task/task_runner/standard_task_runner.py:70: DeprecationWarning: This process (pid=94) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  pid = os.fork()
+
+[2025-04-14T04:16:51.285+0000] {standard_task_runner.py:72} INFO - Started process 96 to run task
+[2025-04-14T04:16:51.286+0000] {standard_task_runner.py:104} INFO - Running: ['***', 'tasks', 'run', 'data_ingestion_gcs_dag', 'local_to_gcs_task', 'scheduled__2025-04-13T00:00:00+00:00', '--job-id', '5', '--raw', '--subdir', 'DAGS_FOLDER/data_ingestion_gcs_dag.py', '--cfg-path', '/tmp/tmp9c0blir9']
+[2025-04-14T04:16:51.287+0000] {standard_task_runner.py:105} INFO - Job 5: Subtask local_to_gcs_task
+[2025-04-14T04:16:51.311+0000] {task_command.py:467} INFO - Running <TaskInstance: data_ingestion_gcs_dag.local_to_gcs_task scheduled__2025-04-13T00:00:00+00:00 [running]> on host d054e5caec0f
+[2025-04-14T04:16:51.355+0000] {taskinstance.py:3134} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='data_ingestion_gcs_dag' AIRFLOW_CTX_TASK_ID='local_to_gcs_task' AIRFLOW_CTX_EXECUTION_DATE='2025-04-13T00:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2025-04-13T00:00:00+00:00'
+[2025-04-14T04:16:51.356+0000] {logging_mixin.py:190} INFO - Task instance is in running state
+[2025-04-14T04:16:51.356+0000] {logging_mixin.py:190} INFO -  Previous state of the Task instance: queued
+[2025-04-14T04:16:51.356+0000] {logging_mixin.py:190} INFO - Current task name:local_to_gcs_task state:running start_date:2025-04-14 04:16:51.267796+00:00
+[2025-04-14T04:16:51.356+0000] {logging_mixin.py:190} INFO - Dag name:data_ingestion_gcs_dag and current dag run status:running
+[2025-04-14T04:16:51.356+0000] {taskinstance.py:732} INFO - ::endgroup::
+[2025-04-14T04:16:51.817+0000] {python.py:240} INFO - Done. Returned value was: gs://nyc-projects-455321-bucket/raw/building_permits-2025-04-14-041651.parquet
+[2025-04-14T04:16:51.848+0000] {taskinstance.py:341} INFO - ::group::Post task execution logs
+[2025-04-14T04:16:51.849+0000] {taskinstance.py:353} INFO - Marking task as SUCCESS. dag_id=data_ingestion_gcs_dag, task_id=local_to_gcs_task, run_id=scheduled__2025-04-13T00:00:00+00:00, execution_date=20250413T000000, start_date=20250414T041651, end_date=20250414T041651
+[2025-04-14T04:16:51.865+0000] {logging_mixin.py:190} INFO - Task instance in success state
+[2025-04-14T04:16:51.865+0000] {logging_mixin.py:190} INFO -  Previous state of the Task instance: running
+[2025-04-14T04:16:51.865+0000] {logging_mixin.py:190} INFO - Dag name:data_ingestion_gcs_dag queued_at:2025-04-14 04:16:38.268960+00:00
+[2025-04-14T04:16:51.866+0000] {logging_mixin.py:190} INFO - Task hostname:d054e5caec0f operator:PythonOperator
+[2025-04-14T04:16:51.875+0000] {local_task_job_runner.py:266} INFO - Task exited with return code 0
+[2025-04-14T04:16:51.889+0000] {taskinstance.py:3901} INFO - 1 downstream tasks scheduled from follow-on schedule check
+[2025-04-14T04:16:51.890+0000] {local_task_job_runner.py:245} INFO - ::endgroup::
+[2025-04-14T05:28:15.191+0000] {local_task_job_runner.py:123} INFO - ::group::Pre task execution logs
+[2025-04-14T05:28:15.202+0000] {taskinstance.py:2614} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: data_ingestion_gcs_dag.local_to_gcs_task scheduled__2025-04-13T00:00:00+00:00 [queued]>
+[2025-04-14T05:28:15.209+0000] {taskinstance.py:2614} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: data_ingestion_gcs_dag.local_to_gcs_task scheduled__2025-04-13T00:00:00+00:00 [queued]>
+[2025-04-14T05:28:15.209+0000] {taskinstance.py:2867} INFO - Starting attempt 1 of 2
+[2025-04-14T05:28:15.215+0000] {taskinstance.py:2890} INFO - Executing <Task(PythonOperator): local_to_gcs_task> on 2025-04-13 00:00:00+00:00
+[2025-04-14T05:28:15.219+0000] {warnings.py:112} WARNING - /home/***/.local/lib/python3.12/site-packages/***/task/task_runner/standard_task_runner.py:70: DeprecationWarning: This process (pid=121) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  pid = os.fork()
+
+[2025-04-14T05:28:15.220+0000] {standard_task_runner.py:72} INFO - Started process 123 to run task
+[2025-04-14T05:28:15.220+0000] {standard_task_runner.py:104} INFO - Running: ['***', 'tasks', 'run', 'data_ingestion_gcs_dag', 'local_to_gcs_task', 'scheduled__2025-04-13T00:00:00+00:00', '--job-id', '5', '--raw', '--subdir', 'DAGS_FOLDER/data_ingestion_gcs_dag.py', '--cfg-path', '/tmp/tmpfhet_irn']
+[2025-04-14T05:28:15.221+0000] {standard_task_runner.py:105} INFO - Job 5: Subtask local_to_gcs_task
+[2025-04-14T05:28:15.246+0000] {task_command.py:467} INFO - Running <TaskInstance: data_ingestion_gcs_dag.local_to_gcs_task scheduled__2025-04-13T00:00:00+00:00 [running]> on host 26629b401d8b
+[2025-04-14T05:28:15.283+0000] {taskinstance.py:3134} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='data_ingestion_gcs_dag' AIRFLOW_CTX_TASK_ID='local_to_gcs_task' AIRFLOW_CTX_EXECUTION_DATE='2025-04-13T00:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2025-04-13T00:00:00+00:00'
+[2025-04-14T05:28:15.284+0000] {logging_mixin.py:190} INFO - Task instance is in running state
+[2025-04-14T05:28:15.284+0000] {logging_mixin.py:190} INFO -  Previous state of the Task instance: queued
+[2025-04-14T05:28:15.284+0000] {logging_mixin.py:190} INFO - Current task name:local_to_gcs_task state:running start_date:2025-04-14 05:28:15.203225+00:00
+[2025-04-14T05:28:15.284+0000] {logging_mixin.py:190} INFO - Dag name:data_ingestion_gcs_dag and current dag run status:running
+[2025-04-14T05:28:15.284+0000] {taskinstance.py:732} INFO - ::endgroup::
+[2025-04-14T05:28:16.125+0000] {python.py:240} INFO - Done. Returned value was: gs://nyc-projects-455321-bucket/raw/building_permits-2025-04-14-052815.parquet
+[2025-04-14T05:28:16.170+0000] {taskinstance.py:341} INFO - ::group::Post task execution logs
+[2025-04-14T05:28:16.171+0000] {taskinstance.py:353} INFO - Marking task as SUCCESS. dag_id=data_ingestion_gcs_dag, task_id=local_to_gcs_task, run_id=scheduled__2025-04-13T00:00:00+00:00, execution_date=20250413T000000, start_date=20250414T052815, end_date=20250414T052816
+[2025-04-14T05:28:16.210+0000] {logging_mixin.py:190} INFO - Task instance in success state
+[2025-04-14T05:28:16.211+0000] {logging_mixin.py:190} INFO -  Previous state of the Task instance: running
+[2025-04-14T05:28:16.212+0000] {logging_mixin.py:190} INFO - Dag name:data_ingestion_gcs_dag queued_at:2025-04-14 05:27:28.560179+00:00
+[2025-04-14T05:28:16.212+0000] {logging_mixin.py:190} INFO - Task hostname:26629b401d8b operator:PythonOperator
+[2025-04-14T05:28:16.261+0000] {local_task_job_runner.py:266} INFO - Task exited with return code 0
+[2025-04-14T05:28:16.299+0000] {taskinstance.py:3901} INFO - 1 downstream tasks scheduled from follow-on schedule check
+[2025-04-14T05:28:16.300+0000] {local_task_job_runner.py:245} INFO - ::endgroup::
+[2025-04-14T05:49:16.078+0000] {local_task_job_runner.py:123} INFO - ::group::Pre task execution logs
+[2025-04-14T05:49:16.089+0000] {taskinstance.py:2614} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: data_ingestion_gcs_dag.local_to_gcs_task scheduled__2025-04-13T00:00:00+00:00 [queued]>
+[2025-04-14T05:49:16.095+0000] {taskinstance.py:2614} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: data_ingestion_gcs_dag.local_to_gcs_task scheduled__2025-04-13T00:00:00+00:00 [queued]>
+[2025-04-14T05:49:16.095+0000] {taskinstance.py:2867} INFO - Starting attempt 1 of 2
+[2025-04-14T05:49:16.102+0000] {taskinstance.py:2890} INFO - Executing <Task(PythonOperator): local_to_gcs_task> on 2025-04-13 00:00:00+00:00
+[2025-04-14T05:49:16.107+0000] {warnings.py:112} WARNING - /home/***/.local/lib/python3.12/site-packages/***/task/task_runner/standard_task_runner.py:70: DeprecationWarning: This process (pid=346) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  pid = os.fork()
+
+[2025-04-14T05:49:16.108+0000] {standard_task_runner.py:72} INFO - Started process 348 to run task
+[2025-04-14T05:49:16.109+0000] {standard_task_runner.py:104} INFO - Running: ['***', 'tasks', 'run', 'data_ingestion_gcs_dag', 'local_to_gcs_task', 'scheduled__2025-04-13T00:00:00+00:00', '--job-id', '5', '--raw', '--subdir', 'DAGS_FOLDER/data_ingestion_gcs_dag.py', '--cfg-path', '/tmp/tmpd9nwoj1d']
+[2025-04-14T05:49:16.109+0000] {standard_task_runner.py:105} INFO - Job 5: Subtask local_to_gcs_task
+[2025-04-14T05:49:16.135+0000] {task_command.py:467} INFO - Running <TaskInstance: data_ingestion_gcs_dag.local_to_gcs_task scheduled__2025-04-13T00:00:00+00:00 [running]> on host 51652b031d9f
+[2025-04-14T05:49:16.175+0000] {taskinstance.py:3134} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='data_ingestion_gcs_dag' AIRFLOW_CTX_TASK_ID='local_to_gcs_task' AIRFLOW_CTX_EXECUTION_DATE='2025-04-13T00:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2025-04-13T00:00:00+00:00'
+[2025-04-14T05:49:16.176+0000] {logging_mixin.py:190} INFO - Task instance is in running state
+[2025-04-14T05:49:16.177+0000] {logging_mixin.py:190} INFO -  Previous state of the Task instance: queued
+[2025-04-14T05:49:16.177+0000] {logging_mixin.py:190} INFO - Current task name:local_to_gcs_task state:running start_date:2025-04-14 05:49:16.089364+00:00
+[2025-04-14T05:49:16.177+0000] {logging_mixin.py:190} INFO - Dag name:data_ingestion_gcs_dag and current dag run status:running
+[2025-04-14T05:49:16.177+0000] {taskinstance.py:732} INFO - ::endgroup::
+[2025-04-14T05:49:22.181+0000] {python.py:240} INFO - Done. Returned value was: gs://nyc-projects-455321-bucket/raw/building_permits-2025-04-14-054916.parquet
+[2025-04-14T05:49:22.193+0000] {taskinstance.py:341} INFO - ::group::Post task execution logs
+[2025-04-14T05:49:22.194+0000] {taskinstance.py:353} INFO - Marking task as SUCCESS. dag_id=data_ingestion_gcs_dag, task_id=local_to_gcs_task, run_id=scheduled__2025-04-13T00:00:00+00:00, execution_date=20250413T000000, start_date=20250414T054916, end_date=20250414T054922
+[2025-04-14T05:49:22.206+0000] {logging_mixin.py:190} INFO - Task instance in success state
+[2025-04-14T05:49:22.206+0000] {logging_mixin.py:190} INFO -  Previous state of the Task instance: running
+[2025-04-14T05:49:22.206+0000] {logging_mixin.py:190} INFO - Dag name:data_ingestion_gcs_dag queued_at:2025-04-14 05:31:46.685490+00:00
+[2025-04-14T05:49:22.206+0000] {logging_mixin.py:190} INFO - Task hostname:51652b031d9f operator:PythonOperator
+[2025-04-14T05:49:22.245+0000] {local_task_job_runner.py:266} INFO - Task exited with return code 0
+[2025-04-14T05:49:22.264+0000] {taskinstance.py:3901} INFO - 1 downstream tasks scheduled from follow-on schedule check
+[2025-04-14T05:49:22.265+0000] {local_task_job_runner.py:245} INFO - ::endgroup::
