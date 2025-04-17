@@ -1,7 +1,7 @@
 *.json
 *.tfstate
 *.tfstate.backup
-*.terraform.loc.hcl
+*.terraform.lock.hcl
 *.tfvars
 .google/
 **/.terraform/
