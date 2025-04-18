@@ -1,0 +1,1808 @@
+[2025-04-17T01:02:48.073+0000] {local_task_job_runner.py:123} INFO - ::group::Pre task execution logs
+[2025-04-17T01:02:48.083+0000] {taskinstance.py:2614} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: data_ingestion_gcs_dag.fetch_permits_task scheduled__2025-04-16T00:00:00+00:00 [queued]>
+[2025-04-17T01:02:48.088+0000] {taskinstance.py:2614} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: data_ingestion_gcs_dag.fetch_permits_task scheduled__2025-04-16T00:00:00+00:00 [queued]>
+[2025-04-17T01:02:48.088+0000] {taskinstance.py:2867} INFO - Starting attempt 1 of 2
+[2025-04-17T01:02:48.094+0000] {taskinstance.py:2890} INFO - Executing <Task(BranchPythonOperator): fetch_permits_task> on 2025-04-16 00:00:00+00:00
+[2025-04-17T01:02:48.098+0000] {warnings.py:112} WARNING - /home/***/.local/lib/python3.12/site-packages/***/task/task_runner/standard_task_runner.py:70: DeprecationWarning: This process (pid=90) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  pid = os.fork()
+
+[2025-04-17T01:02:48.099+0000] {standard_task_runner.py:72} INFO - Started process 92 to run task
+[2025-04-17T01:02:48.100+0000] {standard_task_runner.py:104} INFO - Running: ['***', 'tasks', 'run', 'data_ingestion_gcs_dag', 'fetch_permits_task', 'scheduled__2025-04-16T00:00:00+00:00', '--job-id', '4', '--raw', '--subdir', 'DAGS_FOLDER/data_ingestion_gcs_dag.py', '--cfg-path', '/tmp/tmpxbb0to76']
+[2025-04-17T01:02:48.101+0000] {standard_task_runner.py:105} INFO - Job 4: Subtask fetch_permits_task
+[2025-04-17T01:02:48.125+0000] {task_command.py:467} INFO - Running <TaskInstance: data_ingestion_gcs_dag.fetch_permits_task scheduled__2025-04-16T00:00:00+00:00 [running]> on host a5d139dec566
+[2025-04-17T01:02:48.162+0000] {taskinstance.py:3134} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='data_ingestion_gcs_dag' AIRFLOW_CTX_TASK_ID='fetch_permits_task' AIRFLOW_CTX_EXECUTION_DATE='2025-04-16T00:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2025-04-16T00:00:00+00:00'
+[2025-04-17T01:02:48.163+0000] {logging_mixin.py:190} INFO - Task instance is in running state
+[2025-04-17T01:02:48.163+0000] {logging_mixin.py:190} INFO -  Previous state of the Task instance: queued
+[2025-04-17T01:02:48.164+0000] {logging_mixin.py:190} INFO - Current task name:fetch_permits_task state:running start_date:2025-04-17 01:02:48.083792+00:00
+[2025-04-17T01:02:48.164+0000] {logging_mixin.py:190} INFO - Dag name:data_ingestion_gcs_dag and current dag run status:running
+[2025-04-17T01:02:48.164+0000] {taskinstance.py:732} INFO - ::endgroup::
+[2025-04-17T01:02:48.164+0000] {baseoperator.py:423} WARNING - BranchPythonOperator.execute cannot be called outside TaskInstance!
+[2025-04-17T01:02:48.165+0000] {taskinstance.py:3313} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 768, in _execute_task
+    result = _execute_callable(context=context, **execute_callable_kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 734, in _execute_callable
+    return ExecutionCallableRunner(
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/utils/operator_helpers.py", line 252, in run
+    return self.func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/baseoperator.py", line 424, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 274, in execute
+    return self.do_branch(context, super().execute(context))
+                                   ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/baseoperator.py", line 424, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 238, in execute
+    return_value = self.execute_callable()
+                   ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 256, in execute_callable
+    return runner.run(*self.op_args, **self.op_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/utils/operator_helpers.py", line 252, in run
+    return self.func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/airflow/dags/data_ingestion_gcs_dag.py", line 70, in fetch_permits
+    with open(token_file_path, "r") as file:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^
+IsADirectoryError: [Errno 21] Is a directory: '/opt/airflow/nyc_od_app_token.txt'
+[2025-04-17T01:02:48.171+0000] {logging_mixin.py:190} INFO - Task instance in failure state
+[2025-04-17T01:02:48.171+0000] {logging_mixin.py:190} INFO - Task start:2025-04-17 01:02:48.083792+00:00 end:2025-04-17 01:02:48.171301+00:00 duration:0.087509
+[2025-04-17T01:02:48.172+0000] {logging_mixin.py:190} INFO - Task:<Task(BranchPythonOperator): fetch_permits_task> dag:<DAG: data_ingestion_gcs_dag> dagrun:<DagRun data_ingestion_gcs_dag @ 2025-04-16 00:00:00+00:00: scheduled__2025-04-16T00:00:00+00:00, state:running, queued_at: 2025-04-17 01:02:40.039674+00:00. externally triggered: False>
+[2025-04-17T01:02:48.172+0000] {logging_mixin.py:190} INFO - Failure caused by [Errno 21] Is a directory: '/opt/***/nyc_od_app_token.txt'
+[2025-04-17T01:02:48.172+0000] {taskinstance.py:1226} INFO - Marking task as UP_FOR_RETRY. dag_id=data_ingestion_gcs_dag, task_id=fetch_permits_task, run_id=scheduled__2025-04-16T00:00:00+00:00, execution_date=20250416T000000, start_date=20250417T010248, end_date=20250417T010248
+[2025-04-17T01:02:48.185+0000] {taskinstance.py:341} INFO - ::group::Post task execution logs
+[2025-04-17T01:02:48.185+0000] {standard_task_runner.py:124} ERROR - Failed to execute job 4 for task fetch_permits_task ([Errno 21] Is a directory: '/opt/airflow/nyc_od_app_token.txt'; 92)
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/task/task_runner/standard_task_runner.py", line 117, in _start_by_fork
+    ret = args.func(args, dag=self.dag)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/cli/cli_config.py", line 49, in command
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/utils/cli.py", line 116, in wrapper
+    return f(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/cli/commands/task_command.py", line 483, in task_run
+    task_return_code = _run_task_by_selected_method(args, _dag, ti)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/cli/commands/task_command.py", line 256, in _run_task_by_selected_method
+    return _run_raw_task(args, ti)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/cli/commands/task_command.py", line 341, in _run_raw_task
+    return ti._run_raw_task(
+           ^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/utils/session.py", line 97, in wrapper
+    return func(*args, session=session, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 3006, in _run_raw_task
+    return _run_raw_task(
+           ^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 274, in _run_raw_task
+    TaskInstance._execute_task_with_callbacks(
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 3161, in _execute_task_with_callbacks
+    result = self._execute_task(context, task_orig)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 3185, in _execute_task
+    return _execute_task(self, context, task_orig)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 768, in _execute_task
+    result = _execute_callable(context=context, **execute_callable_kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 734, in _execute_callable
+    return ExecutionCallableRunner(
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/utils/operator_helpers.py", line 252, in run
+    return self.func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/baseoperator.py", line 424, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 274, in execute
+    return self.do_branch(context, super().execute(context))
+                                   ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/baseoperator.py", line 424, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 238, in execute
+    return_value = self.execute_callable()
+                   ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 256, in execute_callable
+    return runner.run(*self.op_args, **self.op_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/utils/operator_helpers.py", line 252, in run
+    return self.func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/airflow/dags/data_ingestion_gcs_dag.py", line 70, in fetch_permits
+    with open(token_file_path, "r") as file:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^
+IsADirectoryError: [Errno 21] Is a directory: '/opt/airflow/nyc_od_app_token.txt'
+[2025-04-17T01:02:48.196+0000] {local_task_job_runner.py:266} INFO - Task exited with return code 1
+[2025-04-17T01:02:48.211+0000] {taskinstance.py:3901} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2025-04-17T01:02:48.212+0000] {local_task_job_runner.py:245} INFO - ::endgroup::
+[2025-04-17T01:13:43.794+0000] {local_task_job_runner.py:123} INFO - ::group::Pre task execution logs
+[2025-04-17T01:13:43.805+0000] {taskinstance.py:2614} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: data_ingestion_gcs_dag.fetch_permits_task scheduled__2025-04-16T00:00:00+00:00 [queued]>
+[2025-04-17T01:13:43.810+0000] {taskinstance.py:2614} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: data_ingestion_gcs_dag.fetch_permits_task scheduled__2025-04-16T00:00:00+00:00 [queued]>
+[2025-04-17T01:13:43.810+0000] {taskinstance.py:2867} INFO - Starting attempt 1 of 2
+[2025-04-17T01:13:43.817+0000] {taskinstance.py:2890} INFO - Executing <Task(BranchPythonOperator): fetch_permits_task> on 2025-04-16 00:00:00+00:00
+[2025-04-17T01:13:43.820+0000] {warnings.py:112} WARNING - /home/***/.local/lib/python3.12/site-packages/***/task/task_runner/standard_task_runner.py:70: DeprecationWarning: This process (pid=83) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  pid = os.fork()
+
+[2025-04-17T01:13:43.821+0000] {standard_task_runner.py:72} INFO - Started process 85 to run task
+[2025-04-17T01:13:43.822+0000] {standard_task_runner.py:104} INFO - Running: ['***', 'tasks', 'run', 'data_ingestion_gcs_dag', 'fetch_permits_task', 'scheduled__2025-04-16T00:00:00+00:00', '--job-id', '4', '--raw', '--subdir', 'DAGS_FOLDER/data_ingestion_gcs_dag.py', '--cfg-path', '/tmp/tmp0lpkdf8x']
+[2025-04-17T01:13:43.822+0000] {standard_task_runner.py:105} INFO - Job 4: Subtask fetch_permits_task
+[2025-04-17T01:13:43.848+0000] {task_command.py:467} INFO - Running <TaskInstance: data_ingestion_gcs_dag.fetch_permits_task scheduled__2025-04-16T00:00:00+00:00 [running]> on host 03fa507bf07a
+[2025-04-17T01:13:43.887+0000] {taskinstance.py:3134} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='data_ingestion_gcs_dag' AIRFLOW_CTX_TASK_ID='fetch_permits_task' AIRFLOW_CTX_EXECUTION_DATE='2025-04-16T00:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2025-04-16T00:00:00+00:00'
+[2025-04-17T01:13:43.889+0000] {logging_mixin.py:190} INFO - Task instance is in running state
+[2025-04-17T01:13:43.889+0000] {logging_mixin.py:190} INFO -  Previous state of the Task instance: queued
+[2025-04-17T01:13:43.889+0000] {logging_mixin.py:190} INFO - Current task name:fetch_permits_task state:running start_date:2025-04-17 01:13:43.805742+00:00
+[2025-04-17T01:13:43.889+0000] {logging_mixin.py:190} INFO - Dag name:data_ingestion_gcs_dag and current dag run status:running
+[2025-04-17T01:13:43.890+0000] {taskinstance.py:732} INFO - ::endgroup::
+[2025-04-17T01:13:43.890+0000] {baseoperator.py:423} WARNING - BranchPythonOperator.execute cannot be called outside TaskInstance!
+[2025-04-17T01:13:43.892+0000] {taskinstance.py:3313} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 768, in _execute_task
+    result = _execute_callable(context=context, **execute_callable_kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 734, in _execute_callable
+    return ExecutionCallableRunner(
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/utils/operator_helpers.py", line 252, in run
+    return self.func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/baseoperator.py", line 424, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 274, in execute
+    return self.do_branch(context, super().execute(context))
+                                   ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/baseoperator.py", line 424, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 238, in execute
+    return_value = self.execute_callable()
+                   ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 256, in execute_callable
+    return runner.run(*self.op_args, **self.op_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/utils/operator_helpers.py", line 252, in run
+    return self.func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/airflow/dags/data_ingestion_gcs_dag.py", line 71, in fetch_permits
+    with open(token_file_path, "r") as file:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/opt/.socrata/credentials/nyc_od_app_token.txt'
+[2025-04-17T01:13:43.910+0000] {logging_mixin.py:190} INFO - Task instance in failure state
+[2025-04-17T01:13:43.911+0000] {logging_mixin.py:190} INFO - Task start:2025-04-17 01:13:43.805742+00:00 end:2025-04-17 01:13:43.910048+00:00 duration:0.104306
+[2025-04-17T01:13:43.912+0000] {logging_mixin.py:190} INFO - Task:<Task(BranchPythonOperator): fetch_permits_task> dag:<DAG: data_ingestion_gcs_dag> dagrun:<DagRun data_ingestion_gcs_dag @ 2025-04-16 00:00:00+00:00: scheduled__2025-04-16T00:00:00+00:00, state:running, queued_at: 2025-04-17 01:13:37.731336+00:00. externally triggered: False>
+[2025-04-17T01:13:43.913+0000] {logging_mixin.py:190} INFO - Failure caused by [Errno 2] No such file or directory: '/opt/.socrata/credentials/nyc_od_app_token.txt'
+[2025-04-17T01:13:43.913+0000] {taskinstance.py:1226} INFO - Marking task as UP_FOR_RETRY. dag_id=data_ingestion_gcs_dag, task_id=fetch_permits_task, run_id=scheduled__2025-04-16T00:00:00+00:00, execution_date=20250416T000000, start_date=20250417T011343, end_date=20250417T011343
+[2025-04-17T01:13:43.944+0000] {taskinstance.py:341} INFO - ::group::Post task execution logs
+[2025-04-17T01:13:43.945+0000] {standard_task_runner.py:124} ERROR - Failed to execute job 4 for task fetch_permits_task ([Errno 2] No such file or directory: '/opt/.socrata/credentials/nyc_od_app_token.txt'; 85)
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/task/task_runner/standard_task_runner.py", line 117, in _start_by_fork
+    ret = args.func(args, dag=self.dag)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/cli/cli_config.py", line 49, in command
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/utils/cli.py", line 116, in wrapper
+    return f(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/cli/commands/task_command.py", line 483, in task_run
+    task_return_code = _run_task_by_selected_method(args, _dag, ti)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/cli/commands/task_command.py", line 256, in _run_task_by_selected_method
+    return _run_raw_task(args, ti)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/cli/commands/task_command.py", line 341, in _run_raw_task
+    return ti._run_raw_task(
+           ^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/utils/session.py", line 97, in wrapper
+    return func(*args, session=session, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 3006, in _run_raw_task
+    return _run_raw_task(
+           ^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 274, in _run_raw_task
+    TaskInstance._execute_task_with_callbacks(
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 3161, in _execute_task_with_callbacks
+    result = self._execute_task(context, task_orig)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 3185, in _execute_task
+    return _execute_task(self, context, task_orig)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 768, in _execute_task
+    result = _execute_callable(context=context, **execute_callable_kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 734, in _execute_callable
+    return ExecutionCallableRunner(
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/utils/operator_helpers.py", line 252, in run
+    return self.func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/baseoperator.py", line 424, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 274, in execute
+    return self.do_branch(context, super().execute(context))
+                                   ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/baseoperator.py", line 424, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 238, in execute
+    return_value = self.execute_callable()
+                   ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 256, in execute_callable
+    return runner.run(*self.op_args, **self.op_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/utils/operator_helpers.py", line 252, in run
+    return self.func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/airflow/dags/data_ingestion_gcs_dag.py", line 71, in fetch_permits
+    with open(token_file_path, "r") as file:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/opt/.socrata/credentials/nyc_od_app_token.txt'
+[2025-04-17T01:13:43.960+0000] {local_task_job_runner.py:266} INFO - Task exited with return code 1
+[2025-04-17T01:13:43.979+0000] {taskinstance.py:3901} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2025-04-17T01:13:43.980+0000] {local_task_job_runner.py:245} INFO - ::endgroup::
+[2025-04-17T01:18:53.199+0000] {local_task_job_runner.py:123} INFO - ::group::Pre task execution logs
+[2025-04-17T01:18:53.210+0000] {taskinstance.py:2614} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: data_ingestion_gcs_dag.fetch_permits_task scheduled__2025-04-16T00:00:00+00:00 [queued]>
+[2025-04-17T01:18:53.214+0000] {taskinstance.py:2614} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: data_ingestion_gcs_dag.fetch_permits_task scheduled__2025-04-16T00:00:00+00:00 [queued]>
+[2025-04-17T01:18:53.215+0000] {taskinstance.py:2867} INFO - Starting attempt 1 of 2
+[2025-04-17T01:18:53.222+0000] {taskinstance.py:2890} INFO - Executing <Task(BranchPythonOperator): fetch_permits_task> on 2025-04-16 00:00:00+00:00
+[2025-04-17T01:18:53.226+0000] {warnings.py:112} WARNING - /home/***/.local/lib/python3.12/site-packages/***/task/task_runner/standard_task_runner.py:70: DeprecationWarning: This process (pid=83) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  pid = os.fork()
+
+[2025-04-17T01:18:53.227+0000] {standard_task_runner.py:72} INFO - Started process 85 to run task
+[2025-04-17T01:18:53.228+0000] {standard_task_runner.py:104} INFO - Running: ['***', 'tasks', 'run', 'data_ingestion_gcs_dag', 'fetch_permits_task', 'scheduled__2025-04-16T00:00:00+00:00', '--job-id', '4', '--raw', '--subdir', 'DAGS_FOLDER/data_ingestion_gcs_dag.py', '--cfg-path', '/tmp/tmpr0u3q3jr']
+[2025-04-17T01:18:53.228+0000] {standard_task_runner.py:105} INFO - Job 4: Subtask fetch_permits_task
+[2025-04-17T01:18:53.255+0000] {task_command.py:467} INFO - Running <TaskInstance: data_ingestion_gcs_dag.fetch_permits_task scheduled__2025-04-16T00:00:00+00:00 [running]> on host 5b8e6556657b
+[2025-04-17T01:18:53.295+0000] {taskinstance.py:3134} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='data_ingestion_gcs_dag' AIRFLOW_CTX_TASK_ID='fetch_permits_task' AIRFLOW_CTX_EXECUTION_DATE='2025-04-16T00:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2025-04-16T00:00:00+00:00'
+[2025-04-17T01:18:53.296+0000] {logging_mixin.py:190} INFO - Task instance is in running state
+[2025-04-17T01:18:53.296+0000] {logging_mixin.py:190} INFO -  Previous state of the Task instance: queued
+[2025-04-17T01:18:53.297+0000] {logging_mixin.py:190} INFO - Current task name:fetch_permits_task state:running start_date:2025-04-17 01:18:53.210305+00:00
+[2025-04-17T01:18:53.297+0000] {logging_mixin.py:190} INFO - Dag name:data_ingestion_gcs_dag and current dag run status:running
+[2025-04-17T01:18:53.297+0000] {taskinstance.py:732} INFO - ::endgroup::
+[2025-04-17T01:18:53.297+0000] {baseoperator.py:423} WARNING - BranchPythonOperator.execute cannot be called outside TaskInstance!
+[2025-04-17T01:18:53.298+0000] {taskinstance.py:3313} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 768, in _execute_task
+    result = _execute_callable(context=context, **execute_callable_kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 734, in _execute_callable
+    return ExecutionCallableRunner(
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/utils/operator_helpers.py", line 252, in run
+    return self.func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/baseoperator.py", line 424, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 274, in execute
+    return self.do_branch(context, super().execute(context))
+                                   ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/baseoperator.py", line 424, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 238, in execute
+    return_value = self.execute_callable()
+                   ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 256, in execute_callable
+    return runner.run(*self.op_args, **self.op_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/utils/operator_helpers.py", line 252, in run
+    return self.func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/airflow/dags/data_ingestion_gcs_dag.py", line 71, in fetch_permits
+    with open(token_file_path, "r") as file:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/opt/.socrata/credentials/nyc_od_app_token.txt'
+[2025-04-17T01:18:53.306+0000] {logging_mixin.py:190} INFO - Task instance in failure state
+[2025-04-17T01:18:53.306+0000] {logging_mixin.py:190} INFO - Task start:2025-04-17 01:18:53.210305+00:00 end:2025-04-17 01:18:53.305761+00:00 duration:0.095456
+[2025-04-17T01:18:53.306+0000] {logging_mixin.py:190} INFO - Task:<Task(BranchPythonOperator): fetch_permits_task> dag:<DAG: data_ingestion_gcs_dag> dagrun:<DagRun data_ingestion_gcs_dag @ 2025-04-16 00:00:00+00:00: scheduled__2025-04-16T00:00:00+00:00, state:running, queued_at: 2025-04-17 01:18:47.254915+00:00. externally triggered: False>
+[2025-04-17T01:18:53.306+0000] {logging_mixin.py:190} INFO - Failure caused by [Errno 2] No such file or directory: '/opt/.socrata/credentials/nyc_od_app_token.txt'
+[2025-04-17T01:18:53.306+0000] {taskinstance.py:1226} INFO - Marking task as UP_FOR_RETRY. dag_id=data_ingestion_gcs_dag, task_id=fetch_permits_task, run_id=scheduled__2025-04-16T00:00:00+00:00, execution_date=20250416T000000, start_date=20250417T011853, end_date=20250417T011853
+[2025-04-17T01:18:53.322+0000] {taskinstance.py:341} INFO - ::group::Post task execution logs
+[2025-04-17T01:18:53.322+0000] {standard_task_runner.py:124} ERROR - Failed to execute job 4 for task fetch_permits_task ([Errno 2] No such file or directory: '/opt/.socrata/credentials/nyc_od_app_token.txt'; 85)
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/task/task_runner/standard_task_runner.py", line 117, in _start_by_fork
+    ret = args.func(args, dag=self.dag)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/cli/cli_config.py", line 49, in command
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/utils/cli.py", line 116, in wrapper
+    return f(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/cli/commands/task_command.py", line 483, in task_run
+    task_return_code = _run_task_by_selected_method(args, _dag, ti)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/cli/commands/task_command.py", line 256, in _run_task_by_selected_method
+    return _run_raw_task(args, ti)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/cli/commands/task_command.py", line 341, in _run_raw_task
+    return ti._run_raw_task(
+           ^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/utils/session.py", line 97, in wrapper
+    return func(*args, session=session, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 3006, in _run_raw_task
+    return _run_raw_task(
+           ^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 274, in _run_raw_task
+    TaskInstance._execute_task_with_callbacks(
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 3161, in _execute_task_with_callbacks
+    result = self._execute_task(context, task_orig)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 3185, in _execute_task
+    return _execute_task(self, context, task_orig)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 768, in _execute_task
+    result = _execute_callable(context=context, **execute_callable_kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 734, in _execute_callable
+    return ExecutionCallableRunner(
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/utils/operator_helpers.py", line 252, in run
+    return self.func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/baseoperator.py", line 424, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 274, in execute
+    return self.do_branch(context, super().execute(context))
+                                   ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/baseoperator.py", line 424, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 238, in execute
+    return_value = self.execute_callable()
+                   ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 256, in execute_callable
+    return runner.run(*self.op_args, **self.op_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/utils/operator_helpers.py", line 252, in run
+    return self.func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/airflow/dags/data_ingestion_gcs_dag.py", line 71, in fetch_permits
+    with open(token_file_path, "r") as file:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/opt/.socrata/credentials/nyc_od_app_token.txt'
+[2025-04-17T01:18:53.367+0000] {local_task_job_runner.py:266} INFO - Task exited with return code 1
+[2025-04-17T01:18:53.408+0000] {taskinstance.py:3901} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2025-04-17T01:18:53.409+0000] {local_task_job_runner.py:245} INFO - ::endgroup::
+[2025-04-17T01:24:41.501+0000] {local_task_job_runner.py:123} INFO - ::group::Pre task execution logs
+[2025-04-17T01:24:41.514+0000] {taskinstance.py:2614} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: data_ingestion_gcs_dag.fetch_permits_task scheduled__2025-04-16T00:00:00+00:00 [queued]>
+[2025-04-17T01:24:41.518+0000] {taskinstance.py:2614} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: data_ingestion_gcs_dag.fetch_permits_task scheduled__2025-04-16T00:00:00+00:00 [queued]>
+[2025-04-17T01:24:41.519+0000] {taskinstance.py:2867} INFO - Starting attempt 1 of 2
+[2025-04-17T01:24:41.524+0000] {taskinstance.py:2890} INFO - Executing <Task(BranchPythonOperator): fetch_permits_task> on 2025-04-16 00:00:00+00:00
+[2025-04-17T01:24:41.528+0000] {warnings.py:112} WARNING - /home/***/.local/lib/python3.12/site-packages/***/task/task_runner/standard_task_runner.py:70: DeprecationWarning: This process (pid=104) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  pid = os.fork()
+
+[2025-04-17T01:24:41.529+0000] {standard_task_runner.py:72} INFO - Started process 106 to run task
+[2025-04-17T01:24:41.530+0000] {standard_task_runner.py:104} INFO - Running: ['***', 'tasks', 'run', 'data_ingestion_gcs_dag', 'fetch_permits_task', 'scheduled__2025-04-16T00:00:00+00:00', '--job-id', '4', '--raw', '--subdir', 'DAGS_FOLDER/data_ingestion_gcs_dag.py', '--cfg-path', '/tmp/tmp3d1maddf']
+[2025-04-17T01:24:41.530+0000] {standard_task_runner.py:105} INFO - Job 4: Subtask fetch_permits_task
+[2025-04-17T01:24:41.559+0000] {task_command.py:467} INFO - Running <TaskInstance: data_ingestion_gcs_dag.fetch_permits_task scheduled__2025-04-16T00:00:00+00:00 [running]> on host d5480e8429d5
+[2025-04-17T01:24:41.601+0000] {taskinstance.py:3134} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='data_ingestion_gcs_dag' AIRFLOW_CTX_TASK_ID='fetch_permits_task' AIRFLOW_CTX_EXECUTION_DATE='2025-04-16T00:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2025-04-16T00:00:00+00:00'
+[2025-04-17T01:24:41.602+0000] {logging_mixin.py:190} INFO - Task instance is in running state
+[2025-04-17T01:24:41.602+0000] {logging_mixin.py:190} INFO -  Previous state of the Task instance: queued
+[2025-04-17T01:24:41.603+0000] {logging_mixin.py:190} INFO - Current task name:fetch_permits_task state:running start_date:2025-04-17 01:24:41.514281+00:00
+[2025-04-17T01:24:41.603+0000] {logging_mixin.py:190} INFO - Dag name:data_ingestion_gcs_dag and current dag run status:running
+[2025-04-17T01:24:41.603+0000] {taskinstance.py:732} INFO - ::endgroup::
+[2025-04-17T01:24:41.603+0000] {baseoperator.py:423} WARNING - BranchPythonOperator.execute cannot be called outside TaskInstance!
+[2025-04-17T01:24:41.604+0000] {taskinstance.py:3313} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 768, in _execute_task
+    result = _execute_callable(context=context, **execute_callable_kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 734, in _execute_callable
+    return ExecutionCallableRunner(
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/utils/operator_helpers.py", line 252, in run
+    return self.func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/baseoperator.py", line 424, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 274, in execute
+    return self.do_branch(context, super().execute(context))
+                                   ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/baseoperator.py", line 424, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 238, in execute
+    return_value = self.execute_callable()
+                   ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 256, in execute_callable
+    return runner.run(*self.op_args, **self.op_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/utils/operator_helpers.py", line 252, in run
+    return self.func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/airflow/dags/data_ingestion_gcs_dag.py", line 71, in fetch_permits
+    with open(token_file_path, "r") as file:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/opt/.socrata/credentials/nyc_od_app_token.txt'
+[2025-04-17T01:24:41.611+0000] {logging_mixin.py:190} INFO - Task instance in failure state
+[2025-04-17T01:24:41.611+0000] {logging_mixin.py:190} INFO - Task start:2025-04-17 01:24:41.514281+00:00 end:2025-04-17 01:24:41.611061+00:00 duration:0.09678
+[2025-04-17T01:24:41.611+0000] {logging_mixin.py:190} INFO - Task:<Task(BranchPythonOperator): fetch_permits_task> dag:<DAG: data_ingestion_gcs_dag> dagrun:<DagRun data_ingestion_gcs_dag @ 2025-04-16 00:00:00+00:00: scheduled__2025-04-16T00:00:00+00:00, state:running, queued_at: 2025-04-17 01:24:35.496408+00:00. externally triggered: False>
+[2025-04-17T01:24:41.611+0000] {logging_mixin.py:190} INFO - Failure caused by [Errno 2] No such file or directory: '/opt/.socrata/credentials/nyc_od_app_token.txt'
+[2025-04-17T01:24:41.612+0000] {taskinstance.py:1226} INFO - Marking task as UP_FOR_RETRY. dag_id=data_ingestion_gcs_dag, task_id=fetch_permits_task, run_id=scheduled__2025-04-16T00:00:00+00:00, execution_date=20250416T000000, start_date=20250417T012441, end_date=20250417T012441
+[2025-04-17T01:24:41.625+0000] {taskinstance.py:341} INFO - ::group::Post task execution logs
+[2025-04-17T01:24:41.625+0000] {standard_task_runner.py:124} ERROR - Failed to execute job 4 for task fetch_permits_task ([Errno 2] No such file or directory: '/opt/.socrata/credentials/nyc_od_app_token.txt'; 106)
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/task/task_runner/standard_task_runner.py", line 117, in _start_by_fork
+    ret = args.func(args, dag=self.dag)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/cli/cli_config.py", line 49, in command
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/utils/cli.py", line 116, in wrapper
+    return f(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/cli/commands/task_command.py", line 483, in task_run
+    task_return_code = _run_task_by_selected_method(args, _dag, ti)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/cli/commands/task_command.py", line 256, in _run_task_by_selected_method
+    return _run_raw_task(args, ti)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/cli/commands/task_command.py", line 341, in _run_raw_task
+    return ti._run_raw_task(
+           ^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/utils/session.py", line 97, in wrapper
+    return func(*args, session=session, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 3006, in _run_raw_task
+    return _run_raw_task(
+           ^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 274, in _run_raw_task
+    TaskInstance._execute_task_with_callbacks(
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 3161, in _execute_task_with_callbacks
+    result = self._execute_task(context, task_orig)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 3185, in _execute_task
+    return _execute_task(self, context, task_orig)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 768, in _execute_task
+    result = _execute_callable(context=context, **execute_callable_kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 734, in _execute_callable
+    return ExecutionCallableRunner(
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/utils/operator_helpers.py", line 252, in run
+    return self.func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/baseoperator.py", line 424, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 274, in execute
+    return self.do_branch(context, super().execute(context))
+                                   ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/baseoperator.py", line 424, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 238, in execute
+    return_value = self.execute_callable()
+                   ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 256, in execute_callable
+    return runner.run(*self.op_args, **self.op_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/utils/operator_helpers.py", line 252, in run
+    return self.func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/airflow/dags/data_ingestion_gcs_dag.py", line 71, in fetch_permits
+    with open(token_file_path, "r") as file:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/opt/.socrata/credentials/nyc_od_app_token.txt'
+[2025-04-17T01:24:41.671+0000] {local_task_job_runner.py:266} INFO - Task exited with return code 1
+[2025-04-17T01:24:41.697+0000] {taskinstance.py:3901} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2025-04-17T01:24:41.698+0000] {local_task_job_runner.py:245} INFO - ::endgroup::
+[2025-04-17T01:28:42.795+0000] {local_task_job_runner.py:123} INFO - ::group::Pre task execution logs
+[2025-04-17T01:28:42.807+0000] {taskinstance.py:2614} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: data_ingestion_gcs_dag.fetch_permits_task scheduled__2025-04-16T00:00:00+00:00 [queued]>
+[2025-04-17T01:28:42.812+0000] {taskinstance.py:2614} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: data_ingestion_gcs_dag.fetch_permits_task scheduled__2025-04-16T00:00:00+00:00 [queued]>
+[2025-04-17T01:28:42.813+0000] {taskinstance.py:2867} INFO - Starting attempt 1 of 2
+[2025-04-17T01:28:42.819+0000] {taskinstance.py:2890} INFO - Executing <Task(BranchPythonOperator): fetch_permits_task> on 2025-04-16 00:00:00+00:00
+[2025-04-17T01:28:42.825+0000] {warnings.py:112} WARNING - /home/***/.local/lib/python3.12/site-packages/***/task/task_runner/standard_task_runner.py:70: DeprecationWarning: This process (pid=83) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  pid = os.fork()
+
+[2025-04-17T01:28:42.827+0000] {standard_task_runner.py:72} INFO - Started process 85 to run task
+[2025-04-17T01:28:42.831+0000] {standard_task_runner.py:104} INFO - Running: ['***', 'tasks', 'run', 'data_ingestion_gcs_dag', 'fetch_permits_task', 'scheduled__2025-04-16T00:00:00+00:00', '--job-id', '4', '--raw', '--subdir', 'DAGS_FOLDER/data_ingestion_gcs_dag.py', '--cfg-path', '/tmp/tmpum_yp00n']
+[2025-04-17T01:28:42.834+0000] {standard_task_runner.py:105} INFO - Job 4: Subtask fetch_permits_task
+[2025-04-17T01:28:42.878+0000] {task_command.py:467} INFO - Running <TaskInstance: data_ingestion_gcs_dag.fetch_permits_task scheduled__2025-04-16T00:00:00+00:00 [running]> on host 663e8a937c82
+[2025-04-17T01:28:42.941+0000] {taskinstance.py:3134} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='data_ingestion_gcs_dag' AIRFLOW_CTX_TASK_ID='fetch_permits_task' AIRFLOW_CTX_EXECUTION_DATE='2025-04-16T00:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2025-04-16T00:00:00+00:00'
+[2025-04-17T01:28:42.942+0000] {logging_mixin.py:190} INFO - Task instance is in running state
+[2025-04-17T01:28:42.942+0000] {logging_mixin.py:190} INFO -  Previous state of the Task instance: queued
+[2025-04-17T01:28:42.943+0000] {logging_mixin.py:190} INFO - Current task name:fetch_permits_task state:running start_date:2025-04-17 01:28:42.808265+00:00
+[2025-04-17T01:28:42.943+0000] {logging_mixin.py:190} INFO - Dag name:data_ingestion_gcs_dag and current dag run status:running
+[2025-04-17T01:28:42.943+0000] {taskinstance.py:732} INFO - ::endgroup::
+[2025-04-17T01:28:42.943+0000] {baseoperator.py:423} WARNING - BranchPythonOperator.execute cannot be called outside TaskInstance!
+[2025-04-17T01:28:42.944+0000] {taskinstance.py:3313} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 768, in _execute_task
+    result = _execute_callable(context=context, **execute_callable_kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 734, in _execute_callable
+    return ExecutionCallableRunner(
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/utils/operator_helpers.py", line 252, in run
+    return self.func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/baseoperator.py", line 424, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 274, in execute
+    return self.do_branch(context, super().execute(context))
+                                   ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/baseoperator.py", line 424, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 238, in execute
+    return_value = self.execute_callable()
+                   ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 256, in execute_callable
+    return runner.run(*self.op_args, **self.op_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/utils/operator_helpers.py", line 252, in run
+    return self.func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/airflow/dags/data_ingestion_gcs_dag.py", line 71, in fetch_permits
+    with open(token_file_path, "r") as file:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/opt/.socrata/credentials/nyc_od_app_token.txt'
+[2025-04-17T01:28:42.953+0000] {logging_mixin.py:190} INFO - Task instance in failure state
+[2025-04-17T01:28:42.954+0000] {logging_mixin.py:190} INFO - Task start:2025-04-17 01:28:42.808265+00:00 end:2025-04-17 01:28:42.953182+00:00 duration:0.144917
+[2025-04-17T01:28:42.954+0000] {logging_mixin.py:190} INFO - Task:<Task(BranchPythonOperator): fetch_permits_task> dag:<DAG: data_ingestion_gcs_dag> dagrun:<DagRun data_ingestion_gcs_dag @ 2025-04-16 00:00:00+00:00: scheduled__2025-04-16T00:00:00+00:00, state:running, queued_at: 2025-04-17 01:28:36.795166+00:00. externally triggered: False>
+[2025-04-17T01:28:42.955+0000] {logging_mixin.py:190} INFO - Failure caused by [Errno 2] No such file or directory: '/opt/.socrata/credentials/nyc_od_app_token.txt'
+[2025-04-17T01:28:42.955+0000] {taskinstance.py:1226} INFO - Marking task as UP_FOR_RETRY. dag_id=data_ingestion_gcs_dag, task_id=fetch_permits_task, run_id=scheduled__2025-04-16T00:00:00+00:00, execution_date=20250416T000000, start_date=20250417T012842, end_date=20250417T012842
+[2025-04-17T01:28:42.978+0000] {taskinstance.py:341} INFO - ::group::Post task execution logs
+[2025-04-17T01:28:42.979+0000] {standard_task_runner.py:124} ERROR - Failed to execute job 4 for task fetch_permits_task ([Errno 2] No such file or directory: '/opt/.socrata/credentials/nyc_od_app_token.txt'; 85)
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/task/task_runner/standard_task_runner.py", line 117, in _start_by_fork
+    ret = args.func(args, dag=self.dag)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/cli/cli_config.py", line 49, in command
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/utils/cli.py", line 116, in wrapper
+    return f(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/cli/commands/task_command.py", line 483, in task_run
+    task_return_code = _run_task_by_selected_method(args, _dag, ti)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/cli/commands/task_command.py", line 256, in _run_task_by_selected_method
+    return _run_raw_task(args, ti)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/cli/commands/task_command.py", line 341, in _run_raw_task
+    return ti._run_raw_task(
+           ^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/utils/session.py", line 97, in wrapper
+    return func(*args, session=session, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 3006, in _run_raw_task
+    return _run_raw_task(
+           ^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 274, in _run_raw_task
+    TaskInstance._execute_task_with_callbacks(
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 3161, in _execute_task_with_callbacks
+    result = self._execute_task(context, task_orig)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 3185, in _execute_task
+    return _execute_task(self, context, task_orig)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 768, in _execute_task
+    result = _execute_callable(context=context, **execute_callable_kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 734, in _execute_callable
+    return ExecutionCallableRunner(
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/utils/operator_helpers.py", line 252, in run
+    return self.func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/baseoperator.py", line 424, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 274, in execute
+    return self.do_branch(context, super().execute(context))
+                                   ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/baseoperator.py", line 424, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 238, in execute
+    return_value = self.execute_callable()
+                   ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 256, in execute_callable
+    return runner.run(*self.op_args, **self.op_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/utils/operator_helpers.py", line 252, in run
+    return self.func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/airflow/dags/data_ingestion_gcs_dag.py", line 71, in fetch_permits
+    with open(token_file_path, "r") as file:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/opt/.socrata/credentials/nyc_od_app_token.txt'
+[2025-04-17T01:28:43.009+0000] {local_task_job_runner.py:266} INFO - Task exited with return code 1
+[2025-04-17T01:28:43.023+0000] {taskinstance.py:3901} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2025-04-17T01:28:43.024+0000] {local_task_job_runner.py:245} INFO - ::endgroup::
+[2025-04-17T01:31:02.500+0000] {local_task_job_runner.py:123} INFO - ::group::Pre task execution logs
+[2025-04-17T01:31:02.512+0000] {taskinstance.py:2614} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: data_ingestion_gcs_dag.fetch_permits_task scheduled__2025-04-16T00:00:00+00:00 [queued]>
+[2025-04-17T01:31:02.517+0000] {taskinstance.py:2614} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: data_ingestion_gcs_dag.fetch_permits_task scheduled__2025-04-16T00:00:00+00:00 [queued]>
+[2025-04-17T01:31:02.517+0000] {taskinstance.py:2867} INFO - Starting attempt 1 of 2
+[2025-04-17T01:31:02.524+0000] {taskinstance.py:2890} INFO - Executing <Task(BranchPythonOperator): fetch_permits_task> on 2025-04-16 00:00:00+00:00
+[2025-04-17T01:31:02.528+0000] {warnings.py:112} WARNING - /home/***/.local/lib/python3.12/site-packages/***/task/task_runner/standard_task_runner.py:70: DeprecationWarning: This process (pid=90) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  pid = os.fork()
+
+[2025-04-17T01:31:02.529+0000] {standard_task_runner.py:72} INFO - Started process 92 to run task
+[2025-04-17T01:31:02.529+0000] {standard_task_runner.py:104} INFO - Running: ['***', 'tasks', 'run', 'data_ingestion_gcs_dag', 'fetch_permits_task', 'scheduled__2025-04-16T00:00:00+00:00', '--job-id', '4', '--raw', '--subdir', 'DAGS_FOLDER/data_ingestion_gcs_dag.py', '--cfg-path', '/tmp/tmpcyefzgas']
+[2025-04-17T01:31:02.530+0000] {standard_task_runner.py:105} INFO - Job 4: Subtask fetch_permits_task
+[2025-04-17T01:31:02.554+0000] {task_command.py:467} INFO - Running <TaskInstance: data_ingestion_gcs_dag.fetch_permits_task scheduled__2025-04-16T00:00:00+00:00 [running]> on host 3a5b9d3e03fa
+[2025-04-17T01:31:02.593+0000] {taskinstance.py:3134} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='data_ingestion_gcs_dag' AIRFLOW_CTX_TASK_ID='fetch_permits_task' AIRFLOW_CTX_EXECUTION_DATE='2025-04-16T00:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2025-04-16T00:00:00+00:00'
+[2025-04-17T01:31:02.594+0000] {logging_mixin.py:190} INFO - Task instance is in running state
+[2025-04-17T01:31:02.594+0000] {logging_mixin.py:190} INFO -  Previous state of the Task instance: queued
+[2025-04-17T01:31:02.595+0000] {logging_mixin.py:190} INFO - Current task name:fetch_permits_task state:running start_date:2025-04-17 01:31:02.513211+00:00
+[2025-04-17T01:31:02.595+0000] {logging_mixin.py:190} INFO - Dag name:data_ingestion_gcs_dag and current dag run status:running
+[2025-04-17T01:31:02.595+0000] {taskinstance.py:732} INFO - ::endgroup::
+[2025-04-17T01:31:02.595+0000] {baseoperator.py:423} WARNING - BranchPythonOperator.execute cannot be called outside TaskInstance!
+[2025-04-17T01:31:02.596+0000] {taskinstance.py:3313} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 768, in _execute_task
+    result = _execute_callable(context=context, **execute_callable_kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 734, in _execute_callable
+    return ExecutionCallableRunner(
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/utils/operator_helpers.py", line 252, in run
+    return self.func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/baseoperator.py", line 424, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 274, in execute
+    return self.do_branch(context, super().execute(context))
+                                   ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/baseoperator.py", line 424, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 238, in execute
+    return_value = self.execute_callable()
+                   ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 256, in execute_callable
+    return runner.run(*self.op_args, **self.op_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/utils/operator_helpers.py", line 252, in run
+    return self.func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/airflow/dags/data_ingestion_gcs_dag.py", line 71, in fetch_permits
+    with open(token_file_path, "r") as file:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/opt/.socrata/credentials/nyc_od_app_token.txt'
+[2025-04-17T01:31:02.602+0000] {logging_mixin.py:190} INFO - Task instance in failure state
+[2025-04-17T01:31:02.603+0000] {logging_mixin.py:190} INFO - Task start:2025-04-17 01:31:02.513211+00:00 end:2025-04-17 01:31:02.602434+00:00 duration:0.089223
+[2025-04-17T01:31:02.603+0000] {logging_mixin.py:190} INFO - Task:<Task(BranchPythonOperator): fetch_permits_task> dag:<DAG: data_ingestion_gcs_dag> dagrun:<DagRun data_ingestion_gcs_dag @ 2025-04-16 00:00:00+00:00: scheduled__2025-04-16T00:00:00+00:00, state:running, queued_at: 2025-04-17 01:30:56.444130+00:00. externally triggered: False>
+[2025-04-17T01:31:02.603+0000] {logging_mixin.py:190} INFO - Failure caused by [Errno 2] No such file or directory: '/opt/.socrata/credentials/nyc_od_app_token.txt'
+[2025-04-17T01:31:02.603+0000] {taskinstance.py:1226} INFO - Marking task as UP_FOR_RETRY. dag_id=data_ingestion_gcs_dag, task_id=fetch_permits_task, run_id=scheduled__2025-04-16T00:00:00+00:00, execution_date=20250416T000000, start_date=20250417T013102, end_date=20250417T013102
+[2025-04-17T01:31:02.617+0000] {taskinstance.py:341} INFO - ::group::Post task execution logs
+[2025-04-17T01:31:02.617+0000] {standard_task_runner.py:124} ERROR - Failed to execute job 4 for task fetch_permits_task ([Errno 2] No such file or directory: '/opt/.socrata/credentials/nyc_od_app_token.txt'; 92)
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/task/task_runner/standard_task_runner.py", line 117, in _start_by_fork
+    ret = args.func(args, dag=self.dag)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/cli/cli_config.py", line 49, in command
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/utils/cli.py", line 116, in wrapper
+    return f(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/cli/commands/task_command.py", line 483, in task_run
+    task_return_code = _run_task_by_selected_method(args, _dag, ti)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/cli/commands/task_command.py", line 256, in _run_task_by_selected_method
+    return _run_raw_task(args, ti)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/cli/commands/task_command.py", line 341, in _run_raw_task
+    return ti._run_raw_task(
+           ^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/utils/session.py", line 97, in wrapper
+    return func(*args, session=session, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 3006, in _run_raw_task
+    return _run_raw_task(
+           ^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 274, in _run_raw_task
+    TaskInstance._execute_task_with_callbacks(
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 3161, in _execute_task_with_callbacks
+    result = self._execute_task(context, task_orig)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 3185, in _execute_task
+    return _execute_task(self, context, task_orig)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 768, in _execute_task
+    result = _execute_callable(context=context, **execute_callable_kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 734, in _execute_callable
+    return ExecutionCallableRunner(
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/utils/operator_helpers.py", line 252, in run
+    return self.func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/baseoperator.py", line 424, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 274, in execute
+    return self.do_branch(context, super().execute(context))
+                                   ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/baseoperator.py", line 424, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 238, in execute
+    return_value = self.execute_callable()
+                   ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 256, in execute_callable
+    return runner.run(*self.op_args, **self.op_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/utils/operator_helpers.py", line 252, in run
+    return self.func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/airflow/dags/data_ingestion_gcs_dag.py", line 71, in fetch_permits
+    with open(token_file_path, "r") as file:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/opt/.socrata/credentials/nyc_od_app_token.txt'
+[2025-04-17T01:31:02.630+0000] {local_task_job_runner.py:266} INFO - Task exited with return code 1
+[2025-04-17T01:31:02.642+0000] {taskinstance.py:3901} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2025-04-17T01:31:02.643+0000] {local_task_job_runner.py:245} INFO - ::endgroup::
+[2025-04-17T01:33:33.340+0000] {local_task_job_runner.py:123} INFO - ::group::Pre task execution logs
+[2025-04-17T01:33:33.351+0000] {taskinstance.py:2614} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: data_ingestion_gcs_dag.fetch_permits_task scheduled__2025-04-16T00:00:00+00:00 [queued]>
+[2025-04-17T01:33:33.357+0000] {taskinstance.py:2614} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: data_ingestion_gcs_dag.fetch_permits_task scheduled__2025-04-16T00:00:00+00:00 [queued]>
+[2025-04-17T01:33:33.357+0000] {taskinstance.py:2867} INFO - Starting attempt 1 of 2
+[2025-04-17T01:33:33.363+0000] {taskinstance.py:2890} INFO - Executing <Task(BranchPythonOperator): fetch_permits_task> on 2025-04-16 00:00:00+00:00
+[2025-04-17T01:33:33.367+0000] {warnings.py:112} WARNING - /home/***/.local/lib/python3.12/site-packages/***/task/task_runner/standard_task_runner.py:70: DeprecationWarning: This process (pid=83) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  pid = os.fork()
+
+[2025-04-17T01:33:33.368+0000] {standard_task_runner.py:72} INFO - Started process 85 to run task
+[2025-04-17T01:33:33.369+0000] {standard_task_runner.py:104} INFO - Running: ['***', 'tasks', 'run', 'data_ingestion_gcs_dag', 'fetch_permits_task', 'scheduled__2025-04-16T00:00:00+00:00', '--job-id', '4', '--raw', '--subdir', 'DAGS_FOLDER/data_ingestion_gcs_dag.py', '--cfg-path', '/tmp/tmpv234nrqw']
+[2025-04-17T01:33:33.369+0000] {standard_task_runner.py:105} INFO - Job 4: Subtask fetch_permits_task
+[2025-04-17T01:33:33.396+0000] {task_command.py:467} INFO - Running <TaskInstance: data_ingestion_gcs_dag.fetch_permits_task scheduled__2025-04-16T00:00:00+00:00 [running]> on host 08bedcd8489d
+[2025-04-17T01:33:33.436+0000] {taskinstance.py:3134} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='data_ingestion_gcs_dag' AIRFLOW_CTX_TASK_ID='fetch_permits_task' AIRFLOW_CTX_EXECUTION_DATE='2025-04-16T00:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2025-04-16T00:00:00+00:00'
+[2025-04-17T01:33:33.437+0000] {logging_mixin.py:190} INFO - Task instance is in running state
+[2025-04-17T01:33:33.437+0000] {logging_mixin.py:190} INFO -  Previous state of the Task instance: queued
+[2025-04-17T01:33:33.437+0000] {logging_mixin.py:190} INFO - Current task name:fetch_permits_task state:running start_date:2025-04-17 01:33:33.351966+00:00
+[2025-04-17T01:33:33.437+0000] {logging_mixin.py:190} INFO - Dag name:data_ingestion_gcs_dag and current dag run status:running
+[2025-04-17T01:33:33.438+0000] {taskinstance.py:732} INFO - ::endgroup::
+[2025-04-17T01:33:33.438+0000] {baseoperator.py:423} WARNING - BranchPythonOperator.execute cannot be called outside TaskInstance!
+[2025-04-17T01:33:33.438+0000] {taskinstance.py:3313} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 768, in _execute_task
+    result = _execute_callable(context=context, **execute_callable_kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 734, in _execute_callable
+    return ExecutionCallableRunner(
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/utils/operator_helpers.py", line 252, in run
+    return self.func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/baseoperator.py", line 424, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 274, in execute
+    return self.do_branch(context, super().execute(context))
+                                   ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/baseoperator.py", line 424, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 238, in execute
+    return_value = self.execute_callable()
+                   ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 256, in execute_callable
+    return runner.run(*self.op_args, **self.op_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/utils/operator_helpers.py", line 252, in run
+    return self.func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/airflow/dags/data_ingestion_gcs_dag.py", line 71, in fetch_permits
+    with open(token_file_path, "r") as file:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/opt/.socrata/credentials/nyc_od_app_token.txt'
+[2025-04-17T01:33:33.445+0000] {logging_mixin.py:190} INFO - Task instance in failure state
+[2025-04-17T01:33:33.446+0000] {logging_mixin.py:190} INFO - Task start:2025-04-17 01:33:33.351966+00:00 end:2025-04-17 01:33:33.445643+00:00 duration:0.093677
+[2025-04-17T01:33:33.446+0000] {logging_mixin.py:190} INFO - Task:<Task(BranchPythonOperator): fetch_permits_task> dag:<DAG: data_ingestion_gcs_dag> dagrun:<DagRun data_ingestion_gcs_dag @ 2025-04-16 00:00:00+00:00: scheduled__2025-04-16T00:00:00+00:00, state:running, queued_at: 2025-04-17 01:33:27.294579+00:00. externally triggered: False>
+[2025-04-17T01:33:33.446+0000] {logging_mixin.py:190} INFO - Failure caused by [Errno 2] No such file or directory: '/opt/.socrata/credentials/nyc_od_app_token.txt'
+[2025-04-17T01:33:33.446+0000] {taskinstance.py:1226} INFO - Marking task as UP_FOR_RETRY. dag_id=data_ingestion_gcs_dag, task_id=fetch_permits_task, run_id=scheduled__2025-04-16T00:00:00+00:00, execution_date=20250416T000000, start_date=20250417T013333, end_date=20250417T013333
+[2025-04-17T01:33:33.464+0000] {taskinstance.py:341} INFO - ::group::Post task execution logs
+[2025-04-17T01:33:33.464+0000] {standard_task_runner.py:124} ERROR - Failed to execute job 4 for task fetch_permits_task ([Errno 2] No such file or directory: '/opt/.socrata/credentials/nyc_od_app_token.txt'; 85)
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/task/task_runner/standard_task_runner.py", line 117, in _start_by_fork
+    ret = args.func(args, dag=self.dag)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/cli/cli_config.py", line 49, in command
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/utils/cli.py", line 116, in wrapper
+    return f(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/cli/commands/task_command.py", line 483, in task_run
+    task_return_code = _run_task_by_selected_method(args, _dag, ti)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/cli/commands/task_command.py", line 256, in _run_task_by_selected_method
+    return _run_raw_task(args, ti)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/cli/commands/task_command.py", line 341, in _run_raw_task
+    return ti._run_raw_task(
+           ^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/utils/session.py", line 97, in wrapper
+    return func(*args, session=session, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 3006, in _run_raw_task
+    return _run_raw_task(
+           ^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 274, in _run_raw_task
+    TaskInstance._execute_task_with_callbacks(
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 3161, in _execute_task_with_callbacks
+    result = self._execute_task(context, task_orig)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 3185, in _execute_task
+    return _execute_task(self, context, task_orig)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 768, in _execute_task
+    result = _execute_callable(context=context, **execute_callable_kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 734, in _execute_callable
+    return ExecutionCallableRunner(
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/utils/operator_helpers.py", line 252, in run
+    return self.func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/baseoperator.py", line 424, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 274, in execute
+    return self.do_branch(context, super().execute(context))
+                                   ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/baseoperator.py", line 424, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 238, in execute
+    return_value = self.execute_callable()
+                   ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 256, in execute_callable
+    return runner.run(*self.op_args, **self.op_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/utils/operator_helpers.py", line 252, in run
+    return self.func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/airflow/dags/data_ingestion_gcs_dag.py", line 71, in fetch_permits
+    with open(token_file_path, "r") as file:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/opt/.socrata/credentials/nyc_od_app_token.txt'
+[2025-04-17T01:33:33.508+0000] {local_task_job_runner.py:266} INFO - Task exited with return code 1
+[2025-04-17T01:33:33.541+0000] {taskinstance.py:3901} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2025-04-17T01:33:33.542+0000] {local_task_job_runner.py:245} INFO - ::endgroup::
+[2025-04-17T01:35:08.193+0000] {local_task_job_runner.py:123} INFO - ::group::Pre task execution logs
+[2025-04-17T01:35:08.204+0000] {taskinstance.py:2614} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: data_ingestion_gcs_dag.fetch_permits_task scheduled__2025-04-16T00:00:00+00:00 [queued]>
+[2025-04-17T01:35:08.209+0000] {taskinstance.py:2614} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: data_ingestion_gcs_dag.fetch_permits_task scheduled__2025-04-16T00:00:00+00:00 [queued]>
+[2025-04-17T01:35:08.209+0000] {taskinstance.py:2867} INFO - Starting attempt 1 of 2
+[2025-04-17T01:35:08.216+0000] {taskinstance.py:2890} INFO - Executing <Task(BranchPythonOperator): fetch_permits_task> on 2025-04-16 00:00:00+00:00
+[2025-04-17T01:35:08.221+0000] {warnings.py:112} WARNING - /home/***/.local/lib/python3.12/site-packages/***/task/task_runner/standard_task_runner.py:70: DeprecationWarning: This process (pid=83) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  pid = os.fork()
+
+[2025-04-17T01:35:08.222+0000] {standard_task_runner.py:72} INFO - Started process 85 to run task
+[2025-04-17T01:35:08.224+0000] {standard_task_runner.py:104} INFO - Running: ['***', 'tasks', 'run', 'data_ingestion_gcs_dag', 'fetch_permits_task', 'scheduled__2025-04-16T00:00:00+00:00', '--job-id', '4', '--raw', '--subdir', 'DAGS_FOLDER/data_ingestion_gcs_dag.py', '--cfg-path', '/tmp/tmps6unrzrr']
+[2025-04-17T01:35:08.225+0000] {standard_task_runner.py:105} INFO - Job 4: Subtask fetch_permits_task
+[2025-04-17T01:35:08.250+0000] {task_command.py:467} INFO - Running <TaskInstance: data_ingestion_gcs_dag.fetch_permits_task scheduled__2025-04-16T00:00:00+00:00 [running]> on host e4cb45997592
+[2025-04-17T01:35:08.287+0000] {taskinstance.py:3134} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='data_ingestion_gcs_dag' AIRFLOW_CTX_TASK_ID='fetch_permits_task' AIRFLOW_CTX_EXECUTION_DATE='2025-04-16T00:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2025-04-16T00:00:00+00:00'
+[2025-04-17T01:35:08.288+0000] {logging_mixin.py:190} INFO - Task instance is in running state
+[2025-04-17T01:35:08.288+0000] {logging_mixin.py:190} INFO -  Previous state of the Task instance: queued
+[2025-04-17T01:35:08.288+0000] {logging_mixin.py:190} INFO - Current task name:fetch_permits_task state:running start_date:2025-04-17 01:35:08.204973+00:00
+[2025-04-17T01:35:08.288+0000] {logging_mixin.py:190} INFO - Dag name:data_ingestion_gcs_dag and current dag run status:running
+[2025-04-17T01:35:08.288+0000] {taskinstance.py:732} INFO - ::endgroup::
+[2025-04-17T01:35:08.289+0000] {baseoperator.py:423} WARNING - BranchPythonOperator.execute cannot be called outside TaskInstance!
+[2025-04-17T01:35:08.289+0000] {taskinstance.py:3313} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 768, in _execute_task
+    result = _execute_callable(context=context, **execute_callable_kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 734, in _execute_callable
+    return ExecutionCallableRunner(
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/utils/operator_helpers.py", line 252, in run
+    return self.func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/baseoperator.py", line 424, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 274, in execute
+    return self.do_branch(context, super().execute(context))
+                                   ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/baseoperator.py", line 424, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 238, in execute
+    return_value = self.execute_callable()
+                   ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 256, in execute_callable
+    return runner.run(*self.op_args, **self.op_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/utils/operator_helpers.py", line 252, in run
+    return self.func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/airflow/dags/data_ingestion_gcs_dag.py", line 71, in fetch_permits
+    with open(token_file_path, "r") as file:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/opt/.socrata/credentials/nyc_od_app_token.txt'
+[2025-04-17T01:35:08.297+0000] {logging_mixin.py:190} INFO - Task instance in failure state
+[2025-04-17T01:35:08.297+0000] {logging_mixin.py:190} INFO - Task start:2025-04-17 01:35:08.204973+00:00 end:2025-04-17 01:35:08.296786+00:00 duration:0.091813
+[2025-04-17T01:35:08.297+0000] {logging_mixin.py:190} INFO - Task:<Task(BranchPythonOperator): fetch_permits_task> dag:<DAG: data_ingestion_gcs_dag> dagrun:<DagRun data_ingestion_gcs_dag @ 2025-04-16 00:00:00+00:00: scheduled__2025-04-16T00:00:00+00:00, state:running, queued_at: 2025-04-17 01:35:02.208563+00:00. externally triggered: False>
+[2025-04-17T01:35:08.297+0000] {logging_mixin.py:190} INFO - Failure caused by [Errno 2] No such file or directory: '/opt/.socrata/credentials/nyc_od_app_token.txt'
+[2025-04-17T01:35:08.297+0000] {taskinstance.py:1226} INFO - Marking task as UP_FOR_RETRY. dag_id=data_ingestion_gcs_dag, task_id=fetch_permits_task, run_id=scheduled__2025-04-16T00:00:00+00:00, execution_date=20250416T000000, start_date=20250417T013508, end_date=20250417T013508
+[2025-04-17T01:35:08.311+0000] {taskinstance.py:341} INFO - ::group::Post task execution logs
+[2025-04-17T01:35:08.311+0000] {standard_task_runner.py:124} ERROR - Failed to execute job 4 for task fetch_permits_task ([Errno 2] No such file or directory: '/opt/.socrata/credentials/nyc_od_app_token.txt'; 85)
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/task/task_runner/standard_task_runner.py", line 117, in _start_by_fork
+    ret = args.func(args, dag=self.dag)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/cli/cli_config.py", line 49, in command
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/utils/cli.py", line 116, in wrapper
+    return f(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/cli/commands/task_command.py", line 483, in task_run
+    task_return_code = _run_task_by_selected_method(args, _dag, ti)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/cli/commands/task_command.py", line 256, in _run_task_by_selected_method
+    return _run_raw_task(args, ti)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/cli/commands/task_command.py", line 341, in _run_raw_task
+    return ti._run_raw_task(
+           ^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/utils/session.py", line 97, in wrapper
+    return func(*args, session=session, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 3006, in _run_raw_task
+    return _run_raw_task(
+           ^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 274, in _run_raw_task
+    TaskInstance._execute_task_with_callbacks(
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 3161, in _execute_task_with_callbacks
+    result = self._execute_task(context, task_orig)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 3185, in _execute_task
+    return _execute_task(self, context, task_orig)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 768, in _execute_task
+    result = _execute_callable(context=context, **execute_callable_kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 734, in _execute_callable
+    return ExecutionCallableRunner(
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/utils/operator_helpers.py", line 252, in run
+    return self.func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/baseoperator.py", line 424, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 274, in execute
+    return self.do_branch(context, super().execute(context))
+                                   ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/baseoperator.py", line 424, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 238, in execute
+    return_value = self.execute_callable()
+                   ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 256, in execute_callable
+    return runner.run(*self.op_args, **self.op_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/utils/operator_helpers.py", line 252, in run
+    return self.func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/airflow/dags/data_ingestion_gcs_dag.py", line 71, in fetch_permits
+    with open(token_file_path, "r") as file:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/opt/.socrata/credentials/nyc_od_app_token.txt'
+[2025-04-17T01:35:08.321+0000] {local_task_job_runner.py:266} INFO - Task exited with return code 1
+[2025-04-17T01:35:08.333+0000] {taskinstance.py:3901} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2025-04-17T01:35:08.333+0000] {local_task_job_runner.py:245} INFO - ::endgroup::
+[2025-04-17T01:37:40.288+0000] {local_task_job_runner.py:123} INFO - ::group::Pre task execution logs
+[2025-04-17T01:37:40.298+0000] {taskinstance.py:2614} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: data_ingestion_gcs_dag.fetch_permits_task scheduled__2025-04-16T00:00:00+00:00 [queued]>
+[2025-04-17T01:37:40.303+0000] {taskinstance.py:2614} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: data_ingestion_gcs_dag.fetch_permits_task scheduled__2025-04-16T00:00:00+00:00 [queued]>
+[2025-04-17T01:37:40.304+0000] {taskinstance.py:2867} INFO - Starting attempt 1 of 2
+[2025-04-17T01:37:40.310+0000] {taskinstance.py:2890} INFO - Executing <Task(BranchPythonOperator): fetch_permits_task> on 2025-04-16 00:00:00+00:00
+[2025-04-17T01:37:40.313+0000] {warnings.py:112} WARNING - /home/***/.local/lib/python3.12/site-packages/***/task/task_runner/standard_task_runner.py:70: DeprecationWarning: This process (pid=90) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  pid = os.fork()
+
+[2025-04-17T01:37:40.314+0000] {standard_task_runner.py:72} INFO - Started process 92 to run task
+[2025-04-17T01:37:40.315+0000] {standard_task_runner.py:104} INFO - Running: ['***', 'tasks', 'run', 'data_ingestion_gcs_dag', 'fetch_permits_task', 'scheduled__2025-04-16T00:00:00+00:00', '--job-id', '4', '--raw', '--subdir', 'DAGS_FOLDER/data_ingestion_gcs_dag.py', '--cfg-path', '/tmp/tmphca7qmro']
+[2025-04-17T01:37:40.315+0000] {standard_task_runner.py:105} INFO - Job 4: Subtask fetch_permits_task
+[2025-04-17T01:37:40.340+0000] {task_command.py:467} INFO - Running <TaskInstance: data_ingestion_gcs_dag.fetch_permits_task scheduled__2025-04-16T00:00:00+00:00 [running]> on host 24f4700a8657
+[2025-04-17T01:37:40.378+0000] {taskinstance.py:3134} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='data_ingestion_gcs_dag' AIRFLOW_CTX_TASK_ID='fetch_permits_task' AIRFLOW_CTX_EXECUTION_DATE='2025-04-16T00:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2025-04-16T00:00:00+00:00'
+[2025-04-17T01:37:40.379+0000] {logging_mixin.py:190} INFO - Task instance is in running state
+[2025-04-17T01:37:40.379+0000] {logging_mixin.py:190} INFO -  Previous state of the Task instance: queued
+[2025-04-17T01:37:40.379+0000] {logging_mixin.py:190} INFO - Current task name:fetch_permits_task state:running start_date:2025-04-17 01:37:40.298765+00:00
+[2025-04-17T01:37:40.380+0000] {logging_mixin.py:190} INFO - Dag name:data_ingestion_gcs_dag and current dag run status:running
+[2025-04-17T01:37:40.380+0000] {taskinstance.py:732} INFO - ::endgroup::
+[2025-04-17T01:37:40.380+0000] {baseoperator.py:423} WARNING - BranchPythonOperator.execute cannot be called outside TaskInstance!
+[2025-04-17T01:37:40.380+0000] {taskinstance.py:3313} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 768, in _execute_task
+    result = _execute_callable(context=context, **execute_callable_kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 734, in _execute_callable
+    return ExecutionCallableRunner(
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/utils/operator_helpers.py", line 252, in run
+    return self.func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/baseoperator.py", line 424, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 274, in execute
+    return self.do_branch(context, super().execute(context))
+                                   ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/baseoperator.py", line 424, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 238, in execute
+    return_value = self.execute_callable()
+                   ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 256, in execute_callable
+    return runner.run(*self.op_args, **self.op_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/utils/operator_helpers.py", line 252, in run
+    return self.func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/airflow/dags/data_ingestion_gcs_dag.py", line 71, in fetch_permits
+    with open(token_file_path, "r") as file:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/opt/.socrata/credentials/nyc_od_app_token.txt'
+[2025-04-17T01:37:40.387+0000] {logging_mixin.py:190} INFO - Task instance in failure state
+[2025-04-17T01:37:40.387+0000] {logging_mixin.py:190} INFO - Task start:2025-04-17 01:37:40.298765+00:00 end:2025-04-17 01:37:40.386788+00:00 duration:0.088023
+[2025-04-17T01:37:40.387+0000] {logging_mixin.py:190} INFO - Task:<Task(BranchPythonOperator): fetch_permits_task> dag:<DAG: data_ingestion_gcs_dag> dagrun:<DagRun data_ingestion_gcs_dag @ 2025-04-16 00:00:00+00:00: scheduled__2025-04-16T00:00:00+00:00, state:running, queued_at: 2025-04-17 01:37:34.250465+00:00. externally triggered: False>
+[2025-04-17T01:37:40.387+0000] {logging_mixin.py:190} INFO - Failure caused by [Errno 2] No such file or directory: '/opt/.socrata/credentials/nyc_od_app_token.txt'
+[2025-04-17T01:37:40.387+0000] {taskinstance.py:1226} INFO - Marking task as UP_FOR_RETRY. dag_id=data_ingestion_gcs_dag, task_id=fetch_permits_task, run_id=scheduled__2025-04-16T00:00:00+00:00, execution_date=20250416T000000, start_date=20250417T013740, end_date=20250417T013740
+[2025-04-17T01:37:40.401+0000] {taskinstance.py:341} INFO - ::group::Post task execution logs
+[2025-04-17T01:37:40.401+0000] {standard_task_runner.py:124} ERROR - Failed to execute job 4 for task fetch_permits_task ([Errno 2] No such file or directory: '/opt/.socrata/credentials/nyc_od_app_token.txt'; 92)
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/task/task_runner/standard_task_runner.py", line 117, in _start_by_fork
+    ret = args.func(args, dag=self.dag)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/cli/cli_config.py", line 49, in command
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/utils/cli.py", line 116, in wrapper
+    return f(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/cli/commands/task_command.py", line 483, in task_run
+    task_return_code = _run_task_by_selected_method(args, _dag, ti)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/cli/commands/task_command.py", line 256, in _run_task_by_selected_method
+    return _run_raw_task(args, ti)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/cli/commands/task_command.py", line 341, in _run_raw_task
+    return ti._run_raw_task(
+           ^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/utils/session.py", line 97, in wrapper
+    return func(*args, session=session, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 3006, in _run_raw_task
+    return _run_raw_task(
+           ^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 274, in _run_raw_task
+    TaskInstance._execute_task_with_callbacks(
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 3161, in _execute_task_with_callbacks
+    result = self._execute_task(context, task_orig)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 3185, in _execute_task
+    return _execute_task(self, context, task_orig)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 768, in _execute_task
+    result = _execute_callable(context=context, **execute_callable_kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 734, in _execute_callable
+    return ExecutionCallableRunner(
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/utils/operator_helpers.py", line 252, in run
+    return self.func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/baseoperator.py", line 424, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 274, in execute
+    return self.do_branch(context, super().execute(context))
+                                   ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/baseoperator.py", line 424, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 238, in execute
+    return_value = self.execute_callable()
+                   ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 256, in execute_callable
+    return runner.run(*self.op_args, **self.op_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/utils/operator_helpers.py", line 252, in run
+    return self.func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/airflow/dags/data_ingestion_gcs_dag.py", line 71, in fetch_permits
+    with open(token_file_path, "r") as file:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/opt/.socrata/credentials/nyc_od_app_token.txt'
+[2025-04-17T01:37:40.412+0000] {local_task_job_runner.py:266} INFO - Task exited with return code 1
+[2025-04-17T01:37:40.428+0000] {taskinstance.py:3901} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2025-04-17T01:37:40.429+0000] {local_task_job_runner.py:245} INFO - ::endgroup::
+[2025-04-17T01:42:52.188+0000] {local_task_job_runner.py:123} INFO - ::group::Pre task execution logs
+[2025-04-17T01:42:52.199+0000] {taskinstance.py:2614} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: data_ingestion_gcs_dag.fetch_permits_task scheduled__2025-04-16T00:00:00+00:00 [queued]>
+[2025-04-17T01:42:52.205+0000] {taskinstance.py:2614} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: data_ingestion_gcs_dag.fetch_permits_task scheduled__2025-04-16T00:00:00+00:00 [queued]>
+[2025-04-17T01:42:52.206+0000] {taskinstance.py:2867} INFO - Starting attempt 1 of 2
+[2025-04-17T01:42:52.212+0000] {taskinstance.py:2890} INFO - Executing <Task(BranchPythonOperator): fetch_permits_task> on 2025-04-16 00:00:00+00:00
+[2025-04-17T01:42:52.217+0000] {warnings.py:112} WARNING - /home/***/.local/lib/python3.12/site-packages/***/task/task_runner/standard_task_runner.py:70: DeprecationWarning: This process (pid=83) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  pid = os.fork()
+
+[2025-04-17T01:42:52.218+0000] {standard_task_runner.py:72} INFO - Started process 85 to run task
+[2025-04-17T01:42:52.220+0000] {standard_task_runner.py:104} INFO - Running: ['***', 'tasks', 'run', 'data_ingestion_gcs_dag', 'fetch_permits_task', 'scheduled__2025-04-16T00:00:00+00:00', '--job-id', '4', '--raw', '--subdir', 'DAGS_FOLDER/data_ingestion_gcs_dag.py', '--cfg-path', '/tmp/tmponhwjbo1']
+[2025-04-17T01:42:52.221+0000] {standard_task_runner.py:105} INFO - Job 4: Subtask fetch_permits_task
+[2025-04-17T01:42:52.245+0000] {task_command.py:467} INFO - Running <TaskInstance: data_ingestion_gcs_dag.fetch_permits_task scheduled__2025-04-16T00:00:00+00:00 [running]> on host 46a9ca65d5e7
+[2025-04-17T01:42:52.283+0000] {taskinstance.py:3134} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='data_ingestion_gcs_dag' AIRFLOW_CTX_TASK_ID='fetch_permits_task' AIRFLOW_CTX_EXECUTION_DATE='2025-04-16T00:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2025-04-16T00:00:00+00:00'
+[2025-04-17T01:42:52.284+0000] {logging_mixin.py:190} INFO - Task instance is in running state
+[2025-04-17T01:42:52.284+0000] {logging_mixin.py:190} INFO -  Previous state of the Task instance: queued
+[2025-04-17T01:42:52.284+0000] {logging_mixin.py:190} INFO - Current task name:fetch_permits_task state:running start_date:2025-04-17 01:42:52.199536+00:00
+[2025-04-17T01:42:52.284+0000] {logging_mixin.py:190} INFO - Dag name:data_ingestion_gcs_dag and current dag run status:running
+[2025-04-17T01:42:52.284+0000] {taskinstance.py:732} INFO - ::endgroup::
+[2025-04-17T01:42:52.284+0000] {baseoperator.py:423} WARNING - BranchPythonOperator.execute cannot be called outside TaskInstance!
+[2025-04-17T01:42:52.285+0000] {taskinstance.py:3313} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 768, in _execute_task
+    result = _execute_callable(context=context, **execute_callable_kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 734, in _execute_callable
+    return ExecutionCallableRunner(
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/utils/operator_helpers.py", line 252, in run
+    return self.func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/baseoperator.py", line 424, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 274, in execute
+    return self.do_branch(context, super().execute(context))
+                                   ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/baseoperator.py", line 424, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 238, in execute
+    return_value = self.execute_callable()
+                   ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 256, in execute_callable
+    return runner.run(*self.op_args, **self.op_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/utils/operator_helpers.py", line 252, in run
+    return self.func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/airflow/dags/data_ingestion_gcs_dag.py", line 71, in fetch_permits
+    with open(token_file_path, "r") as file:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/.socrata/credentials/nyc_od_app_token.txt'
+[2025-04-17T01:42:52.293+0000] {logging_mixin.py:190} INFO - Task instance in failure state
+[2025-04-17T01:42:52.293+0000] {logging_mixin.py:190} INFO - Task start:2025-04-17 01:42:52.199536+00:00 end:2025-04-17 01:42:52.292790+00:00 duration:0.093254
+[2025-04-17T01:42:52.293+0000] {logging_mixin.py:190} INFO - Task:<Task(BranchPythonOperator): fetch_permits_task> dag:<DAG: data_ingestion_gcs_dag> dagrun:<DagRun data_ingestion_gcs_dag @ 2025-04-16 00:00:00+00:00: scheduled__2025-04-16T00:00:00+00:00, state:running, queued_at: 2025-04-17 01:42:46.215117+00:00. externally triggered: False>
+[2025-04-17T01:42:52.293+0000] {logging_mixin.py:190} INFO - Failure caused by [Errno 2] No such file or directory: '/.socrata/credentials/nyc_od_app_token.txt'
+[2025-04-17T01:42:52.293+0000] {taskinstance.py:1226} INFO - Marking task as UP_FOR_RETRY. dag_id=data_ingestion_gcs_dag, task_id=fetch_permits_task, run_id=scheduled__2025-04-16T00:00:00+00:00, execution_date=20250416T000000, start_date=20250417T014252, end_date=20250417T014252
+[2025-04-17T01:42:52.311+0000] {taskinstance.py:341} INFO - ::group::Post task execution logs
+[2025-04-17T01:42:52.311+0000] {standard_task_runner.py:124} ERROR - Failed to execute job 4 for task fetch_permits_task ([Errno 2] No such file or directory: '/.socrata/credentials/nyc_od_app_token.txt'; 85)
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/task/task_runner/standard_task_runner.py", line 117, in _start_by_fork
+    ret = args.func(args, dag=self.dag)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/cli/cli_config.py", line 49, in command
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/utils/cli.py", line 116, in wrapper
+    return f(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/cli/commands/task_command.py", line 483, in task_run
+    task_return_code = _run_task_by_selected_method(args, _dag, ti)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/cli/commands/task_command.py", line 256, in _run_task_by_selected_method
+    return _run_raw_task(args, ti)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/cli/commands/task_command.py", line 341, in _run_raw_task
+    return ti._run_raw_task(
+           ^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/utils/session.py", line 97, in wrapper
+    return func(*args, session=session, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 3006, in _run_raw_task
+    return _run_raw_task(
+           ^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 274, in _run_raw_task
+    TaskInstance._execute_task_with_callbacks(
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 3161, in _execute_task_with_callbacks
+    result = self._execute_task(context, task_orig)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 3185, in _execute_task
+    return _execute_task(self, context, task_orig)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 768, in _execute_task
+    result = _execute_callable(context=context, **execute_callable_kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 734, in _execute_callable
+    return ExecutionCallableRunner(
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/utils/operator_helpers.py", line 252, in run
+    return self.func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/baseoperator.py", line 424, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 274, in execute
+    return self.do_branch(context, super().execute(context))
+                                   ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/baseoperator.py", line 424, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 238, in execute
+    return_value = self.execute_callable()
+                   ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 256, in execute_callable
+    return runner.run(*self.op_args, **self.op_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/utils/operator_helpers.py", line 252, in run
+    return self.func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/airflow/dags/data_ingestion_gcs_dag.py", line 71, in fetch_permits
+    with open(token_file_path, "r") as file:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/.socrata/credentials/nyc_od_app_token.txt'
+[2025-04-17T01:42:52.358+0000] {local_task_job_runner.py:266} INFO - Task exited with return code 1
+[2025-04-17T01:42:52.399+0000] {taskinstance.py:3901} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2025-04-17T01:42:52.400+0000] {local_task_job_runner.py:245} INFO - ::endgroup::
+[2025-04-17T01:44:52.464+0000] {local_task_job_runner.py:123} INFO - ::group::Pre task execution logs
+[2025-04-17T01:44:52.474+0000] {taskinstance.py:2614} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: data_ingestion_gcs_dag.fetch_permits_task scheduled__2025-04-16T00:00:00+00:00 [queued]>
+[2025-04-17T01:44:52.479+0000] {taskinstance.py:2614} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: data_ingestion_gcs_dag.fetch_permits_task scheduled__2025-04-16T00:00:00+00:00 [queued]>
+[2025-04-17T01:44:52.480+0000] {taskinstance.py:2867} INFO - Starting attempt 1 of 2
+[2025-04-17T01:44:52.485+0000] {taskinstance.py:2890} INFO - Executing <Task(BranchPythonOperator): fetch_permits_task> on 2025-04-16 00:00:00+00:00
+[2025-04-17T01:44:52.491+0000] {standard_task_runner.py:104} INFO - Running: ['***', 'tasks', 'run', 'data_ingestion_gcs_dag', 'fetch_permits_task', 'scheduled__2025-04-16T00:00:00+00:00', '--job-id', '4', '--raw', '--subdir', 'DAGS_FOLDER/data_ingestion_gcs_dag.py', '--cfg-path', '/tmp/tmp6x52_sns']
+[2025-04-17T01:44:52.489+0000] {warnings.py:112} WARNING - /home/***/.local/lib/python3.12/site-packages/***/task/task_runner/standard_task_runner.py:70: DeprecationWarning: This process (pid=83) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  pid = os.fork()
+
+[2025-04-17T01:44:52.492+0000] {standard_task_runner.py:72} INFO - Started process 85 to run task
+[2025-04-17T01:44:52.492+0000] {standard_task_runner.py:105} INFO - Job 4: Subtask fetch_permits_task
+[2025-04-17T01:44:52.519+0000] {task_command.py:467} INFO - Running <TaskInstance: data_ingestion_gcs_dag.fetch_permits_task scheduled__2025-04-16T00:00:00+00:00 [running]> on host 42bbc89119e7
+[2025-04-17T01:44:52.559+0000] {taskinstance.py:3134} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='data_ingestion_gcs_dag' AIRFLOW_CTX_TASK_ID='fetch_permits_task' AIRFLOW_CTX_EXECUTION_DATE='2025-04-16T00:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2025-04-16T00:00:00+00:00'
+[2025-04-17T01:44:52.560+0000] {logging_mixin.py:190} INFO - Task instance is in running state
+[2025-04-17T01:44:52.560+0000] {logging_mixin.py:190} INFO -  Previous state of the Task instance: queued
+[2025-04-17T01:44:52.560+0000] {logging_mixin.py:190} INFO - Current task name:fetch_permits_task state:running start_date:2025-04-17 01:44:52.475078+00:00
+[2025-04-17T01:44:52.560+0000] {logging_mixin.py:190} INFO - Dag name:data_ingestion_gcs_dag and current dag run status:running
+[2025-04-17T01:44:52.560+0000] {taskinstance.py:732} INFO - ::endgroup::
+[2025-04-17T01:44:52.560+0000] {baseoperator.py:423} WARNING - BranchPythonOperator.execute cannot be called outside TaskInstance!
+[2025-04-17T01:44:52.561+0000] {taskinstance.py:3313} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 768, in _execute_task
+    result = _execute_callable(context=context, **execute_callable_kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 734, in _execute_callable
+    return ExecutionCallableRunner(
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/utils/operator_helpers.py", line 252, in run
+    return self.func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/baseoperator.py", line 424, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 274, in execute
+    return self.do_branch(context, super().execute(context))
+                                   ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/baseoperator.py", line 424, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 238, in execute
+    return_value = self.execute_callable()
+                   ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 256, in execute_callable
+    return runner.run(*self.op_args, **self.op_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/utils/operator_helpers.py", line 252, in run
+    return self.func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/airflow/dags/data_ingestion_gcs_dag.py", line 71, in fetch_permits
+    with open(token_file_path, "r") as file:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/.socrata/credentials/nyc_od_app_token.txt'
+[2025-04-17T01:44:52.567+0000] {logging_mixin.py:190} INFO - Task instance in failure state
+[2025-04-17T01:44:52.568+0000] {logging_mixin.py:190} INFO - Task start:2025-04-17 01:44:52.475078+00:00 end:2025-04-17 01:44:52.567473+00:00 duration:0.092395
+[2025-04-17T01:44:52.568+0000] {logging_mixin.py:190} INFO - Task:<Task(BranchPythonOperator): fetch_permits_task> dag:<DAG: data_ingestion_gcs_dag> dagrun:<DagRun data_ingestion_gcs_dag @ 2025-04-16 00:00:00+00:00: scheduled__2025-04-16T00:00:00+00:00, state:running, queued_at: 2025-04-17 01:44:46.469277+00:00. externally triggered: False>
+[2025-04-17T01:44:52.568+0000] {logging_mixin.py:190} INFO - Failure caused by [Errno 2] No such file or directory: '/.socrata/credentials/nyc_od_app_token.txt'
+[2025-04-17T01:44:52.568+0000] {taskinstance.py:1226} INFO - Marking task as UP_FOR_RETRY. dag_id=data_ingestion_gcs_dag, task_id=fetch_permits_task, run_id=scheduled__2025-04-16T00:00:00+00:00, execution_date=20250416T000000, start_date=20250417T014452, end_date=20250417T014452
+[2025-04-17T01:44:52.583+0000] {taskinstance.py:341} INFO - ::group::Post task execution logs
+[2025-04-17T01:44:52.584+0000] {standard_task_runner.py:124} ERROR - Failed to execute job 4 for task fetch_permits_task ([Errno 2] No such file or directory: '/.socrata/credentials/nyc_od_app_token.txt'; 85)
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/task/task_runner/standard_task_runner.py", line 117, in _start_by_fork
+    ret = args.func(args, dag=self.dag)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/cli/cli_config.py", line 49, in command
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/utils/cli.py", line 116, in wrapper
+    return f(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/cli/commands/task_command.py", line 483, in task_run
+    task_return_code = _run_task_by_selected_method(args, _dag, ti)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/cli/commands/task_command.py", line 256, in _run_task_by_selected_method
+    return _run_raw_task(args, ti)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/cli/commands/task_command.py", line 341, in _run_raw_task
+    return ti._run_raw_task(
+           ^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/utils/session.py", line 97, in wrapper
+    return func(*args, session=session, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 3006, in _run_raw_task
+    return _run_raw_task(
+           ^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 274, in _run_raw_task
+    TaskInstance._execute_task_with_callbacks(
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 3161, in _execute_task_with_callbacks
+    result = self._execute_task(context, task_orig)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 3185, in _execute_task
+    return _execute_task(self, context, task_orig)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 768, in _execute_task
+    result = _execute_callable(context=context, **execute_callable_kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 734, in _execute_callable
+    return ExecutionCallableRunner(
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/utils/operator_helpers.py", line 252, in run
+    return self.func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/baseoperator.py", line 424, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 274, in execute
+    return self.do_branch(context, super().execute(context))
+                                   ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/baseoperator.py", line 424, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 238, in execute
+    return_value = self.execute_callable()
+                   ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 256, in execute_callable
+    return runner.run(*self.op_args, **self.op_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/utils/operator_helpers.py", line 252, in run
+    return self.func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/airflow/dags/data_ingestion_gcs_dag.py", line 71, in fetch_permits
+    with open(token_file_path, "r") as file:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/.socrata/credentials/nyc_od_app_token.txt'
+[2025-04-17T01:44:52.591+0000] {local_task_job_runner.py:266} INFO - Task exited with return code 1
+[2025-04-17T01:44:52.604+0000] {taskinstance.py:3901} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2025-04-17T01:44:52.605+0000] {local_task_job_runner.py:245} INFO - ::endgroup::
+[2025-04-17T01:50:00.974+0000] {local_task_job_runner.py:123} INFO - ::group::Pre task execution logs
+[2025-04-17T01:50:00.985+0000] {taskinstance.py:2614} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: data_ingestion_gcs_dag.fetch_permits_task scheduled__2025-04-16T00:00:00+00:00 [queued]>
+[2025-04-17T01:50:00.991+0000] {taskinstance.py:2614} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: data_ingestion_gcs_dag.fetch_permits_task scheduled__2025-04-16T00:00:00+00:00 [queued]>
+[2025-04-17T01:50:00.991+0000] {taskinstance.py:2867} INFO - Starting attempt 1 of 2
+[2025-04-17T01:50:00.997+0000] {taskinstance.py:2890} INFO - Executing <Task(BranchPythonOperator): fetch_permits_task> on 2025-04-16 00:00:00+00:00
+[2025-04-17T01:50:01.001+0000] {warnings.py:112} WARNING - /home/***/.local/lib/python3.12/site-packages/***/task/task_runner/standard_task_runner.py:70: DeprecationWarning: This process (pid=83) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  pid = os.fork()
+
+[2025-04-17T01:50:01.002+0000] {standard_task_runner.py:72} INFO - Started process 85 to run task
+[2025-04-17T01:50:01.003+0000] {standard_task_runner.py:104} INFO - Running: ['***', 'tasks', 'run', 'data_ingestion_gcs_dag', 'fetch_permits_task', 'scheduled__2025-04-16T00:00:00+00:00', '--job-id', '4', '--raw', '--subdir', 'DAGS_FOLDER/data_ingestion_gcs_dag.py', '--cfg-path', '/tmp/tmpa67tv5oa']
+[2025-04-17T01:50:01.003+0000] {standard_task_runner.py:105} INFO - Job 4: Subtask fetch_permits_task
+[2025-04-17T01:50:01.029+0000] {task_command.py:467} INFO - Running <TaskInstance: data_ingestion_gcs_dag.fetch_permits_task scheduled__2025-04-16T00:00:00+00:00 [running]> on host 1308a6b61a6d
+[2025-04-17T01:50:01.066+0000] {taskinstance.py:3134} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='data_ingestion_gcs_dag' AIRFLOW_CTX_TASK_ID='fetch_permits_task' AIRFLOW_CTX_EXECUTION_DATE='2025-04-16T00:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2025-04-16T00:00:00+00:00'
+[2025-04-17T01:50:01.067+0000] {logging_mixin.py:190} INFO - Task instance is in running state
+[2025-04-17T01:50:01.067+0000] {logging_mixin.py:190} INFO -  Previous state of the Task instance: queued
+[2025-04-17T01:50:01.067+0000] {logging_mixin.py:190} INFO - Current task name:fetch_permits_task state:running start_date:2025-04-17 01:50:00.986066+00:00
+[2025-04-17T01:50:01.067+0000] {logging_mixin.py:190} INFO - Dag name:data_ingestion_gcs_dag and current dag run status:running
+[2025-04-17T01:50:01.068+0000] {taskinstance.py:732} INFO - ::endgroup::
+[2025-04-17T01:50:01.068+0000] {baseoperator.py:423} WARNING - BranchPythonOperator.execute cannot be called outside TaskInstance!
+[2025-04-17T01:50:01.068+0000] {taskinstance.py:3313} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 768, in _execute_task
+    result = _execute_callable(context=context, **execute_callable_kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 734, in _execute_callable
+    return ExecutionCallableRunner(
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/utils/operator_helpers.py", line 252, in run
+    return self.func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/baseoperator.py", line 424, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 274, in execute
+    return self.do_branch(context, super().execute(context))
+                                   ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/baseoperator.py", line 424, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 238, in execute
+    return_value = self.execute_callable()
+                   ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 256, in execute_callable
+    return runner.run(*self.op_args, **self.op_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/utils/operator_helpers.py", line 252, in run
+    return self.func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/airflow/dags/data_ingestion_gcs_dag.py", line 71, in fetch_permits
+    with open(token_file_path, "r") as file:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/.socrata/credentials/nyc_od_app_token.txt'
+[2025-04-17T01:50:01.075+0000] {logging_mixin.py:190} INFO - Task instance in failure state
+[2025-04-17T01:50:01.075+0000] {logging_mixin.py:190} INFO - Task start:2025-04-17 01:50:00.986066+00:00 end:2025-04-17 01:50:01.074844+00:00 duration:0.088778
+[2025-04-17T01:50:01.075+0000] {logging_mixin.py:190} INFO - Task:<Task(BranchPythonOperator): fetch_permits_task> dag:<DAG: data_ingestion_gcs_dag> dagrun:<DagRun data_ingestion_gcs_dag @ 2025-04-16 00:00:00+00:00: scheduled__2025-04-16T00:00:00+00:00, state:running, queued_at: 2025-04-17 01:49:54.964252+00:00. externally triggered: False>
+[2025-04-17T01:50:01.075+0000] {logging_mixin.py:190} INFO - Failure caused by [Errno 2] No such file or directory: '/.socrata/credentials/nyc_od_app_token.txt'
+[2025-04-17T01:50:01.075+0000] {taskinstance.py:1226} INFO - Marking task as UP_FOR_RETRY. dag_id=data_ingestion_gcs_dag, task_id=fetch_permits_task, run_id=scheduled__2025-04-16T00:00:00+00:00, execution_date=20250416T000000, start_date=20250417T015000, end_date=20250417T015001
+[2025-04-17T01:50:01.092+0000] {taskinstance.py:341} INFO - ::group::Post task execution logs
+[2025-04-17T01:50:01.092+0000] {standard_task_runner.py:124} ERROR - Failed to execute job 4 for task fetch_permits_task ([Errno 2] No such file or directory: '/.socrata/credentials/nyc_od_app_token.txt'; 85)
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/task/task_runner/standard_task_runner.py", line 117, in _start_by_fork
+    ret = args.func(args, dag=self.dag)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/cli/cli_config.py", line 49, in command
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/utils/cli.py", line 116, in wrapper
+    return f(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/cli/commands/task_command.py", line 483, in task_run
+    task_return_code = _run_task_by_selected_method(args, _dag, ti)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/cli/commands/task_command.py", line 256, in _run_task_by_selected_method
+    return _run_raw_task(args, ti)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/cli/commands/task_command.py", line 341, in _run_raw_task
+    return ti._run_raw_task(
+           ^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/utils/session.py", line 97, in wrapper
+    return func(*args, session=session, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 3006, in _run_raw_task
+    return _run_raw_task(
+           ^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 274, in _run_raw_task
+    TaskInstance._execute_task_with_callbacks(
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 3161, in _execute_task_with_callbacks
+    result = self._execute_task(context, task_orig)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 3185, in _execute_task
+    return _execute_task(self, context, task_orig)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 768, in _execute_task
+    result = _execute_callable(context=context, **execute_callable_kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 734, in _execute_callable
+    return ExecutionCallableRunner(
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/utils/operator_helpers.py", line 252, in run
+    return self.func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/baseoperator.py", line 424, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 274, in execute
+    return self.do_branch(context, super().execute(context))
+                                   ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/baseoperator.py", line 424, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 238, in execute
+    return_value = self.execute_callable()
+                   ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 256, in execute_callable
+    return runner.run(*self.op_args, **self.op_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/utils/operator_helpers.py", line 252, in run
+    return self.func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/airflow/dags/data_ingestion_gcs_dag.py", line 71, in fetch_permits
+    with open(token_file_path, "r") as file:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/.socrata/credentials/nyc_od_app_token.txt'
+[2025-04-17T01:50:01.100+0000] {local_task_job_runner.py:266} INFO - Task exited with return code 1
+[2025-04-17T01:50:01.116+0000] {taskinstance.py:3901} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2025-04-17T01:50:01.117+0000] {local_task_job_runner.py:245} INFO - ::endgroup::
+[2025-04-17T01:52:43.610+0000] {local_task_job_runner.py:123} INFO - ::group::Pre task execution logs
+[2025-04-17T01:52:43.621+0000] {taskinstance.py:2614} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: data_ingestion_gcs_dag.fetch_permits_task scheduled__2025-04-16T00:00:00+00:00 [queued]>
+[2025-04-17T01:52:43.625+0000] {taskinstance.py:2614} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: data_ingestion_gcs_dag.fetch_permits_task scheduled__2025-04-16T00:00:00+00:00 [queued]>
+[2025-04-17T01:52:43.625+0000] {taskinstance.py:2867} INFO - Starting attempt 1 of 2
+[2025-04-17T01:52:43.632+0000] {taskinstance.py:2890} INFO - Executing <Task(BranchPythonOperator): fetch_permits_task> on 2025-04-16 00:00:00+00:00
+[2025-04-17T01:52:43.636+0000] {warnings.py:112} WARNING - /home/***/.local/lib/python3.12/site-packages/***/task/task_runner/standard_task_runner.py:70: DeprecationWarning: This process (pid=83) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  pid = os.fork()
+
+[2025-04-17T01:52:43.637+0000] {standard_task_runner.py:72} INFO - Started process 85 to run task
+[2025-04-17T01:52:43.639+0000] {standard_task_runner.py:104} INFO - Running: ['***', 'tasks', 'run', 'data_ingestion_gcs_dag', 'fetch_permits_task', 'scheduled__2025-04-16T00:00:00+00:00', '--job-id', '4', '--raw', '--subdir', 'DAGS_FOLDER/data_ingestion_gcs_dag.py', '--cfg-path', '/tmp/tmp_dv01s0s']
+[2025-04-17T01:52:43.640+0000] {standard_task_runner.py:105} INFO - Job 4: Subtask fetch_permits_task
+[2025-04-17T01:52:43.664+0000] {task_command.py:467} INFO - Running <TaskInstance: data_ingestion_gcs_dag.fetch_permits_task scheduled__2025-04-16T00:00:00+00:00 [running]> on host e0499efee7f4
+[2025-04-17T01:52:43.705+0000] {taskinstance.py:3134} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='data_ingestion_gcs_dag' AIRFLOW_CTX_TASK_ID='fetch_permits_task' AIRFLOW_CTX_EXECUTION_DATE='2025-04-16T00:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2025-04-16T00:00:00+00:00'
+[2025-04-17T01:52:43.706+0000] {logging_mixin.py:190} INFO - Task instance is in running state
+[2025-04-17T01:52:43.706+0000] {logging_mixin.py:190} INFO -  Previous state of the Task instance: queued
+[2025-04-17T01:52:43.706+0000] {logging_mixin.py:190} INFO - Current task name:fetch_permits_task state:running start_date:2025-04-17 01:52:43.621716+00:00
+[2025-04-17T01:52:43.706+0000] {logging_mixin.py:190} INFO - Dag name:data_ingestion_gcs_dag and current dag run status:running
+[2025-04-17T01:52:43.706+0000] {taskinstance.py:732} INFO - ::endgroup::
+[2025-04-17T01:52:43.707+0000] {baseoperator.py:423} WARNING - BranchPythonOperator.execute cannot be called outside TaskInstance!
+[2025-04-17T01:52:43.707+0000] {taskinstance.py:3313} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 768, in _execute_task
+    result = _execute_callable(context=context, **execute_callable_kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 734, in _execute_callable
+    return ExecutionCallableRunner(
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/utils/operator_helpers.py", line 252, in run
+    return self.func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/baseoperator.py", line 424, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 274, in execute
+    return self.do_branch(context, super().execute(context))
+                                   ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/baseoperator.py", line 424, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 238, in execute
+    return_value = self.execute_callable()
+                   ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 256, in execute_callable
+    return runner.run(*self.op_args, **self.op_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/utils/operator_helpers.py", line 252, in run
+    return self.func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/airflow/dags/data_ingestion_gcs_dag.py", line 71, in fetch_permits
+    with open(token_file_path, "r") as file:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/.socrata/credentials/nyc_od_app_token.txt'
+[2025-04-17T01:52:43.713+0000] {logging_mixin.py:190} INFO - Task instance in failure state
+[2025-04-17T01:52:43.714+0000] {logging_mixin.py:190} INFO - Task start:2025-04-17 01:52:43.621716+00:00 end:2025-04-17 01:52:43.713651+00:00 duration:0.091935
+[2025-04-17T01:52:43.714+0000] {logging_mixin.py:190} INFO - Task:<Task(BranchPythonOperator): fetch_permits_task> dag:<DAG: data_ingestion_gcs_dag> dagrun:<DagRun data_ingestion_gcs_dag @ 2025-04-16 00:00:00+00:00: scheduled__2025-04-16T00:00:00+00:00, state:running, queued_at: 2025-04-17 01:52:37.625586+00:00. externally triggered: False>
+[2025-04-17T01:52:43.714+0000] {logging_mixin.py:190} INFO - Failure caused by [Errno 2] No such file or directory: '/.socrata/credentials/nyc_od_app_token.txt'
+[2025-04-17T01:52:43.714+0000] {taskinstance.py:1226} INFO - Marking task as UP_FOR_RETRY. dag_id=data_ingestion_gcs_dag, task_id=fetch_permits_task, run_id=scheduled__2025-04-16T00:00:00+00:00, execution_date=20250416T000000, start_date=20250417T015243, end_date=20250417T015243
+[2025-04-17T01:52:43.728+0000] {taskinstance.py:341} INFO - ::group::Post task execution logs
+[2025-04-17T01:52:43.728+0000] {standard_task_runner.py:124} ERROR - Failed to execute job 4 for task fetch_permits_task ([Errno 2] No such file or directory: '/.socrata/credentials/nyc_od_app_token.txt'; 85)
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/task/task_runner/standard_task_runner.py", line 117, in _start_by_fork
+    ret = args.func(args, dag=self.dag)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/cli/cli_config.py", line 49, in command
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/utils/cli.py", line 116, in wrapper
+    return f(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/cli/commands/task_command.py", line 483, in task_run
+    task_return_code = _run_task_by_selected_method(args, _dag, ti)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/cli/commands/task_command.py", line 256, in _run_task_by_selected_method
+    return _run_raw_task(args, ti)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/cli/commands/task_command.py", line 341, in _run_raw_task
+    return ti._run_raw_task(
+           ^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/utils/session.py", line 97, in wrapper
+    return func(*args, session=session, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 3006, in _run_raw_task
+    return _run_raw_task(
+           ^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 274, in _run_raw_task
+    TaskInstance._execute_task_with_callbacks(
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 3161, in _execute_task_with_callbacks
+    result = self._execute_task(context, task_orig)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 3185, in _execute_task
+    return _execute_task(self, context, task_orig)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 768, in _execute_task
+    result = _execute_callable(context=context, **execute_callable_kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 734, in _execute_callable
+    return ExecutionCallableRunner(
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/utils/operator_helpers.py", line 252, in run
+    return self.func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/baseoperator.py", line 424, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 274, in execute
+    return self.do_branch(context, super().execute(context))
+                                   ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/baseoperator.py", line 424, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 238, in execute
+    return_value = self.execute_callable()
+                   ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 256, in execute_callable
+    return runner.run(*self.op_args, **self.op_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/utils/operator_helpers.py", line 252, in run
+    return self.func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/airflow/dags/data_ingestion_gcs_dag.py", line 71, in fetch_permits
+    with open(token_file_path, "r") as file:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/.socrata/credentials/nyc_od_app_token.txt'
+[2025-04-17T01:52:43.738+0000] {local_task_job_runner.py:266} INFO - Task exited with return code 1
+[2025-04-17T01:52:43.744+0000] {local_task_job_runner.py:245} INFO - ::endgroup::
+[2025-04-17T01:55:06.603+0000] {local_task_job_runner.py:123} INFO - ::group::Pre task execution logs
+[2025-04-17T01:55:06.614+0000] {taskinstance.py:2614} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: data_ingestion_gcs_dag.fetch_permits_task scheduled__2025-04-16T00:00:00+00:00 [queued]>
+[2025-04-17T01:55:06.618+0000] {taskinstance.py:2614} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: data_ingestion_gcs_dag.fetch_permits_task scheduled__2025-04-16T00:00:00+00:00 [queued]>
+[2025-04-17T01:55:06.618+0000] {taskinstance.py:2867} INFO - Starting attempt 1 of 2
+[2025-04-17T01:55:06.625+0000] {taskinstance.py:2890} INFO - Executing <Task(BranchPythonOperator): fetch_permits_task> on 2025-04-16 00:00:00+00:00
+[2025-04-17T01:55:06.629+0000] {warnings.py:112} WARNING - /home/***/.local/lib/python3.12/site-packages/***/task/task_runner/standard_task_runner.py:70: DeprecationWarning: This process (pid=85) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  pid = os.fork()
+
+[2025-04-17T01:55:06.630+0000] {standard_task_runner.py:72} INFO - Started process 87 to run task
+[2025-04-17T01:55:06.630+0000] {standard_task_runner.py:104} INFO - Running: ['***', 'tasks', 'run', 'data_ingestion_gcs_dag', 'fetch_permits_task', 'scheduled__2025-04-16T00:00:00+00:00', '--job-id', '4', '--raw', '--subdir', 'DAGS_FOLDER/data_ingestion_gcs_dag.py', '--cfg-path', '/tmp/tmpypeobjik']
+[2025-04-17T01:55:06.631+0000] {standard_task_runner.py:105} INFO - Job 4: Subtask fetch_permits_task
+[2025-04-17T01:55:06.655+0000] {task_command.py:467} INFO - Running <TaskInstance: data_ingestion_gcs_dag.fetch_permits_task scheduled__2025-04-16T00:00:00+00:00 [running]> on host 60c807fffc4d
+[2025-04-17T01:55:06.696+0000] {taskinstance.py:3134} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='data_ingestion_gcs_dag' AIRFLOW_CTX_TASK_ID='fetch_permits_task' AIRFLOW_CTX_EXECUTION_DATE='2025-04-16T00:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2025-04-16T00:00:00+00:00'
+[2025-04-17T01:55:06.697+0000] {logging_mixin.py:190} INFO - Task instance is in running state
+[2025-04-17T01:55:06.697+0000] {logging_mixin.py:190} INFO -  Previous state of the Task instance: queued
+[2025-04-17T01:55:06.697+0000] {logging_mixin.py:190} INFO - Current task name:fetch_permits_task state:running start_date:2025-04-17 01:55:06.614319+00:00
+[2025-04-17T01:55:06.697+0000] {logging_mixin.py:190} INFO - Dag name:data_ingestion_gcs_dag and current dag run status:running
+[2025-04-17T01:55:06.697+0000] {taskinstance.py:732} INFO - ::endgroup::
+[2025-04-17T01:55:06.698+0000] {baseoperator.py:423} WARNING - BranchPythonOperator.execute cannot be called outside TaskInstance!
+[2025-04-17T01:55:06.698+0000] {taskinstance.py:3313} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 768, in _execute_task
+    result = _execute_callable(context=context, **execute_callable_kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 734, in _execute_callable
+    return ExecutionCallableRunner(
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/utils/operator_helpers.py", line 252, in run
+    return self.func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/baseoperator.py", line 424, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 274, in execute
+    return self.do_branch(context, super().execute(context))
+                                   ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/baseoperator.py", line 424, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 238, in execute
+    return_value = self.execute_callable()
+                   ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 256, in execute_callable
+    return runner.run(*self.op_args, **self.op_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/utils/operator_helpers.py", line 252, in run
+    return self.func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/airflow/dags/data_ingestion_gcs_dag.py", line 71, in fetch_permits
+    with open(token_file_path, "r") as file:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/../.socrata/credentials/nyc_od_app_token.txt'
+[2025-04-17T01:55:06.705+0000] {logging_mixin.py:190} INFO - Task instance in failure state
+[2025-04-17T01:55:06.706+0000] {logging_mixin.py:190} INFO - Task start:2025-04-17 01:55:06.614319+00:00 end:2025-04-17 01:55:06.705524+00:00 duration:0.091205
+[2025-04-17T01:55:06.706+0000] {logging_mixin.py:190} INFO - Task:<Task(BranchPythonOperator): fetch_permits_task> dag:<DAG: data_ingestion_gcs_dag> dagrun:<DagRun data_ingestion_gcs_dag @ 2025-04-16 00:00:00+00:00: scheduled__2025-04-16T00:00:00+00:00, state:running, queued_at: 2025-04-17 01:55:00.429197+00:00. externally triggered: False>
+[2025-04-17T01:55:06.706+0000] {logging_mixin.py:190} INFO - Failure caused by [Errno 2] No such file or directory: '/../.socrata/credentials/nyc_od_app_token.txt'
+[2025-04-17T01:55:06.706+0000] {taskinstance.py:1226} INFO - Marking task as UP_FOR_RETRY. dag_id=data_ingestion_gcs_dag, task_id=fetch_permits_task, run_id=scheduled__2025-04-16T00:00:00+00:00, execution_date=20250416T000000, start_date=20250417T015506, end_date=20250417T015506
+[2025-04-17T01:55:06.722+0000] {taskinstance.py:341} INFO - ::group::Post task execution logs
+[2025-04-17T01:55:06.722+0000] {standard_task_runner.py:124} ERROR - Failed to execute job 4 for task fetch_permits_task ([Errno 2] No such file or directory: '/../.socrata/credentials/nyc_od_app_token.txt'; 87)
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/task/task_runner/standard_task_runner.py", line 117, in _start_by_fork
+    ret = args.func(args, dag=self.dag)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/cli/cli_config.py", line 49, in command
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/utils/cli.py", line 116, in wrapper
+    return f(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/cli/commands/task_command.py", line 483, in task_run
+    task_return_code = _run_task_by_selected_method(args, _dag, ti)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/cli/commands/task_command.py", line 256, in _run_task_by_selected_method
+    return _run_raw_task(args, ti)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/cli/commands/task_command.py", line 341, in _run_raw_task
+    return ti._run_raw_task(
+           ^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/utils/session.py", line 97, in wrapper
+    return func(*args, session=session, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 3006, in _run_raw_task
+    return _run_raw_task(
+           ^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 274, in _run_raw_task
+    TaskInstance._execute_task_with_callbacks(
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 3161, in _execute_task_with_callbacks
+    result = self._execute_task(context, task_orig)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 3185, in _execute_task
+    return _execute_task(self, context, task_orig)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 768, in _execute_task
+    result = _execute_callable(context=context, **execute_callable_kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/taskinstance.py", line 734, in _execute_callable
+    return ExecutionCallableRunner(
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/utils/operator_helpers.py", line 252, in run
+    return self.func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/baseoperator.py", line 424, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 274, in execute
+    return self.do_branch(context, super().execute(context))
+                                   ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/models/baseoperator.py", line 424, in wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 238, in execute
+    return_value = self.execute_callable()
+                   ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/operators/python.py", line 256, in execute_callable
+    return runner.run(*self.op_args, **self.op_kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/airflow/.local/lib/python3.12/site-packages/airflow/utils/operator_helpers.py", line 252, in run
+    return self.func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/airflow/dags/data_ingestion_gcs_dag.py", line 71, in fetch_permits
+    with open(token_file_path, "r") as file:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/../.socrata/credentials/nyc_od_app_token.txt'
+[2025-04-17T01:55:06.769+0000] {local_task_job_runner.py:266} INFO - Task exited with return code 1
+[2025-04-17T01:55:06.783+0000] {taskinstance.py:3901} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2025-04-17T01:55:06.784+0000] {local_task_job_runner.py:245} INFO - ::endgroup::
+[2025-04-17T01:58:01.469+0000] {local_task_job_runner.py:123} INFO - ::group::Pre task execution logs
+[2025-04-17T01:58:01.480+0000] {taskinstance.py:2614} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: data_ingestion_gcs_dag.fetch_permits_task scheduled__2025-04-16T00:00:00+00:00 [queued]>
+[2025-04-17T01:58:01.485+0000] {taskinstance.py:2614} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: data_ingestion_gcs_dag.fetch_permits_task scheduled__2025-04-16T00:00:00+00:00 [queued]>
+[2025-04-17T01:58:01.485+0000] {taskinstance.py:2867} INFO - Starting attempt 1 of 2
+[2025-04-17T01:58:01.490+0000] {taskinstance.py:2890} INFO - Executing <Task(BranchPythonOperator): fetch_permits_task> on 2025-04-16 00:00:00+00:00
+[2025-04-17T01:58:01.494+0000] {warnings.py:112} WARNING - /home/***/.local/lib/python3.12/site-packages/***/task/task_runner/standard_task_runner.py:70: DeprecationWarning: This process (pid=83) is multi-threaded, use of fork() may lead to deadlocks in the child.
+  pid = os.fork()
+
+[2025-04-17T01:58:01.495+0000] {standard_task_runner.py:72} INFO - Started process 85 to run task
+[2025-04-17T01:58:01.496+0000] {standard_task_runner.py:104} INFO - Running: ['***', 'tasks', 'run', 'data_ingestion_gcs_dag', 'fetch_permits_task', 'scheduled__2025-04-16T00:00:00+00:00', '--job-id', '4', '--raw', '--subdir', 'DAGS_FOLDER/data_ingestion_gcs_dag.py', '--cfg-path', '/tmp/tmpeixa3aym']
+[2025-04-17T01:58:01.496+0000] {standard_task_runner.py:105} INFO - Job 4: Subtask fetch_permits_task
+[2025-04-17T01:58:01.520+0000] {task_command.py:467} INFO - Running <TaskInstance: data_ingestion_gcs_dag.fetch_permits_task scheduled__2025-04-16T00:00:00+00:00 [running]> on host a4de9eb4cb15
+[2025-04-17T01:58:01.557+0000] {taskinstance.py:3134} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='***' AIRFLOW_CTX_DAG_ID='data_ingestion_gcs_dag' AIRFLOW_CTX_TASK_ID='fetch_permits_task' AIRFLOW_CTX_EXECUTION_DATE='2025-04-16T00:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2025-04-16T00:00:00+00:00'
+[2025-04-17T01:58:01.558+0000] {logging_mixin.py:190} INFO - Task instance is in running state
+[2025-04-17T01:58:01.558+0000] {logging_mixin.py:190} INFO -  Previous state of the Task instance: queued
+[2025-04-17T01:58:01.558+0000] {logging_mixin.py:190} INFO - Current task name:fetch_permits_task state:running start_date:2025-04-17 01:58:01.480369+00:00
+[2025-04-17T01:58:01.559+0000] {logging_mixin.py:190} INFO - Dag name:data_ingestion_gcs_dag and current dag run status:running
+[2025-04-17T01:58:01.559+0000] {taskinstance.py:732} INFO - ::endgroup::
+[2025-04-17T01:58:01.559+0000] {baseoperator.py:423} WARNING - BranchPythonOperator.execute cannot be called outside TaskInstance!
+[2025-04-17T01:58:01.566+0000] {logging_mixin.py:190} INFO - Fetching records for 2025-04-14 (offset=0)
+[2025-04-17T01:58:02.319+0000] {logging_mixin.py:190} INFO - results
+[2025-04-17T01:58:02.328+0000] {logging_mixin.py:190} INFO - df length: 29
+[2025-04-17T01:58:02.526+0000] {logging_mixin.py:190} INFO - no results
+[2025-04-17T01:58:02.527+0000] {logging_mixin.py:190} INFO - Fetching records for 2025-04-15 (offset=0)
+[2025-04-17T01:58:02.733+0000] {logging_mixin.py:190} INFO - results
+[2025-04-17T01:58:02.738+0000] {logging_mixin.py:190} INFO - df length: 59
+[2025-04-17T01:58:02.906+0000] {logging_mixin.py:190} INFO - no results
+[2025-04-17T01:58:02.907+0000] {logging_mixin.py:190} INFO - Fetching records for 2025-04-16 (offset=0)
+[2025-04-17T01:58:03.075+0000] {logging_mixin.py:190} INFO - no results
+[2025-04-17T01:58:03.076+0000] {logging_mixin.py:190} INFO - Fetching records for 2025-04-17 (offset=0)
+[2025-04-17T01:58:03.242+0000] {logging_mixin.py:190} INFO - no results
+[2025-04-17T01:58:03.244+0000] {logging_mixin.py:190} INFO - Create file with df of length 59
+[2025-04-17T01:58:03.331+0000] {python.py:240} INFO - Done. Returned value was: local_to_gcs_task
+[2025-04-17T01:58:03.332+0000] {branch.py:38} INFO - Branch into local_to_gcs_task
+[2025-04-17T01:58:03.332+0000] {skipmixin.py:233} INFO - Following branch ('local_to_gcs_task',)
+[2025-04-17T01:58:03.338+0000] {skipmixin.py:281} INFO - Skipping tasks [('skip_tasks', -1)]
+[2025-04-17T01:58:03.355+0000] {taskinstance.py:341} INFO - ::group::Post task execution logs
+[2025-04-17T01:58:03.356+0000] {taskinstance.py:353} INFO - Marking task as SUCCESS. dag_id=data_ingestion_gcs_dag, task_id=fetch_permits_task, run_id=scheduled__2025-04-16T00:00:00+00:00, execution_date=20250416T000000, start_date=20250417T015801, end_date=20250417T015803
+[2025-04-17T01:58:03.377+0000] {logging_mixin.py:190} INFO - Task instance in success state
+[2025-04-17T01:58:03.378+0000] {logging_mixin.py:190} INFO -  Previous state of the Task instance: running
+[2025-04-17T01:58:03.379+0000] {logging_mixin.py:190} INFO - Dag name:data_ingestion_gcs_dag queued_at:2025-04-17 01:57:55.460083+00:00
+[2025-04-17T01:58:03.380+0000] {logging_mixin.py:190} INFO - Task hostname:a4de9eb4cb15 operator:BranchPythonOperator
+[2025-04-17T01:58:03.399+0000] {local_task_job_runner.py:266} INFO - Task exited with return code 0
+[2025-04-17T01:58:03.432+0000] {taskinstance.py:3901} INFO - 1 downstream tasks scheduled from follow-on schedule check
+[2025-04-17T01:58:03.433+0000] {local_task_job_runner.py:245} INFO - ::endgroup::

@@ -4,6 +4,7 @@ import pandas as pd
 from sodapy import Socrata
 from dateutil import parser
 from time import sleep
+import json
 
 from airflow import DAG
 from airflow.utils.dates import days_ago
@@ -24,7 +25,7 @@ TEMP_TABLE = os.environ.get("TEMP_TABLE")
 TABLE_NAME = os.environ.get("TABLE_NAME")
 
 path_to_local_home = os.environ.get("AIRFLOW_HOME", "/opt/airflow/")
-token_file_path = "/opt/airflow/nyc_od_app_token.txt"
+token_file_path = os.environ.get("API_TOKEN_PATH", "/opt/airflow/nyc_od_app_token.txt")
 parquet_file_name = "building_permits"
 BIGQUERY_DATASET = os.environ.get("BIGQUERY_DATASET", "building_permits")
 API_ENDPOINT = "https://data.cityofnewyork.us/resource/ipu4-2q9a.json"
@@ -69,6 +70,7 @@ def get_last_issued_date():
 def fetch_permits(batch_size, **context):
   with open(token_file_path, "r") as file:
     API_TOKEN = file.read().rstrip()
+
   ti = context["ti"].xcom_pull(task_ids="get_last_issued_date_task")
   date = datetime.strptime(ti, '%Y-%m-%dT%H:%M:%S.%f') 
   today = datetime.now().replace(hour=0, minute=0, second=0, microsecond=0)
