@@ -27,7 +27,7 @@ A docker compose file was written that sets up the Airflow configuration. Most o
 
 The heart of this project is the Python script "data_ingestion_gcs_dag.py" This sets up the DAG and its daily trigger. The first block in the DAG, **get_last_issued_date_task** looks at the final BigQuery table to find the last issuance date that appears. Building permits are posted as they are issued, so this task helps us ensure that new data can be pulled by querying data via the API with an issuance date on or after the latest date seen. If the table doesn't exist yet, the last issuance date is set to exactly five years ago from the run date.
 
-The next task **fetch_permits_task** does the actually querying of the data we need from the API, but it first sets up the date range for which we need to query. It handles the API limit of 1000 records per API call, and the initial loading of the data, which contains a lot of records. It will pull all records from the last issuance date returned from the last task. The initial fetch takes some time (~10-15 minutes for me).
+The next task **fetch_permits_task** does the actually querying of the data we need from the API, but it first sets up the date range for which we need to query. It handles the API limit of 1000 records per API call, and the initial loading of the data, which contains a lot of records. It will pull all records from the last issuance date returned from the last task. The initial fetch takes some time (~10-15 minutes for me). Alternatively you could adjust the number of days in get_last_issued_date to less (currently set to 1825 days, or five years).
 
 **local_to_gcs_task** uploads the raw data to the GCS data lake.
 
