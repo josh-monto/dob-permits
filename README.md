@@ -139,7 +139,11 @@ Before running, some variables and volume mounts need to be changed to match you
     - path/to/google/credentials:/.google/credentials:ro
 ```
 
-Save the file and navigate to the root directory of the project in a bash terminal. Now it’s time to build (which could take a while) and run. To do this, run the following bash commands:
+Save the file and navigate to the root directory of the project in a bash terminal.
+
+Next, create a folder called "scripts" in the airflow directory.
+
+Now it’s time to build (which could take a while) and run. To do this, run the following bash commands:
 
 docker compose build
 
@@ -153,7 +157,7 @@ After a minute or two, all airflow services should be up and running, and the we
 
 Login credentials are user airflow and password airflow, at localhost:8081
 
-The DAG can be triggered from the home screen.
+The DAG (data_ingestion_gcs_dag) can be triggered from the home screen.
 
 The first run will take a long time (~10 minutes for me). Live progress can be viewed in the logs associated with the fetch_permits task, which is what will take the most time.
 
