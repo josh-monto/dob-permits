@@ -1,4 +1,0 @@
-apache-airflow==2.10.5
-apache-airflow-providers-google>=10.0.0
-sodapy
-pandas
