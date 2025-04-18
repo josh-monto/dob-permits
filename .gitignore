@@ -3,7 +3,5 @@
 *.tfstate.backup
 *.terraform.lock.hcl
 *.tfvars
-.google/
-.socrata/
 **/.terraform/
 **/airflow/logs/

@@ -12,7 +12,7 @@ The NYC Department of Buildings publishes information daily about building permi
 * **Workflow Orchestration**: Airflow
 * **Data Lake**: Google Cloud Storage
 * **Data Warehouse**: BigQuery
-* **Batch Processing/Transformations**: dbt
+* **Batch Processing/Transformations**: Simple SQL transformations done within python DAG script (no dbt or Spark yet)
 * **Dashboard**: Looker
 * **Containerization**: Docker
 
@@ -23,19 +23,19 @@ A project was created with Google Cloud Platform for this effort. After that, Te
 * A bucket in Google Cloud Storage (the data lake)
 * A dataset in BigQuery (the data warehouse)
 
-A docker compose file was written that sets up the Airflow configuration. Most of this code comes from directly from Airflow in a guide for using with GCP, but some modifications were made, including adding my specific GCP project info and mounting the credentials needed as volumes, as these credentials were placed in their own folders under the root directory for ease of ignoring.
+A docker compose file was written that sets up the Airflow configuration. Most of this code comes from directly from Airflow in a guide for use with GCP, but some modifications were made, including adding my specific GCP project info and mounting the credentials needed as volumes, as these credentials were placed in their own folders under my home directory (outside the project folder).
 
-The heart of this project is the Python script "data_ingestion_gcs_dag.py" This sets up the DAG and its daily trigger. The first block in the DAG, **get_last_issued_date_task** looks at the final BigQuery table to find the last issuance date that appears. Building permits are posted as they are issued, so this task helps us ensure that new data can be pulled by querying data via the API with an issuance date on or after the latest date seen.
+The heart of this project is the Python script "data_ingestion_gcs_dag.py" This sets up the DAG and its daily trigger. The first block in the DAG, **get_last_issued_date_task** looks at the final BigQuery table to find the last issuance date that appears. Building permits are posted as they are issued, so this task helps us ensure that new data can be pulled by querying data via the API with an issuance date on or after the latest date seen. If the table doesn't exist yet, the last issuance date is set to exactly five years ago from the run date.
 
-The next task **fetch_permits_task** does the actually querying of the data we need from the API, but it first set up the date range for which we need to query. It handles the API limit of 1000 records per API call, and the initial loading of the data, which contains a lot of records. It is set up to pull all data from the last five years for the initial load.
+The next task **fetch_permits_task** does the actually querying of the data we need from the API, but it first sets up the date range for which we need to query. It handles the API limit of 1000 records per API call, and the initial loading of the data, which contains a lot of records. It will pull all records from the last issuance date returned from the last task. The initial fetch takes some time (~10-15 minutes for me).
 
 **local_to_gcs_task** uploads the raw data to the GCS data lake.
 
-**create_table_task** handles the initial creation of the table we use for queries to the eventual dashboard. It partitions the table by issuance_date as that is the value we will use to custom filter in the dashboard. It is also clustered by gis_nta_name, job_type, borough, block. gis_nta_name is the value we are using to sort the number of projects by neighborhood, and job_type is used as a filter to select only new builds. borough and block are not used at this point, but I plan to integrate them directly to change the map using a shapefile with borough, block, and lot subdivisions, so I can outline the lot where a project will take place rather than just place a simple dot on its location.
+**create_table_task** handles the initial creation of the table we use for queries to the eventual dashboard. It partitions the table by issuance_date as that is the value we will use to custom filter in the dashboard. It is also clustered by gis_nta_name, job_type, borough, and block. gis_nta_name is the value we are using to sort the number of projects by neighborhood, and job_type is used as a filter to select only new builds. borough and block are not used at this point, but I plan to integrate them directly to change the map using a shapefile with borough, block, and lot subdivisions, so I can outline the lot where a project will take place rather than just place a simple dot on its location.
 
 **create_external_table_task** sets up an external table from the raw data in the data lake that we can query in BigQuery, which is transformed into a new table in **create_temp_table_task**. The new table contains the columns borough, job_type, block, lot, issuance_date (converted to timestamp), permit_si_no (converted to int), location_coordinates (a concatenation of gis_latitude and gis_longitude that is used to plot the points), and gis_nta_name. This data is then merged with the final table in **merge_tables_task**, using permit_si_no to exclude permits already in the database.
 
-**skip_tasks** handles cases where there is no data created as a result of **fetch_permits_task**, which will happen often. **join** completes the graph and gives the two branches in the DAG a logical endpoint.
+**skip_tasks** handles cases where there is no data created as a result of **fetch_permits_task**, which will happen often (like on weekends and holidays). **join** completes the graph and gives the two branches in the DAG a logical endpoint.
 
 The full DAG is illustrated below:
 
@@ -55,17 +55,21 @@ https://lookerstudio.google.com/reporting/65893063-076d-4e5e-8862-c85150799ac0
 
 ## Next Steps
 
-This data can be joined with DOB NOW data using the permit_si_no. The NOW data would be useful as it has a job description column that gives a detailed description of each project. This will be useful for a pop up message when hovering on a locatiion in the map, rather than simply the coordinates showing up.
+The next step is to implement dbt to handle our current transformations and any others as the project scales.
 
-Also, mapping projects using a shapefile to outline their lots, as was mentioned earlier, could also be a way to extend this further.
+This data can be joined with DOB NOW data using the permit_si_no. The NOW data would be useful as it has a job description column that gives a detailed description of each project. This would be useful for a pop up message when hovering on a locatiion in the map, rather than simply displaying the coordinates.
+
+Another step is to map the developments using a shapefile to outline their lots, as was mentioned earlier.
 
 Shapefiles that can be used for this are below (will trigger download, just leaving here for reference).
 
 https://s-media.nyc.gov/agencies/dcp/assets/files/zip/data-tools/bytes/mappluto/nyc_mappluto_25v1_shp.zip
 
+One last thing would be to run the entire project in the cloud so it doesn't need access to my local machine.
 
 # Instructions to Reproduce
-These instructions are a guide to replicate this project on your own machines/accounts, if desired, with some explanation of functionality. All instructions needed to run this project are located in this README, but if more help is needed, I will reference tutorials along the way that will provide additional information. These instructions are for a Linux-based operating system.
+
+These instructions are a guide to replicate this project on your own machines/accounts, if desired, with some explanation of functionality. All instructions needed to run this project are located in this README, but if more help is needed, I will reference tutorials along the way that will provide additional information. These instructions are for a Linux-based operating system only.
 
 Navigate to the directory where you want to run this project and clone with the following command:
 
@@ -93,7 +97,7 @@ Within the “terraform” directory of the project, create a new file called �
 
 project = “{YOUR_PROJECT_ID}”
 
-credentials = "path/to/credentials/{CREDENTIALS_FILE_NAME}.json"
+credentials = "path/to/google-credentials/{CREDENTIALS_FILE_NAME}.json"
 
 gcs_bucket_name = "{NAME_OF_BUCKET}”
 
@@ -112,9 +116,22 @@ Your GCP infrastucture should now be in place. If you want to verify this, you c
 
 Next, install Docker Desktop to your machine if you don't have it already: https://docs.docker.com/desktop/setup/install/linux/
 
-The data used for this project comes from the NYC Open Data API. Before building, you need a token to use the API: https://data.cityofnewyork.us/profile/edit/developer_settings. You will need an account with NYC Open Data to request a token.
+The data used for this project comes from the NYC Open Data API. Before building, you need a token to use the API: https://data.cityofnewyork.us/profile/edit/developer_settings. You will need an account with NYC Open Data to request a token. When you log in, select "Create New App Token". Store this token somewhere secure.
 
-Navigate to the airflow directory. Now it’s time to build (which could take a while) and run. To do this, run the following bash commands:
+Before running, some variables and volume mounts need to be changed to match your setup in the docker-compose file. All lines that need to be modified are below: 
+
+```yaml
+    GOOGLE_APPLICATION_CREDENTIALS: 'path/to/google-credentials/{CREDENTIALS_FILE_NAME}.json'
+    AIRFLOW_CONN_GOOGLE_CLOUD_DEFAULT: 'google-cloud-platform://?extra__google_cloud_platform__key_path=path/to/google/credentials/{CREDENTIALS_FILE_NAME}.json'
+    GCP_PROJECT_ID: '{YOUR_PROJECT_ID}'
+    GCP_GCS_BUCKET: '{YOUR_BUCKET_NAME}'
+
+  volumes:
+    - path/to/socrata-credentials/{CREDENTIALS_FILE_NAME}.txt:/opt/airflow/{CREDENTIALS_FILE_NAME}.txt:ro
+    - path/to/google/credentials:/.google/credentials:ro
+```
+
+Save the file and navigate to the root directory of the project in a bash terminal. Now it’s time to build (which could take a while) and run. To do this, run the following bash commands:
 
 docker compose build
 
@@ -137,7 +154,3 @@ After it runs, a report can be added via Looker (lookerstudio.google.com). Log i
 Now add a bar chart and select gis_nta_name (the neighborhood) as the dimension, and add a filter, selecting Include, job_type, Equal to (=), NB (for new build). Then add a “Google Maps bubble map”. In the “Fields” section, under Location, click “Add dimension”, then “Add calculated field.” Name it whatever (I named it “location”). For data type, select Geo→Latitude, Longitude. In the formula field, type “location_coordinates” (it should pop up, at which point click on it). Then click “Apply.”
 
 When you’re done, click View at the top, and you should have a nice dashboard.
-
-The shapefiles used to plot the map can be downloaded from the following source:
-
-https://s-media.nyc.gov/agencies/dcp/assets/files/zip/data-tools/bytes/mappluto/nyc_mappluto_25v1_shp.zip
