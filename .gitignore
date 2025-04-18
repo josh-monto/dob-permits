@@ -4,6 +4,10 @@
 *.terraform.lock.hcl
 *.tfvars
 .google/
+<<<<<<< HEAD
 .socrata/
 **/.terraform/
 **/airflow/logs/
+=======
+**/.terraform/
+>>>>>>> d6e846bf0039520a61ab6e5ea5f97b9f0b808039
