@@ -19,5 +19,3 @@ variable "gcs_bucket_name" {}
 variable "gcs_storage_class" {
   default = "STANDARD"
 }
-
-variable "parquet_file" {}

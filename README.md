@@ -1,6 +1,6 @@
 # Project Description for Evaluation
 
-This section is to provide all documentation necessary for project evaluation. If evaluater wants to reproduce this project in its entirety, there is a section called "Instructions to Reproduce" later in this README, but it will take some time to set up.
+This section is to provide all documentation necessary for project evaluation. If evaluater wants to reproduce this project in its entirety, there is a section called "Instructions to Reproduce" later in this README, but it will take some time to set up, and you may accumulate charges with GCP.
 
 ## Problem
 
@@ -77,11 +77,17 @@ git clone https://github.com/josh-monto/dob-permits.git
 
 First we need to set up Terraform. For additional information on running Terraform with GCP beyond what is provided here, reference the following tutorial: https://developer.hashicorp.com/terraform/tutorials/gcp-get-started
 
-To begin with Terraform and GCP, first a GCP account needs to be created if you don’t currently have one.
+To begin with Terraform and GCP, first a GCP account needs to be created if you don’t currently have one: https://cloud.google.com/
 
-Once you have a GCP account, install Terraform from “https://developer.hashicorp.com/terraform/install”.
+Once you have a GCP account, install Terraform from https://developer.hashicorp.com/terraform/install.
 
-Next, install the Google Cloud command line interface from a bash terminal using one of the two following commands:
+```bash
+wget -O - https://apt.releases.hashicorp.com/gpg | sudo gpg --dearmor -o /usr/share/keyrings/hashicorp-archive-keyring.gpg
+echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/hashicorp.list
+sudo apt update && sudo apt install terraform
+```
+
+Next, install the Google Cloud command line interface from a bash terminal using one of the two following commands (you may need to add --classic):
 
 sudo snap install google-cloud-cli
 
@@ -89,28 +95,30 @@ or
 
 sudo snap install google-cloud-sdk
 
-Log in to GCP in your browser and create a GCP project. Then create a service account with “Storage Admin” and “BigQuery Admin” roles.
+Log in to GCP in your browser, go to the console, and create a GCP project (This is where charges may start accumulating. Also no organization for location is fine). Select the new project near the top of the page. Take not of the project ID. You'll need it later. Navigate to "IAM & Admin," either from quick access or the sidebar menu. Then, in the sidebar, select "Service Accounts." On the Service accounts page click "+ Create service account." Give it a name and ID and click "Create and continue." In the second step, select the “Storage Admin” and “BigQuery Admin” roles. With those applied, now click "Done."
 
-Download the credentials for this account to a private folder accessible by only you.
+The sservice account will appear on the new page. Click the three dots at the right of the line it's listed on, under Actions, and select "Manage keys." On the Keys page, select Add key->Create new key. Select the JSON format and click Create. The JSON will download. Store this file to a private folder accessible by only you.
 
-Within the “terraform” directory of the project, create a new file called “terraform.tfvars” with the following content:
+Now open you project directory in a code editor (like vscode). Within the “terraform” directory of the project (dob-permits/terraform), create a new file called “terraform.tfvars”. Place the the following content in the folder (you will need to pick a bucket name here):
 
 project = “{YOUR_PROJECT_ID}”
 
 credentials = "path/to/google-credentials/{CREDENTIALS_FILE_NAME}.json"
 
-gcs_bucket_name = "{NAME_OF_BUCKET}”
+gcs_bucket_name = "{NAME_OF_BUCKET}"
 
-Make sure to create a bucket name that you are certain is unique. Something like “{YOUR_PROJECT_ID}-bucket” should work. Terraform will create this bucket for you, so no need to create it manually in GCP.
+Make sure to create a bucket name that you are certain is unique. Something like “{YOUR_PROJECT_ID}-bucket” may work. Terraform will create this bucket for you, so no need to create it manually in GCP.
 
 In a bash terminal, navigate to the terraform folder in the project directory, and run the following command:
 
 gcloud auth application-default login
 
-Log in following the prompts. Ensure it is the same Google account you used to create your project. Then, run terraform with the following commands:
+Log in following the prompts. Ensure it is the same Google account you used to create your project. Click Allow. Then, run terraform from bash with the following commands (you may need to run sudo snap install terraform from command line):
 
 terraform init
 terraform apply
+
+Type "yes" when prompted.
 
 Your GCP infrastucture should now be in place. If you want to verify this, you can go to your GCP account and navigate to Cloud Storage->Buckets within your project. The bucket you named and created with Terraform should be there. You can next navigate to BigQuery, expand the items under your project name in the left pane, and the "building_permits" dataset should be in the list of those items.
 
