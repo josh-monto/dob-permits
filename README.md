@@ -92,7 +92,9 @@ Download the credentials for this account to a private folder accessible by only
 Within the “terraform” directory of the project, create a new file called “terraform.tfvars” with the following content:
 
 project = “{YOUR_PROJECT_ID}”
+
 credentials = "path/to/credentials/{CREDENTIALS_FILE_NAME}.json"
+
 gcs_bucket_name = "{NAME_OF_BUCKET}”
 
 Make sure to create a bucket name that you are certain is unique. Something like “{YOUR_PROJECT_ID}-bucket” should work. Terraform will create this bucket for you, so no need to create it manually in GCP.
