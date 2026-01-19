@@ -69,11 +69,13 @@ One last thing would be to run the entire project in the cloud so it doesn't nee
 
 # Instructions to Reproduce
 
-These instructions are a guide to replicate this project on your own machines/accounts, if desired, with some explanation of functionality. All instructions needed to run this project are located in this README, but if more help is needed, I will reference tutorials along the way that will provide additional information. These instructions are for a Linux-based operating system only.
+These instructions are a guide to replicate this project on your own machines/accounts, if desired, with some explanation of functionality. These instructions are for a Linux operating system only.
 
 Navigate to the directory where you want to run this project and clone with the following command:
 
+```bash
 git clone https://github.com/josh-monto/dob-permits.git
+```
 
 First we need to set up Terraform. For additional information on running Terraform with GCP beyond what is provided here, reference the following tutorial: https://developer.hashicorp.com/terraform/tutorials/gcp-get-started
 
@@ -89,40 +91,50 @@ sudo apt update && sudo apt install terraform
 
 Next, install the Google Cloud command line interface from a bash terminal using one of the two following commands (you may need to add --classic):
 
+```bash
 sudo snap install google-cloud-cli
+```
 
 or
-
+```bash
 sudo snap install google-cloud-sdk
+```
 
-Log in to GCP in your browser, go to the console, and create a GCP project (This is where charges may start accumulating. Also no organization for location is fine). Select the new project near the top of the page. Take not of the project ID. You'll need it later. Navigate to "IAM & Admin," either from quick access or the sidebar menu. Then, in the sidebar, select "Service Accounts." On the Service accounts page click "+ Create service account." Give it a name and ID and click "Create and continue." In the second step, select the “Storage Admin” and “BigQuery Admin” roles. With those applied, now click "Done."
+Log in to GCP in your browser, go to the console, and create a GCP project (This is where charges may start accumulating. Also no organization for location is fine). Select the new project near the top of the page. Take note of the project ID. You'll need it later. Navigate to "IAM & Admin," either from quick access or the sidebar menu. Then, in the sidebar, select "Service Accounts." On the Service accounts page click "+ Create service account." Give it a name and ID and click "Create and continue." In the second step, select the “Storage Admin” and “BigQuery Admin” roles. With those applied, now click "Done."
 
-The sservice account will appear on the new page. Click the three dots at the right of the line it's listed on, under Actions, and select "Manage keys." On the Keys page, select Add key->Create new key. Select the JSON format and click Create. The JSON will download. Store this file to a private folder accessible by only you.
+The service account will appear on the new page. Click the three dots at the right of the line it's listed on, under Actions, and select "Manage keys." On the Keys page, select Add key->Create new key. Select the JSON format and click Create. The JSON will download. Store this file to a private folder accessible by only you.
 
 Now open you project directory in a code editor (like vscode). Within the “terraform” directory of the project (dob-permits/terraform), create a new file called “terraform.tfvars”. Place the the following content in the folder (you will need to pick a bucket name here):
 
-project = “{YOUR_PROJECT_ID}”
-
+```hcl
+project = "{YOUR_PROJECT_ID}"
 credentials = "path/to/google-credentials/{CREDENTIALS_FILE_NAME}.json"
-
 gcs_bucket_name = "{NAME_OF_BUCKET}"
+```
 
 Make sure to create a bucket name that you are certain is unique. Something like “{YOUR_PROJECT_ID}-bucket” may work. Terraform will create this bucket for you, so no need to create it manually in GCP.
 
 In a bash terminal, navigate to the terraform folder in the project directory, and run the following command:
 
+```bash
 gcloud auth application-default login
+```
 
 Log in following the prompts. Ensure it is the same Google account you used to create your project. Click Allow. Then, run terraform from bash with the following commands (you may need to run sudo snap install terraform from command line):
 
+```bash
 terraform init
+```
+
+```bash
 terraform apply
+```
 
 Type "yes" when prompted.
 
 Your GCP infrastucture should now be in place. If you want to verify this, you can go to your GCP account and navigate to Cloud Storage->Buckets within your project. The bucket you named and created with Terraform should be there. You can next navigate to BigQuery, expand the items under your project name in the left pane, and the "building_permits" dataset should be in the list of those items.
 
-Next, install Docker Desktop to your machine if you don't have it already: https://docs.docker.com/desktop/setup/install/linux/
+Next, follow these instructions to install Docker Desktop to your machine if you don't have it already: https://docs.docker.com/desktop/setup/install/linux/
 
 The data used for this project comes from the NYC Open Data API. Before building, you need a token to use the API: https://data.cityofnewyork.us/profile/edit/developer_settings. You will need an account with NYC Open Data to request a token. When you log in, select "Create New App Token". Store this token somewhere secure.
 
@@ -145,14 +157,19 @@ Next, create a folder called "scripts" in the airflow directory.
 
 Now it’s time to build (which could take a while) and run. To do this, run the following bash commands:
 
+```bash
 docker compose build
+```
 
+```bash
 docker compose up airflow-init
+```
 
 Once the init process runs without errors (should return with code 0), run the following:
 
+```bash
 docker compose up
-
+```
 After a minute or two, all airflow services should be up and running, and the webserver should be reachable at localhost:8081, with string “airflow” as both the user and password. I chose port 8081 as I frequently already have services running on 8080.
 
 Login credentials are user airflow and password airflow, at localhost:8081
