@@ -5,6 +5,7 @@ from sodapy import Socrata
 from dateutil import parser
 from time import sleep
 import json
+import logging
 
 from airflow import DAG
 from airflow.utils.dates import days_ago
@@ -68,53 +69,70 @@ def get_last_issued_date():
 # since source data is all string, the method used needs to compare each string
 # will take a long time for initial table creation, but daily updates will be quick
 def fetch_permits(batch_size, **context):
+  logger = logging.getLogger(__name__)
+  MAX_RETRIES = 3
+  RETRY_DELAY = 5
+
   with open(token_file_path, "r") as file:
     API_TOKEN = file.read().rstrip()
 
   ti = context["ti"].xcom_pull(task_ids="get_last_issued_date_task")
   date = datetime.strptime(ti, '%Y-%m-%dT%H:%M:%S.%f') 
   today = datetime.now().replace(hour=0, minute=0, second=0, microsecond=0)
-  assert date <= today, "latest issue date later than today"
+  if date > today:
+    raise ValueError(f"Latest issue date ({date}) is later than today ({today})")
 
   client = Socrata("data.cityofnewyork.us", API_TOKEN)
-  # headers = {"X-App-Token": API_TOKEN}
-  # params={"$limit": batch_size, "$offset": offset, "$where": f"issued_date >= {ti}"}
-  df = None
+  df_list = []  # Collect dataframes, then concat once at the end
+
   # pull data for each date in range
   while date <= today:
     offset = 0
-    print(f"Fetching records for {date.strftime('%Y-%m-%d')} (offset={offset})")
+    logger.info(f"Fetching records for {date.strftime('%Y-%m-%d')}")
+
     # if row number for date is over API limit, use offset to pull data in batches
-    try:
-      while True:
-        results = client.get(
-          DATASET_ID, offset=offset, limit=batch_size, where=f"issuance_date = '{date.strftime('%m/%d/%Y')}'"
-        )
-        if results:
-          print("results")
-          if offset == 0 and df is None:
-            df = pd.DataFrame.from_records(results)
-            print(f"df length: {df.shape[0]}")
+    date_fetch_complete = False
+    retry_count = 0
+    
+    while not date_fetch_complete:
+      try:
+        while True:
+          results = client.get(
+            DATASET_ID, offset=offset, limit=batch_size, where=f"issuance_date = '{date.strftime('%m/%d/%Y')}'"
+          )
+          if results:
+            df_list.append(pd.DataFrame.from_records(results))
+            logger.info(f"Fetched {len(results)} records (offset={offset}, total so far: {sum(len(df) for df in df_list)})")
+            offset += batch_size
+            retry_count = 0  # Reset retry count on successful call
           else:
-            df = pd.concat([df, pd.DataFrame.from_records(results)], ignore_index=True)
-            print(f"df length: {df.shape[0]}")
-          offset += batch_size
-        else:
-          print("no results")
-          break
-    except requests.exceptions.ReadTimeout:
-      print("Read Timeout: Wait 5 seconds to continue.")
-      sleep(5)
-      continue
+            # No more results for this date
+            date_fetch_complete = True
+            break
+      except requests.exceptions.ReadTimeout:
+        retry_count += 1
+        if retry_count > MAX_RETRIES:
+          logger.error(f"Max retries ({MAX_RETRIES}) exceeded for date {date.strftime('%Y-%m-%d')} at offset {offset}")
+          raise
+        logger.warning(f"Read Timeout for date {date.strftime('%Y-%m-%d')} at offset {offset}. Retry {retry_count}/{MAX_RETRIES} after {RETRY_DELAY}s")
+        sleep(RETRY_DELAY)
+        # Continue with same offset - don't increment, retry the same call
+      except requests.exceptions.RequestException as e:
+        logger.error(f"Request error for date {date.strftime('%Y-%m-%d')} at offset {offset}: {str(e)}")
+        raise
+      except Exception as e:
+        logger.error(f"Unexpected error for date {date.strftime('%Y-%m-%d')} at offset {offset}: {str(e)}")
+        raise
     date += timedelta(days=1)
 
-  if df is None:
-    # create a skip branch to bypass rest of workflow
+  if not df_list:
+    logger.info("No data fetched - skipping downstream tasks")
     return "skip_tasks"
-  else:
-    print(f"Create file with df of length {df.shape[0]}")
-    df.to_parquet(f"{path_to_local_home}/{parquet_file_name}.parquet", index=False)
-    return "local_to_gcs_task"
+  
+  df = pd.concat(df_list, ignore_index=True)
+  logger.info(f"Creating parquet file with {df.shape[0]} rows")
+  df.to_parquet(f"{path_to_local_home}/{parquet_file_name}.parquet", index=False)
+  return "local_to_gcs_task"
 
 # NOTE: takes 20 mins, at an upload speed of 800kbps. Faster if your internet has a better upload speed
 def upload_to_gcs(**context):
