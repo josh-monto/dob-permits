@@ -14,6 +14,7 @@ from airflow.operators.empty import EmptyOperator
 from airflow.utils.trigger_rule import TriggerRule
 
 from google.cloud import bigquery, storage
+from google.cloud.exceptions import NotFound
 from airflow.providers.google.cloud.operators.bigquery import (
   BigQueryInsertJobOperator
 )
@@ -38,27 +39,44 @@ def get_last_issued_date():
   # If not found, table is empty and current datetime-1825 days (5
   # years) is returned.
 
+  logger = logging.getLogger(__name__)
   client = bigquery.Client(project=PROJECT_ID)
   dataset_ref = client.dataset(BIGQUERY_DATASET)
   table_ref = dataset_ref.table(TABLE_NAME)
 
   try:
     client.get_table(table_ref)
-  except:
-    # there is a lot of data so for initial pull will only pull for last 5 years
+  except NotFound:
+    # Table doesn't exist yet - return date 5 years ago for initial load
+    logger.info(f"Table {TABLE_NAME} not found. Starting from 5 years ago.")
     return (datetime.now(timezone.utc) - timedelta(days=1825)).strftime(
       "%Y-%m-%dT00:00:00.000"
     )
+  except Exception as e:
+    # Re-raise other exceptions (connection errors, permission errors, etc.)
+    logger.error(f"Error checking table existence: {str(e)}")
+    raise
 
   QUERY = f"""
     SELECT MAX(issuance_date) as max_date
     FROM `{PROJECT_ID}.{BIGQUERY_DATASET}.{TABLE_NAME}`
   """
-  query_job = client.query(QUERY)  # API request
-  rows = query_job.result()  # Waits for query to finish
-  row = list(rows)[0]
-
-  return row.max_date.strftime("%Y-%m-%dT00:00:00.000")
+  try:
+    query_job = client.query(QUERY)  # API request
+    rows = query_job.result()  # Waits for query to finish
+    row = list(rows)[0]
+    
+    # Check if no date was found (table empty or all dates are NULL)
+    if row.max_date is None:
+      logger.info(f"No issuance date found in table {TABLE_NAME}. Starting from 5 years ago.")
+      return (datetime.now(timezone.utc) - timedelta(days=1825)).strftime(
+        "%Y-%m-%dT00:00:00.000"
+      )
+    
+    return row.max_date.strftime("%Y-%m-%dT00:00:00.000")
+  except Exception as e:
+    logger.error(f"Error querying max date from table: {str(e)}")
+    raise
 
 
 # pulls all permits from NYC open data's building permits dataset
@@ -256,7 +274,11 @@ with DAG(
             lot,
             PARSE_TIMESTAMP('%m/%d/%Y', issuance_date) AS issuance_date,
             CAST(permit_si_no AS INT64) AS permit_si_no,
-            CONCAT(gis_latitude,',',gis_longitude) AS location_coordinates,
+            CASE 
+              WHEN gis_latitude IS NOT NULL AND gis_longitude IS NOT NULL 
+              THEN CONCAT(gis_latitude, ',', gis_longitude)
+              ELSE NULL
+            END AS location_coordinates,
             gis_nta_name
           FROM `{PROJECT_ID}.{BIGQUERY_DATASET}.{EXTERNAL_TABLE}`;
         """,
