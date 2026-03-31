@@ -12,7 +12,7 @@ The NYC Department of Buildings publishes information daily about building permi
 * **Workflow Orchestration**: Airflow
 * **Data Lake**: Google Cloud Storage
 * **Data Warehouse**: BigQuery
-* **Batch Processing/Transformations**: SQL transformations within Python DAG (no dbt or Spark yet)
+* **Batch Processing/Transformations**: SQL transformations within Python DAG
 * **Dashboard**: Looker
 * **Containerization**: Docker
 
@@ -48,10 +48,6 @@ A successful run of new data being pushed through the process is shown below:
 Finally, this data is displayed in the Looker dashboard:
 
 ![](images/looker_dashboard.png)
-
-The Looker dashboard is public and can be viewed here:
-
-https://lookerstudio.google.com/reporting/65893063-076d-4e5e-8862-c85150799ac0
 
 ## Next Steps
 
