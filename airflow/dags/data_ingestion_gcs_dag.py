@@ -31,7 +31,8 @@ token_file_path = os.environ.get("API_TOKEN_PATH", "/opt/airflow/nyc_od_app_toke
 parquet_file_name = "building_permits"
 BIGQUERY_DATASET = os.environ.get("BIGQUERY_DATASET", "building_permits")
 API_ENDPOINT = "https://data.cityofnewyork.us/resource/ipu4-2q9a.json"
-DATASET_ID = "ipu4-2q9a"#"rbx6-tga4"
+DATASET_ID = "ipu4-2q9a"
+DOB_NOW_DATASET_ID = "rbx6-tga4"  # DOB NOW dataset, joinable via permit_si_no
 
 
 def get_last_issued_date():
@@ -173,7 +174,8 @@ def upload_to_gcs(**context):
   gcs_filename = f"raw/{parquet_file_name}-{datetime.now().strftime('%Y-%m-%d-%H%M%S')}.parquet"
   local_filename = f"{path_to_local_home}/{parquet_file_name}.parquet"
   
-  print("uploading to gcs")
+  logger = logging.getLogger(__name__)
+  logger.info("Uploading to GCS")
   blob = bucket.blob(gcs_filename)
   blob.upload_from_filename(local_filename)
 
@@ -203,9 +205,7 @@ with DAG(
   fetch_permits_task = BranchPythonOperator(
     task_id="fetch_permits_task",
     python_callable=fetch_permits,
-    provide_context=True,
     op_kwargs={
-      "src": API_ENDPOINT,
       "batch_size": 1000,
     },
   )

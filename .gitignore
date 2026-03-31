@@ -5,3 +5,6 @@
 *.tfvars
 **/.terraform/
 **/airflow/logs/
+logs/
+venv/
+README_original.md
