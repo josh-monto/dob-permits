@@ -134,20 +134,19 @@ Next, follow these instructions to install Docker Desktop to your machine if you
 
 The data used for this project comes from the NYC Open Data API. Before building, you need a token to use the API: https://data.cityofnewyork.us/profile/edit/developer_settings. You will need an account with NYC Open Data to request a token. When you log in, select "Create New App Token". Store this token somewhere secure.
 
-Before running, some variables and volume mounts need to be changed to match your setup in the docker-compose file. All lines that need to be modified are below:
+Before running, create a `.env` file in the project root with the following values filled in for your setup:
 
-```yaml
-    GOOGLE_APPLICATION_CREDENTIALS: 'path/to/google-credentials/{CREDENTIALS_FILE_NAME}.json'
-    AIRFLOW_CONN_GOOGLE_CLOUD_DEFAULT: 'google-cloud-platform://?extra__google_cloud_platform__key_path=path/to/google/credentials/{CREDENTIALS_FILE_NAME}.json'
-    GCP_PROJECT_ID: '{YOUR_PROJECT_ID}'
-    GCP_GCS_BUCKET: '{YOUR_BUCKET_NAME}'
-
-  volumes:
-    - path/to/socrata-credentials/{CREDENTIALS_FILE_NAME}.txt:/opt/airflow/{CREDENTIALS_FILE_NAME}.txt:ro
-    - path/to/google/credentials:/.google/credentials:ro
+```
+AIRFLOW_UID=50000
+AIRFLOW_PROJ_DIR=./airflow
+GCP_PROJECT_ID={YOUR_PROJECT_ID}
+GCP_GCS_BUCKET={YOUR_BUCKET_NAME}
+GCP_CREDENTIALS_FILE={CREDENTIALS_FILE_NAME}.json
 ```
 
-Save the file and navigate to the root directory of the project in a bash terminal.
+Docker Compose reads this file automatically. The `.env` file is gitignored and should never be committed.
+
+Navigate to the root directory of the project in a bash terminal.
 
 Next, create a folder called "scripts" in the airflow directory.
 

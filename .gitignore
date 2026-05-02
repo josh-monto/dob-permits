@@ -7,5 +7,6 @@
 **/airflow/logs/
 logs/
 venv/
+.env
 README_original.md
 airflow/great_expectations/

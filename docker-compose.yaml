@@ -74,10 +74,10 @@ x-airflow-common:
     # The following line can be used to set a custom config file, stored in the local config folder
     # If you want to use it, outcomment it and replace airflow.cfg with the name of your config file
     # AIRFLOW_CONFIG: '/opt/airflow/config/airflow.cfg'
-    GOOGLE_APPLICATION_CREDENTIALS: /.google/credentials/nyc-projects-455321-credentials.json
-    AIRFLOW_CONN_GOOGLE_CLOUD_DEFAULT: 'google-cloud-platform://?extra__google_cloud_platform__key_path=/.google/credentials/nyc-projects-455321-credentials.json'
-    GCP_PROJECT_ID: 'nyc-projects-455321'
-    GCP_GCS_BUCKET: 'nyc-projects-455321-bucket'
+    GOOGLE_APPLICATION_CREDENTIALS: /.google/credentials/${GCP_CREDENTIALS_FILE}
+    AIRFLOW_CONN_GOOGLE_CLOUD_DEFAULT: 'google-cloud-platform://?extra__google_cloud_platform__key_path=/.google/credentials/${GCP_CREDENTIALS_FILE}'
+    GCP_PROJECT_ID: '${GCP_PROJECT_ID}'
+    GCP_GCS_BUCKET: '${GCP_GCS_BUCKET}'
     EXTERNAL_TABLE: 'external_table'
     TEMP_TABLE: 'temp_table'
     TABLE_NAME: 'permits'
@@ -87,9 +87,8 @@ x-airflow-common:
     - ${AIRFLOW_PROJ_DIR:-.}/logs:/opt/airflow/logs
     - ${AIRFLOW_PROJ_DIR:-.}/config:/opt/airflow/config
     - ${AIRFLOW_PROJ_DIR:-.}/plugins:/opt/airflow/plugins
-    # REPLACE '/home/joshua/' with ${HOME}
-    - /home/joshua/.socrata/credentials/nyc_od_app_token.txt:/opt/airflow/nyc_od_app_token.txt:ro
-    - /home/joshua/.google/credentials/:/.google/credentials:ro
+    - ${HOME}/.socrata/credentials/nyc_od_app_token.txt:/opt/airflow/nyc_od_app_token.txt:ro
+    - ${HOME}/.google/credentials/:/.google/credentials:ro
   user: "${AIRFLOW_UID:-50000}:0"
   depends_on:
     &airflow-common-depends-on
