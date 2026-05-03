@@ -9,4 +9,5 @@ logs/
 venv/
 .env
 README_original.md
-airflow/great_expectations/
+**/__pycache__/
+build.log
