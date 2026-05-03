@@ -1,0 +1,12 @@
+dob_permits:
+  target: dev
+  outputs:
+    dev:
+      type: bigquery
+      method: oauth
+      project: "{{ env_var('GCP_PROJECT_ID') }}"
+      dataset: building_permits
+      threads: 4
+      timeout_seconds: 300
+      location: US
+      priority: interactive

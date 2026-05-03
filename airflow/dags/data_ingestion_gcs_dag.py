@@ -11,6 +11,7 @@ from airflow import DAG
 from airflow.utils.dates import days_ago
 from airflow.operators.python import PythonOperator, BranchPythonOperator
 from airflow.operators.empty import EmptyOperator
+from airflow.operators.bash import BashOperator
 from airflow.utils.trigger_rule import TriggerRule
 
 from google.cloud import bigquery, storage
@@ -23,7 +24,6 @@ from datetime import datetime, timedelta, timezone
 PROJECT_ID = os.environ.get("GCP_PROJECT_ID")
 BUCKET = os.environ.get("GCP_GCS_BUCKET")
 EXTERNAL_TABLE = os.environ.get("EXTERNAL_TABLE")
-TEMP_TABLE = os.environ.get("TEMP_TABLE")
 TABLE_NAME = os.environ.get("TABLE_NAME")
 
 path_to_local_home = os.environ.get("AIRFLOW_HOME", "/opt/airflow/")
@@ -220,30 +220,6 @@ with DAG(
     task_id="skip_tasks"
   )
 
-  bq_create_table = BigQueryInsertJobOperator(
-    task_id="create_table_task",
-    configuration={
-      "query": {
-        "query": f"""
-          CREATE TABLE IF NOT EXISTS `{PROJECT_ID}.{BIGQUERY_DATASET}.{TABLE_NAME}`
-          (
-            borough STRING,
-            job_type STRING,
-            block STRING,
-            lot STRING,
-            issuance_date TIMESTAMP,
-            permit_si_no INT64,
-            location_coordinates STRING,
-            gis_nta_name STRING
-          )
-          PARTITION BY DATE(issuance_date)
-          CLUSTER BY gis_nta_name, job_type, borough, block;
-        """,
-        "useLegacySql": False,
-      }
-    },
-  )
-
   bq_create_external_table = BigQueryInsertJobOperator(
     task_id="create_external_table_task",
     configuration={
@@ -260,48 +236,11 @@ with DAG(
     },
   )
 
-  bq_create_temp_table = BigQueryInsertJobOperator(
-    task_id="create_temp_table_task",
-    configuration={
-      "query": {
-        "query": f"""
-          CREATE OR REPLACE TABLE `{PROJECT_ID}.{BIGQUERY_DATASET}.{TEMP_TABLE}`
-          AS
-          SELECT
-            borough,
-            job_type,
-            block,
-            lot,
-            PARSE_TIMESTAMP('%m/%d/%Y', issuance_date) AS issuance_date,
-            CAST(permit_si_no AS INT64) AS permit_si_no,
-            CASE 
-              WHEN gis_latitude IS NOT NULL AND gis_longitude IS NOT NULL 
-              THEN CONCAT(gis_latitude, ',', gis_longitude)
-              ELSE NULL
-            END AS location_coordinates,
-            gis_nta_name
-          FROM `{PROJECT_ID}.{BIGQUERY_DATASET}.{EXTERNAL_TABLE}`;
-        """,
-        "useLegacySql": False,
-      }
-    },
-  )
-
-  bq_merge_tables = BigQueryInsertJobOperator(
-    task_id="merge_tables_task",
-    configuration={
-      "query": {
-        "query": f"""
-          MERGE INTO `{PROJECT_ID}.{BIGQUERY_DATASET}.{TABLE_NAME}` T
-          USING `{PROJECT_ID}.{BIGQUERY_DATASET}.{TEMP_TABLE}` S
-          ON T.permit_si_no = S.permit_si_no
-          WHEN NOT MATCHED THEN
-            INSERT (borough, job_type, block, lot, issuance_date, permit_si_no, location_coordinates, gis_nta_name)
-            VALUES (S.borough, S.job_type, S.block, S.lot, S.issuance_date, S.permit_si_no, S.location_coordinates, S.gis_nta_name);
-        """,
-        "useLegacySql": False,
-      }
-    },
+  dbt_run = BashOperator(
+    task_id="dbt_run",
+    bash_command="/home/airflow/.local/bin/dbt run --project-dir /opt/airflow/dbt --profiles-dir /opt/airflow/dbt",
+    env={"GCP_PROJECT_ID": PROJECT_ID},
+    append_env=True,
   )
 
   join = EmptyOperator(
@@ -309,5 +248,5 @@ with DAG(
     trigger_rule=TriggerRule.NONE_FAILED_MIN_ONE_SUCCESS)
 
   get_last_issued_date_task >> fetch_permits_task >> [local_to_gcs_task, skip]
-  local_to_gcs_task >> bq_create_table >> bq_create_external_table >> bq_create_temp_table >> bq_merge_tables >> join
+  local_to_gcs_task >> bq_create_external_table >> dbt_run >> join
   skip >> join

@@ -1,0 +1,8 @@
+version: 2
+
+sources:
+  - name: building_permits
+    database: "{{ env_var('GCP_PROJECT_ID') }}"
+    schema: building_permits
+    tables:
+      - name: external_table

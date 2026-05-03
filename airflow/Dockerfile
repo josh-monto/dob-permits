@@ -10,6 +10,7 @@ USER airflow
 
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install --no-cache-dir "dbt-bigquery==1.8.2" "click<8.2"
 
 # Ref: https://airflow.apache.org/docs/docker-stack/recipes.html
 
