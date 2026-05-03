@@ -1,0 +1,12 @@
+version: 2
+
+models:
+  - name: permits
+    columns:
+      - name: permit_si_no
+        tests:
+          - unique
+          - not_null
+      - name: issuance_date
+        tests:
+          - not_null

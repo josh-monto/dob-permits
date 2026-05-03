@@ -243,10 +243,17 @@ with DAG(
     append_env=True,
   )
 
+  dbt_test = BashOperator(
+    task_id="dbt_test",
+    bash_command="/home/airflow/.local/bin/dbt test --project-dir /opt/airflow/dbt --profiles-dir /opt/airflow/dbt",
+    env={"GCP_PROJECT_ID": PROJECT_ID},
+    append_env=True,
+  )
+
   join = EmptyOperator(
     task_id="join",
     trigger_rule=TriggerRule.NONE_FAILED_MIN_ONE_SUCCESS)
 
   get_last_issued_date_task >> fetch_permits_task >> [local_to_gcs_task, skip]
-  local_to_gcs_task >> bq_create_external_table >> dbt_run >> join
+  local_to_gcs_task >> bq_create_external_table >> dbt_run >> dbt_test >> join
   skip >> join

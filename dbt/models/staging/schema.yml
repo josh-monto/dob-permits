@@ -1,0 +1,11 @@
+version: 2
+
+models:
+  - name: stg_permits
+    columns:
+      - name: permit_si_no
+        tests:
+          - not_null
+      - name: issuance_date
+        tests:
+          - not_null

@@ -35,6 +35,8 @@ The next task, **fetch_permits_task**, handles the actual querying of the data f
 
 **dbt_run** runs two dbt models against the external table. The staging model (`stg_permits`) reads from the external table and casts/transforms the raw string columns: `issuance_date` is parsed to a timestamp, `permit_si_no` is cast to INT64, and `location_coordinates` is derived by concatenating `gis_latitude` and `gis_longitude`. The marts model (`permits`) is an incremental table partitioned by `issuance_date` and clustered by `gis_nta_name`, `job_type`, `borough`, and `block`. On each run it inserts only permits whose `permit_si_no` is not already present in the table, preventing duplicates.
 
+**dbt_test** runs data quality tests against the staging and marts models, verifying that `permit_si_no` is unique and not null and that `issuance_date` is not null. If any test fails, the pipeline is marked as failed.
+
 **skip_tasks** handles cases where there is no data returned by **fetch_permits_task**, which will happen often (like on weekends and holidays). **join** completes the graph and gives the two branches in the DAG a logical endpoint.
 
 The full DAG is illustrated below:
