@@ -11,3 +11,4 @@ venv/
 README_original.md
 **/__pycache__/
 build.log
+dbt/.user.yml
