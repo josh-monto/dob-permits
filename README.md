@@ -12,7 +12,7 @@ The NYC Department of Buildings publishes information daily about building permi
 * **Workflow Orchestration**: Airflow
 * **Data Lake**: Google Cloud Storage
 * **Data Warehouse**: BigQuery
-* **Batch Processing/Transformations**: SQL transformations within Python DAG
+* **Batch Processing/Transformations**: dbt
 * **Dashboard**: Looker
 * **Containerization**: Docker
 
@@ -31,9 +31,9 @@ The next task, **fetch_permits_task**, handles the actual querying of the data f
 
 **local_to_gcs_task** uploads the raw data to the GCS data lake.
 
-**create_table_task** handles the initial creation of the table used for queries to the dashboard. It partitions the table by issuance_date as that is the value used to filter in the dashboard. It is also clustered by gis_nta_name, job_type, borough, and block. gis_nta_name is the value used to sort the number of projects by neighborhood, and job_type is used as a filter to select only new builds. borough and block are not used at this point, but I plan to integrate them directly to change the map using a shapefile with borough, block, and lot subdivisions, so I can outline the lot where a project will take place rather than just place a simple dot on its location.
+**create_external_table_task** sets up an external table in BigQuery pointing at the raw Parquet file in GCS.
 
-**create_external_table_task** sets up an external table from the raw data in the data lake that we can query in BigQuery, which is transformed into a new table in **create_temp_table_task**. The new table contains the columns borough, job_type, block, lot, issuance_date (converted to timestamp), permit_si_no (converted to int), location_coordinates (a concatenation of gis_latitude and gis_longitude used to plot the points), and gis_nta_name. This data is then merged with the final table in **merge_tables_task**, using permit_si_no to exclude permits already in the database.
+**dbt_run** runs two dbt models against the external table. The staging model (`stg_permits`) reads from the external table and casts/transforms the raw string columns: `issuance_date` is parsed to a timestamp, `permit_si_no` is cast to INT64, and `location_coordinates` is derived by concatenating `gis_latitude` and `gis_longitude`. The marts model (`permits`) is an incremental table partitioned by `issuance_date` and clustered by `gis_nta_name`, `job_type`, `borough`, and `block`. On each run it inserts only permits whose `permit_si_no` is not already present in the table, preventing duplicates.
 
 **skip_tasks** handles cases where there is no data returned by **fetch_permits_task**, which will happen often (like on weekends and holidays). **join** completes the graph and gives the two branches in the DAG a logical endpoint.
 
@@ -50,8 +50,6 @@ Finally, this data is displayed in the Looker dashboard:
 ![](images/looker_dashboard.png)
 
 ## Next Steps
-
-The next step is to implement dbt to handle the current transformations and any others as the project scales.
 
 This data can be joined with DOB NOW data using the permit_si_no. The NOW data would be useful as it has a job description column that gives a detailed description of each project. This would be useful for a pop-up message when hovering on a location in the map, rather than simply displaying the coordinates.
 
